@@ -3,21 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Person;
 
 class HomeController extends Controller
 {
-    protected $person;
-
-    public function __construct(Person $person) {
-        $this->person = $person;
-        $this->person->first_name = 'Roger';
-        $this->person->last_name = 'Pence';
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
     }
 
-    public function index() 
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        return 'Hello from ' . $this->person->first_name .
-                         ' ' . $this->person->last_name;
-    } 
+        return view('home');
+    }
 }
