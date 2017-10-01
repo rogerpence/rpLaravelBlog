@@ -31,21 +31,26 @@
                 </ul> -->
 
         <ul class="nav">
-            <li class="nav-item dropdown">
+
+            @auth
+                <a class="nav-link" title="Admin panel" href=""><i class="fa fa-cog" aria-hidden="true"></i></a>&nbsp;
+            @endauth
+
+            <li class="nav-item dropdown">               
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            @guest 
-                                Account
-                            @else 
-                                {{ Auth::user()->name }}
-                            @endguest                         
-                        </a>
+                    @guest 
+                        Account
+                    @else 
+                        {{ Auth::user()->name }}
+                    @endguest                         
+                </a>
                 <div class="dropdown-menu">
                     @guest
                     <a class="dropdown-item" href="{{ route('login') }}">Login</a>
                     <a class="dropdown-item" href="{{ route('register') }}">Register</a> @else
                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">
-                                    Logout
+                        Logout
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         {{ csrf_field() }}

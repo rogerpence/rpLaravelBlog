@@ -11,3 +11,14 @@
         padding: 1rem 1rem;
     }        
 }
+
+a.blog-header-link {
+    text-decoration: none;
+    color: black;
+}
+
+a.blog-header-link:hover {
+    color: blue;
+}
+
+

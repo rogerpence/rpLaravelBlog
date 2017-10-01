@@ -1,4 +1,5 @@
-@extends('layouts.app')
+{{--@extends('layouts.app'--}}
+@extends('masters.no-columns')
 
 @section('content')
 <div class="container">

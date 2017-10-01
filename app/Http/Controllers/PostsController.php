@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class TestController extends Controller
+class PostsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        // disable authorization for a page.
+        //$this->middleware('auth');
     }
 
     /**
