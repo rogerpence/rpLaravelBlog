@@ -33,7 +33,7 @@
         <ul class="nav">
 
             @auth
-                <a class="nav-link" title="Admin panel" href=""><i class="fa fa-cog" aria-hidden="true"></i></a>&nbsp;
+                <a class="nav-link" title="Admin panel" href=""><i class="fa fa-wrench" aria-hidden="true"></i></a>&nbsp;
             @endauth
 
             <li class="nav-item dropdown">               
