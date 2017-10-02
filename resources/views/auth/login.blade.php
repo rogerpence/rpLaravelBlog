@@ -10,6 +10,7 @@
                 <h4 class="card-title">User login</h4>
                 <form method="POST" action="{{ route('login') }}">
                     {{ csrf_field() }}
+
                     <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">                    
                         <label for="exampleInputEmail1">Email address</label>
                         <input type="email" class="form-control" id="email" name="email" 
@@ -38,19 +39,18 @@
                     <div class="form-check">
                         <label class="form-check-label">
                           <input type="checkbox" class="form-check-input" {{ old('remember') ? 'checked' : '' }}
-                                 name="remember" >
+                                 name="remember">
                             Remember me
                         </label>
                     </div>
 
-                    <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                    <button type="submit" class="btn btn-primary pull-right">
+                        Submit
+                    </button>
                     <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    Forgot Your Password?
+                        Forgot Your Password?
                     </a>                                    
                 </form>
-
-                <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>  
-                <a href="#" class="btn btn-primary">Go somewhere</a> -->
 
             </div>
         </div>
