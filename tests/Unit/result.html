@@ -1,0 +1,49 @@
+<h3>Folder structure</h3>
+<h4>Models are in <code>/app/</code></h4>
+<h4>Views are in <code>/resources/views</code></h4>
+<p>Views are referenced with a dot-separated name built out of the folder structure and view name. For example:</p>
+<pre><code>views/layouts/app.blade.php</code></pre>
+<p>would be referenced as:</p>
+<pre><code>layouts.app</code></pre>
+<p>and
+views/layout/   </p>
+<p>Click <a href=#>here</a> for more info.</p>
+<h4>Controllers are in <code>/app/Http/Controllers/</code></h4>
+<h4>Routes are in <code>/routes/</code></h4>
+<ul>
+<li>
+<p>The project's root is in <code>/public/</code></p>
+</li>
+<li>Migrations and seeds are in <code>/database/</code></li>
+</ul>
+<h3>Configuration</h3>
+<p><code>/.env</code> contains many configuration variables. These are available anywhere in the Laravel app with:</p>
+<pre><code> env('KEY', 'default')</code></pre>
+<p>where <code>KEY</code> is the name of the configuration and <code>default</code> is the value used if the key isn't defined. </p>
+<p>There are several <code>.php</code> files in the <code>/config</code> folder that define many application variables. Each of these files return an array and Laravel's <code>config</code> function can fetch these values. <a href="https://laravel.com/docs/5.5/configuration">Read more about Laravel configuration here.</a></p>
+<h3>Views</h3>
+<p>Needed</p>
+<pre><code>composer require doctrine/dbal</code></pre>
+<p>Undo the most recent migration:</p>
+<pre><code>php artisan migrate:rollback --step=1</code></pre>
+<ol>
+<li>
+<p>Create a model.</p>
+<p>php artisan make:model Post</p>
+</li>
+<li>
+<p>Create a model and a migration</p>
+<pre><code>php artisan make:model [ModelName] -m   </code></pre>
+<p>Note the model name is to be singular and capitalized.       </p>
+</li>
+<li>
+<p>Create a migration.</p>
+<pre><code>php artisan make:migration create_posts_table</code></pre>
+<p>Define table columns in the resulting <code>/database/migrations/n</code> file.        </p>
+</li>
+<li>
+<p>Run any pending migrations.</p>
+<pre><code>php artisan migrate</code></pre>
+<p>sudo vim /etc/phpmyadmin/config.inc.php</p>
+</li>
+</ol>

@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-//use Faker\Generator as Faker;
 
 class PostsTableSeeder extends Seeder
 {
@@ -16,13 +15,14 @@ class PostsTableSeeder extends Seeder
 
         $faker = Faker\Factory::create();        
 
-        for($i = 0; $i < 16; $i++) {
+        for($i = 0; $i < 6; $i++) {
             App\Post::create([
                 'title' => $faker->text(32),
                 'abstract' => $faker->text(50),
                 'seo_description' => $faker->text(30),
                 'seo_keywords' => $faker->text(18),
-                'body' => $faker->text(200),
+                'body_html' => $faker->text(200),
+                'body_markdown' => $faker->text(200),
                 'status' => 1,
                 'date_to_publish' => $faker->datetime(),
                 'created_at' => $faker->datetime(),

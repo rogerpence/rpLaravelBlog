@@ -20,11 +20,12 @@ class CreatePostsTable extends Migration
             $table->string('abstract',500);
             $table->string('seo_description', 200);
             $table->string('seo_keywords',200);            
-            $table->text('body');
+            $table->text('body_html');
+            $table->text('body_markdown');
             $table->integer('status');
             $table->dateTime('date_to_publish');
             $table->timestamps();
-        });
+        });    
     }
 
     /**
