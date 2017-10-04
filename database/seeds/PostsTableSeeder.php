@@ -15,13 +15,13 @@ class PostsTableSeeder extends Seeder
 
         $faker = Faker\Factory::create();        
 
-        for($i = 0; $i < 6; $i++) {
+        for($i = 0; $i < 3; $i++) {
             App\Post::create([
                 'title' => $faker->text(32),
-                'abstract' => $faker->text(50),
+                'abstract' => $faker->text(280),
                 'seo_description' => $faker->text(30),
                 'seo_keywords' => $faker->text(18),
-                'body_html' => $faker->text(200),
+                'body_html' => $faker->text(240),
                 'body_markdown' => $faker->text(200),
                 'status' => 1,
                 'date_to_publish' => $faker->datetime(),

@@ -22,12 +22,12 @@ class PostsController extends Controller
     public function index()
     {
         $posts = \App\Post::all();
-        return view('posts', compact('posts'));
-    }
+        return view('posts.list', compact('posts'));
+    } 
 
     public function create()
     {
-        return view('post');
+        return view('posts.create');
     }
 
     public function store()
@@ -42,3 +42,23 @@ class PostsController extends Controller
         //dump($md);
     }
 }
+
+
+// CREATE
+// ------
+// GET /posts/create        invite input for creating a new post 
+// POST /posts              store new row in db
+
+// READ
+// ----
+// GET /posts               view all posts
+// GET /posts/{id}          display a single post
+
+// UPDATE
+// ------
+// GET /posts/{id}/edit     get a specific post to edit 
+// PATCH /posts/{id}        store updated row in db
+
+// DELETE
+// ------
+// DELETE /posts/{id}       delete a post
