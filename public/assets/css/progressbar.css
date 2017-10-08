@@ -1,0 +1,83 @@
+/*
+    Styling the progress bar across browsers challenging. This article provided the secrets needed. 
+    https://www.htmlgoodies.com/html5/css/using-css-to-make-a-visually-consistent-cross-browser-html5-progress-bar.html
+    This code doesn't work on Edge--at least completely. But I think it's close enough. 
+*/
+
+progress,
+/* All HTML5 progress enabled browsers */        
+progress[role]
+/* polyfill */        
+{
+    /* Turns off styling - not usually needed, but good to know. */
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    /* gets rid of default border in Firefox and Opera. */
+    border: none;
+    /* Needs to be in here for Safari polyfill so background images work as expected. */
+    background-size: auto;
+    /* Dimensions */
+    width: 400px;
+    height: 60px;
+}
+/* Polyfill */
+
+progress[role]:after {
+    background-image: none;
+    /* removes default background from polyfill */
+}
+/* Ensure fallback text doesn't appear in polyfill */
+
+progress[role] strong {
+    display: none;
+}
+/* This sets the dimensions of our sample PB element*/
+/* Ensure fallback text doesn't appear in polyfill */
+
+progress[role] strong {
+    display: none;
+}
+/* Background Colors  */
+
+progress,
+/* Firefox  */
+
+progress[role][aria-valuenow] {
+    /* Polyfill */
+    background: lightgray !important;
+    /* !important is needed by the polyfill */
+}
+/* Chrome */
+
+progress::-webkit-progress-bar {
+    background: lightgray;
+}
+/* Foreground Colors   */
+/* IE10 */
+
+progress {
+    color: #16EC16;
+}
+/* Firefox */
+
+progress::-moz-progress-bar {
+    background: #16EC16;
+}
+/* Chrome */
+
+progress::-webkit-progress-value {
+    background: #16EC16;
+}
+/* Polyfill */
+
+progress[aria-valuenow]:before {
+    background: #16EC16;
+}
+
+.progress-bar {
+    -webkit-appearance: none;
+    border: solid 1px darkgray;
+    width: 200px;
+    height: 10px;
+}

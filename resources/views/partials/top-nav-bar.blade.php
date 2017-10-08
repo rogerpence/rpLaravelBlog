@@ -58,7 +58,6 @@
                 </ul> -->
 
         <ul class="nav">
-
             @auth
                 <a class="nav-link" title="Admin panel" href=""><i class="fa fa-wrench" aria-hidden="true"></i></a>&nbsp;
             @endauth
@@ -71,21 +70,25 @@
                         {{ Auth::user()->name }}
                     @endguest                         
                 </a>
-                <div class="dropdown-menu">
+                <div class="dropdown-menu dropdown-menu-right">
                     @guest
-                    <a class="dropdown-item" href="{{ route('login') }}">Login</a>
-                    <a class="dropdown-item" href="{{ route('register') }}">Register</a> @else
-                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                        <a class="dropdown-item" href="{{ route('login') }}"><i class="fa fa-sign-in"></i>&nbsp;Login</a>
+                        <a class="dropdown-item" href="{{ route('register') }}"><i class="fa fa-id-card"></i>&nbsp;Register</a> 
+                    @else
+                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">
-                        Logout
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        {{ csrf_field() }}
-                    </form>
+                            <i class="fa fa-sign-out"></i>&nbsp;Logout
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
                     @endguest
                 </div>
             </li>
         </ul>
+    </div>
+    <div style="width:48px;">
+        &nbsp;
     </div>
 </nav>
 

@@ -32,6 +32,8 @@ class PostsController extends Controller
 
     public function store()
     {
+        dd(request()->all());
+        
         $repo = new Repository();
  
         $repo->addPost(request()->all());
