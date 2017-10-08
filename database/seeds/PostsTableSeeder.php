@@ -24,9 +24,7 @@ class PostsTableSeeder extends Seeder
                 'body_html' => $faker->text(240),
                 'body_markdown' => $faker->text(200),
                 'status' => 1,
-                'date_to_publish' => $faker->datetime(),
-                'created_at' => $faker->datetime(),
-                'updated_at' => $faker->datetime(),
+                'date_to_publish' => $faker->datetime()
             ]);
         }        
     }  

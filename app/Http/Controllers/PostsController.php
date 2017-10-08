@@ -21,7 +21,8 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = \App\Post::all();
+        $posts = \App\Post::orderBy('created_at', 'desc')->get();
+        // dd($posts);
         return view('posts.list', compact('posts'));
     } 
 
@@ -53,6 +54,15 @@ class PostsController extends Controller
         // or use where [] is a list of parms
         //    return redirect()->route('posts.list', []);
     }
+
+    public function show($id) {
+        // dd(request()->all());
+        // dd($id);
+
+        $post = \App\Post::find($id);
+        return view('posts.show', compact('post'));
+    }        
+    
 }
 
 

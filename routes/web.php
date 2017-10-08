@@ -24,4 +24,6 @@ Route::get('/', 'PostsController@index');
 
 Route::get('/posts', 'PostsController@index')->name('posts.list');
 Route::get('/posts/create', 'PostsController@create')->name('posts.create');
+Route::get('/posts/{id}', 'PostsController@show')->name('posts.show');
+
 Route::post('/posts', 'PostsController@store')->name('posts.store');
