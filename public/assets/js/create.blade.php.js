@@ -5,6 +5,6 @@ var simplemdeAbstract = new SimpleMDE({
 });
 
 var simplemdeBody = new SimpleMDE({
-    element: document.getElementById("body_markdown"),
+    element: document.getElementById("body"),
     autofocus: false
 });

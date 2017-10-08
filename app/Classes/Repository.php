@@ -11,20 +11,29 @@ class Repository {
 
     public function addPost($request)
     {
-        $parse_down = new \ParsedownExtra();
-        $html = $parse_down->text(request('body_markdown'));
-         
-        $post = new \App\Post();
-        $post->title = request('title');
-        $post->body_html = $html;
-        $post->body_markdown = request('body_markdown');
+        // try {
+            $parse_down = new \ParsedownExtra();
+            $html = $parse_down->text(request('body'));
+            
+            $post = new \App\Post();
+            $post->title = request('title');
+            $post->body_html = $html;
+            $post->body_markdown = request('body');
 
-        $post->abstract = request('abstract');
-        $post->seo_description = ''; 
-        $post->seo_keywords = ''; 
-        $post->status = 0;
-        $post->date_to_publish = new \DateTime('1959-06-02');
+            $post->abstract = request('abstract');
+            $post->seo_description = request('seo_description');
+            $post->seo_keywords = ''; 
+            $post->status = request('status');
+            $post->date_to_publish = new \DateTime('1959-06-02');
 
-        $post->save();
+            $post->save();
+        // }
+        // catch (Illuminate\Database\QueryException $e){
+        //     $errorCode = $e->errorInfo[1];
+  
+        //     if($errorCode == 1062) {
+        //     // houston, we have a duplicate entry problem                
+        //     }                    
+        // }
     }
 }

@@ -8,55 +8,92 @@
     {
         min-height: 80px;
     }      
-   </style>
-      
+   </style>      
 @endsection 
 
 @section('content')
-
 <div class="container">
-    <div class="row">
-        <div class="col-1">           
-        </div>
-        <div class="col-8">
-            <form method="POST" action="/posts">
-                {{ csrf_field() }}
+    <form method="POST" action="/posts">
+        {{ csrf_field() }}
+        <div class="row">
+            <div class="col-8">
+                @if ($errors->any())
+                <div class="form-group">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>Input errors</h4>
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
 
                 <div class="form-group">
                     <label for="title">Title</label>
-                    <a data-toggle="popover" title="Title" data-trigger="hover" 
-                        data-content="For best search results this needs to be as close to 70 characters as possible." href="">&nbsp;<i class="fa fa-info-circle"></i></a>
+                    <a data-toggle="popover" title="Title" data-trigger="hover" data-content="For best search results this needs to be as close to 70 characters as possible."
+                        href="">
+                        &nbsp;
+                        <i class="fa fa-info-circle"></i>
+                    </a>
+                    <small class="text-danger">{{ $errors->first('title') }}</small>
 
-                    <input maxlength="70" type="text" class="form-control" id="title" Post titledby="titleHelp" name="title" placeholder="Post title">
-                    <!-- <small id="titleHelp" class="form-text text-muted">Not to exceed 70 characters</small> -->
+                    <input maxlength="70" type="text" class="form-control" id="title" titledby="titleHelp" name="title" placeholder="Post title"
+                        value="{{old('title')}}">
                 </div>
 
                 <div class="form-group" id="abstract-container">
                     <label for="abstract">Abstract</label>
-                    <textarea name="abstract" id="abstract"></textarea>
+                    <small class="text-danger">{{ $errors->first('abstract') }}</small>
+
+                    <textarea name="abstract" id="abstract">{{old('abstract')}}</textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="seo-description">SEO description</label>
-                    <a data-toggle="popover" title="SEO Description" data-trigger="hover" 
-                        data-content="For best search results this needs to be as close to 160 characters as possible." href="">&nbsp;<i class="fa fa-info-circle"></i></a>                                    
-                    <!-- <input maxlength="160" type="text" class="form-control" id="seo-description" Post titledby="titleHelp" name="title" placeholder="SEO description"> -->
-                    <textarea class="form-control" id="seo-description" Post titledby="titleHelp" name="seo-description" placeholder="SEO description"></textarea>
-                    <small id="titleHelp" class="form-text text-muted">Not to exceed 160 characters. Characters entered: <span id="chars-entered">0</span></small>
+                    <a data-toggle="popover" title="SEO Description" data-trigger="hover" data-content="For best search results this needs to be as close to 160 characters as possible."
+                        href="">
+                        &nbsp;
+                        <i class="fa fa-info-circle"></i>
+                    </a>
+                    <small class="text-danger">{{ $errors->first('seo_description') }}</small>
+
+                    <textarea class="form-control" id="seo_description" titledby="titleHelp" name="seo_description" placeholder="SEO description">{{old('seo_description')}}</textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="body_markdown">Body</label>
-                    <textarea name="body_markdown" id="body_markdown"></textarea>
+                    <label for="body">Body</label>
+                    <small class="text-danger">{{ $errors->first('body') }}</small>
+                    <textarea name="body" id="body">{{old('body')}}</textarea>
                 </div>
 
-                <br>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>        
-        </div>
-        <div class="col">
-        </div>
-    </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="form-group">
+                    <div class="dropdown">
+                        <select name="status" id="status">
+                            <option value="0">Draft</option>
+                            <option value="1">Published</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- End class="row" -->
+    </form>
 </div>
 
 @endsection 

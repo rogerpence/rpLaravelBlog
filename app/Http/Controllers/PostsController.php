@@ -32,16 +32,26 @@ class PostsController extends Controller
 
     public function store()
     {
-        dd(request()->all());
-        
-        $repo = new Repository();
- 
-        $repo->addPost(request()->all());
-        
-        return redirect('/');
         // dd(request()->all());
-        //$md = request()->input('markdown');
-        //dump($md);
+
+        $this->validate(request(), [
+            'title' => 'required|unique:posts,title',
+            'body' => 'required',
+            'abstract' => 'required',
+            'seo_description' => 'required'            
+        ]);
+        
+        (new Repository())->addPost(request()->all());
+        
+        // The above is shorthand for this:
+        // $repo = new Repository(); 
+        // $repo->addPost(request()->all());
+        
+        return redirect()->route('posts.list');
+        // or use
+        //    return redirect('/');
+        // or use where [] is a list of parms
+        //    return redirect()->route('posts.list', []);
     }
 }
 
