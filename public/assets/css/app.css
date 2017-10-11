@@ -31,9 +31,22 @@ textarea[id='markdown'] {
 }
  */
 
- .btn-tiny {
+.btn-tiny {
     padding: .20rem .4rem;
     font-size: .675rem;
     line-height: 1.1;
     border-radius: .2rem;
- }    
+}    
+
+a.headline {
+    color: rgb(36, 35, 35);
+}
+
+a.headline:hover {
+    color: rgb(42, 42, 230);
+}
+
+.form-control {
+    color: black !important;
+}
+

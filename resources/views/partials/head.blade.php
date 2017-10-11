@@ -10,4 +10,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
     <script src="https://use.fontawesome.com/ca38661c31.js"></script>
     <link rel="stylesheet" href="{{ asset('assets/css/progressbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/component-custom-switch.min.css') }}">
+
     

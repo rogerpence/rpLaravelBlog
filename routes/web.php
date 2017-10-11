@@ -22,8 +22,11 @@ Auth::routes();
 Route::get('/', 'PostsController@index');
 //Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/posts', 'PostsController@index')->name('posts.list');
-Route::get('/posts/create', 'PostsController@create')->name('posts.create');
-Route::get('/posts/{id}', 'PostsController@show')->name('posts.show');
+Route::get('/posts',           'PostsController@index')->name('posts.list');
+Route::get('/posts/create',    'PostsController@create')->name('posts.create');
+Route::get('/posts/{post}',    'PostsController@show')->name('posts.show');
+Route::get('/posts/{id}/edit', 'PostsController@edit')->name('posts.edit');
+
 
 Route::post('/posts', 'PostsController@store')->name('posts.store');
+Route::patch('/posts', 'PostsController@store')->name('posts.store');

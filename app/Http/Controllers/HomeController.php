@@ -23,6 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+//        return view::make('posts.lists')->with($info);
+        //return('view');
     }
 }

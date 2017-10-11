@@ -5,13 +5,15 @@
 @endsection 
 
 @section('left-column')
-
     @foreach ($posts as $post)            
         <div class="post">
-            <a href="/posts/{{ $post->id }}"><h2>{{ $post->title }}</h2></a>
+            @auth
+                <a class="headline" href="/posts/{{ $post->id }}/edit"><h2>{{ $post->title }}</h2></a>    
+            @else
+                <a class="headline" href="/posts/{{ $post->id }}"><h2>{{ $post->title }}</h2></a>
+            @endauth
             <div class="post-date-line">
-                <i class="fa fa-calendar" title="Date posted"></i> {{$post->created_at->format('l, M d, Y')}}&nbsp;&nbsp;&nbsp;
-            
+                <i class="fa fa-calendar" title="Date posted"></i> {{$post->created_at->format('l, M d, Y')}}&nbsp;&nbsp;&nbsp;            
             </div>        
             <div>
                 {!! $post->abstract !!}

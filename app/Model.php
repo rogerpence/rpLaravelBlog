@@ -11,4 +11,10 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Model extends Eloquent
 {
     protected $guarded = [];
+    // private $validation_rules = [];
+
+    // public static function getValidationRules() 
+    // {
+    //     return $validation_rules;
+    // }
 }

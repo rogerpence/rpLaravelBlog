@@ -22,27 +22,28 @@ class PostsController extends Controller
     public function index()
     {
         $posts = \App\Post::orderBy('created_at', 'desc')->get();
-        // dd($posts);
-        return view('posts.list', compact('posts'));
+
+        // // return view('posts.create', compact('post'));
+        // $data = ['url' => action('PostsController@index'),
+        //          'action' => 'POST'];  
+
+        return view('posts.list')->with(compact('posts')); /// ->with('view', $data);
     } 
 
     public function create()
     {
-        return view('posts.create');
+        $post = new \App\Post;
+
+        $view = ['url' => route('posts.store'),
+                 'action' => 'POST'];        
+        return view('posts.create', compact('post'))->with('view', $view);;
     }
 
     public function store()
     {
-        // dd(request()->all());
+        $this->validate(request(), \App\Post::getValidationRules());
 
-        $this->validate(request(), [
-            'title' => 'required|unique:posts,title',
-            'body' => 'required',
-            'abstract' => 'required',
-            'seo_description' => 'required'            
-        ]);
-        
-        (new Repository())->addPost(request()->all());
+        (new Repository())->storePost(request()->all());
         
         // The above is shorthand for this:
         // $repo = new Repository(); 
@@ -55,14 +56,27 @@ class PostsController extends Controller
         //    return redirect()->route('posts.list', []);
     }
 
-    public function show($id) {
+    public function show(\App\Post $post) 
+    {
         // dd(request()->all());
         // dd($id);
 
-        $post = \App\Post::find($id);
+        //$post = \App\Post::find($id);
         return view('posts.show', compact('post'));
     }        
-    
+
+
+    public function edit($id) 
+    {
+        $post = \App\Post::find($id);
+        // dd($post);
+        // return view('posts.create', compact('posts'));
+
+        $view = ['url' => route('posts.store'),
+                 'action' => 'POST',
+                 'spoof_action' => 'PATCH'];          
+        return view('posts.create')->with('post', $post)->with('view', $view);
+    }        
 }
 
 
