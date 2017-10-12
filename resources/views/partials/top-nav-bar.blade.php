@@ -10,6 +10,9 @@
         <li class="nav-item">
             <a title="New post" class="nav-link" href="/posts/create"><i class="fa fa-plus-circle"></i></a>
         </li>
+        <li class="nav-item">
+            <a title="Edit post" class="nav-link" href="/posts/create"><i class="fa fa-pencil"></i></a>
+        </li>        
     </ul>
 </div>
 @endauth

@@ -17,6 +17,7 @@ class CreatePostsTable extends Migration
             $table->increments('id');
             $table->integer('author_id')->unsigned()->default(0);
             $table->string('title', 200)->unique();
+            $table->string('slug',200)->unique();
             $table->string('abstract',500);
             $table->string('seo_description', 200);
             $table->string('seo_keywords',200);            

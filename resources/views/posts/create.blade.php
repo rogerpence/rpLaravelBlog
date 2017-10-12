@@ -39,8 +39,8 @@
                             <div class="form-group">
                                 <div class="dropdown">
                                     <select name="status" id="status">
-                                        <option value="0">Draft</option>
-                                        <option value="1">Published</option>
+                                        <option value="0" {!! $post->status == 0 ? 'selected="selected"' : ''!!}>Draft</option>
+                                        <option value="1" {!! $post->status == 1 ? 'selected="selected"' : ''!!}>Published</option>
                                     </select>
                                 </div>
                             </div>                        
@@ -51,7 +51,7 @@
                 <div class="form-group">
                     <label for="title">Title</label>
                     <a data-toggle="popover" title="Title" data-trigger="hover" data-content="For best search results this needs to be as close to 70 characters as possible."
-                        href="">
+                        href="#" onclick="return false;">
                         &nbsp;
                         <i class="fa fa-info-circle"></i>
                     </a>
@@ -59,6 +59,19 @@
 
                     <input maxlength="70" type="text" class="form-control" id="title" titledby="titleHelp" name="title" placeholder="Post title"
                         value="{{old('title', $post->title)}}">
+                </div>
+
+                <div class="form-group">
+                    <label for="slug">Slug</label>
+                    <a data-toggle="popover" slug="Title" data-trigger="hover" data-content="For best search results this needs to be as close to four or five words as possible."
+                        href="#" onclick="return false;">
+                        &nbsp;
+                        <i class="fa fa-info-circle"></i>
+                    </a>
+                    <small class="text-danger">{{ $errors->first('slug') }}</small>
+
+                    <input maxlength="70" type="text" class="form-control" id="slug" titledby="titleHelp" name="slug" placeholder="Post slug"
+                        value="{{old('slug', $post->slug)}}">
                 </div>
 
                 <div class="form-group" id="abstract-container">
@@ -72,7 +85,7 @@
                     <label for="seo-description">SEO description</label>
                     <a data-toggle="popover" title="SEO Description" data-trigger="hover" 
                        data-content="For best search results this needs to be as close to 160 characters as possible."
-                        href="">
+                        href="#" onclick="return false;">
                         &nbsp;
                         <i class="fa fa-info-circle"></i>
                     </a>
@@ -108,6 +121,8 @@
     <script src="{{ asset('assets/js/create.blade.php.js') }}"></script>   
 
     <script>
+
+
     </script>
 
 @endsection

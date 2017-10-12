@@ -1,4 +1,14 @@
 
+
+(function() {
+    document.getElementById('title').addEventListener('input', function () {
+        var slug = document.getElementById('slug');
+        var slugText = this.value.replace(/(\s+)/g, '-').toLowerCase();
+        slugText = slugText.replace(/(\.)/g, '').toLowerCase();
+        slug.value = slugText;
+    });
+})();
+
 let documentReady = () => {
 
     var simplemdeAbstract = new SimpleMDE({

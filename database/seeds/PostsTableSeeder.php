@@ -16,8 +16,10 @@ class PostsTableSeeder extends Seeder
         $faker = Faker\Factory::create();        
 
         for($i = 0; $i < 3; $i++) {
+            $title = $faker->text(32);
             App\Post::create([
-                'title' => $faker->text(32),
+                'title' => $title,
+                'slug' => $faker->randomLetter() . '-' . $faker->randomLetter(), 
                 'abstract' => $faker->text(280),
                 'seo_description' => $faker->text(30),
                 'seo_keywords' => $faker->text(18),

@@ -24,7 +24,10 @@ Route::get('/', 'PostsController@index');
 
 Route::get('/posts',           'PostsController@index')->name('posts.list');
 Route::get('/posts/create',    'PostsController@create')->name('posts.create');
-Route::get('/posts/{post}',    'PostsController@show')->name('posts.show');
+
+// Route::get('/posts/{post}',    'PostsController@show')->name('posts.show');
+Route::get('/posts/{slug}',    'PostsController@show')->name('posts.show');
+
 Route::get('/posts/{id}/edit', 'PostsController@edit')->name('posts.edit');
 
 

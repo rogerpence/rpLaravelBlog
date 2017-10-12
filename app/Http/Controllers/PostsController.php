@@ -41,7 +41,8 @@ class PostsController extends Controller
 
     public function store()
     {
-        $this->validate(request(), \App\Post::getValidationRules());
+        $id = (request()->has('postid')) ? request('postid') : 0;
+        $this->validate(request(), \App\Post::getValidationRules($id));                
 
         (new Repository())->storePost(request()->all());
         
@@ -56,12 +57,14 @@ class PostsController extends Controller
         //    return redirect()->route('posts.list', []);
     }
 
-    public function show(\App\Post $post) 
+    // public function show(\App\Post $post) 
+    public function show($slug) 
     {
         // dd(request()->all());
         // dd($id);
 
-        //$post = \App\Post::find($id);
+        // $post = \App\Post::find($id);
+        $post = \App\Post::where('slug', '=', $slug )->first();
         return view('posts.show', compact('post'));
     }        
 
