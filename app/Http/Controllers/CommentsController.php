@@ -35,8 +35,11 @@ class CommentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {        
+    public function store(Request $request, $slug)
+    {     
+        //dd($slug)   ;
+        //dd($request->all()); 
+
         $this->validate(request(), 
             ['from' => 'required',
              'comment_text' => 'required'
@@ -46,7 +49,7 @@ class CommentsController extends Controller
         //dd($request->all());            
         //        $comment->post()->associate($post);
 
-        (new CommentsRepository())->store(request()->all());   
+        (new CommentsRepository())->store(request()->all(), $slug);   
 
         \Session::flash('flash', 'Thanks for your comment. It\'s been submitted for approval.');
 

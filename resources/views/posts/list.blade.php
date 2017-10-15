@@ -11,11 +11,19 @@
 @section('left-column')
     @foreach ($posts as $post)            
         <div class="post">
-            @auth
+
+{{--
+        @auth
                 <a class="headline" href="/posts/{{ $post->id }}/edit"><h2>{{ $post->title }}</h2></a>    
             @else
+
                 <a class="headline" href="/posts/{{ $post->slug }}"><h2>{{ $post->title }}</h2></a>
+
             @endauth
+--}}            
+
+            <a class="headline" href="/posts/{{ $post->slug }}"><h2>{{ $post->title }}</h2></a>
+
             <div class="post-date-line">
                 <i class="fa fa-calendar" title="Date posted"></i> {{$post->created_at->format('l, M d, Y')}}&nbsp;&nbsp;&nbsp;            
             </div>        

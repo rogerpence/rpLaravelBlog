@@ -74,7 +74,10 @@ class PostsController extends Controller
         // dump(compact('post'));
         // die();
         // return view('posts.show', compact('post'));
-        return view('posts.show')->with('post', $post)->with('comments', $comments);
+        return view('posts.show')->with('post', $post)->
+                                   with('comments', $comments)->
+                                   with('slug', $slug)->
+                                   with('post_id', $post->id);
     }        
 
 

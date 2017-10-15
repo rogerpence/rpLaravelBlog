@@ -15,8 +15,6 @@
 //     return view('welcome');
 // });
 
-
-
 Auth::routes();
 
 Route::get('/', 'PostsController@index');
@@ -34,4 +32,6 @@ Route::get('/posts/{id}/edit', 'PostsController@edit')->name('posts.edit');
 Route::post('/posts', 'PostsController@store')->name('posts.store');
 Route::patch('/posts', 'PostsController@store')->name('posts.store');
 
-Route::post('/comments', 'CommentsController@store')->name('comments.store');
+Route::post('/comments/{slug}', 'CommentsController@store')->name('comments.store');
+
+Route::get('/dashboard', 'DashboardController@show')->name('dashboard.show');

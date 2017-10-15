@@ -1,20 +1,5 @@
 @auth
-<div style="background-color: black">
-    <ul class="nav">
-        <li class="nav-item">
-            <a title="Home" class="nav-link" href="/"><i class="fa fa-home"></i></a>
-        </li>
-        <li class="nav-item">
-            <a title="Dashboard" class="nav-link" href="/posts/create"><i class="fa fa-tachometer"></i></a>
-        </li>
-        <li class="nav-item">
-            <a title="New post" class="nav-link" href="/posts/create"><i class="fa fa-plus-circle"></i></a>
-        </li>
-        <li class="nav-item">
-            <a title="Edit post" class="nav-link" href="/posts/create" ><i class="fa fa-pencil"></i></a>
-        </li>        
-    </ul>
-</div>
+    @include('partials.admin-bar')
 @endauth
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">

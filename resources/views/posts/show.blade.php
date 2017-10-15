@@ -26,24 +26,25 @@
                     <h4>Comments</h4>
                     @foreach ($comments as $comment)
                         <ul class="list-group>">
-                            <li class="list-group-item">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Submitted by {{ $comment->from}}</h5>
-                                    <small>{{ $comment->created_at->diffForHumans() }}</small>
-                                </div>
-                                <hr>
+                            <li class="list-group-item" style="background-color: whitesmoke">
                                 <p class="card-text">
                                     {{ $comment->text }}
                                 </p>                        
+                                <hr>
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1"><small>Submitted by</small> {{ $comment->from}}</h5>
+                                    <small>{{ $comment->created_at->diffForHumans() }}</small>
+                                </div>
                             </li>
                         </ul>
                     @endforeach
                 @endif               
                 <h4>Add your comment</h4>                                   
                 <div>
-                    <form method="post" action="{{ route('comments.store') }}">
+                    <form method="post" action="{{ route('comments.store', [$slug]) }}">
 
                         {{ csrf_field() }}
+
                         @include('partials.error-list')                        
 
                         <div class="form-group">
