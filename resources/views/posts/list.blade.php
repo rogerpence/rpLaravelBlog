@@ -2,6 +2,10 @@
 
 @section('main.head')
    <!-- CSS or other HTML at end of head tag. -->
+   @section('main.head')
+    <title>rogerpence.com</title>
+@endsection 
+
 @endsection 
 
 @section('left-column')

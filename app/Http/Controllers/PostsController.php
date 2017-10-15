@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Classes\Repository;
+use App\Comment;
 
 class PostsController extends Controller
 {
@@ -65,7 +66,15 @@ class PostsController extends Controller
 
         // $post = \App\Post::find($id);
         $post = \App\Post::where('slug', '=', $slug )->first();
-        return view('posts.show', compact('post'));
+        $comments = $post->hasMany(Comment::class)->where('comment_id',0)->where('approved', true)->get();
+
+        //$replies = $comment->hasMany(App\Comment::class)->where('comment_id',$comments->id);
+
+        // dump($post);
+        // dump(compact('post'));
+        // die();
+        // return view('posts.show', compact('post'));
+        return view('posts.show')->with('post', $post)->with('comments', $comments);
     }        
 
 
