@@ -12,16 +12,6 @@
     @foreach ($posts as $post)            
         <div class="post">
 
-{{--
-        @auth
-                <a class="headline" href="/posts/{{ $post->id }}/edit"><h2>{{ $post->title }}</h2></a>    
-            @else
-
-                <a class="headline" href="/posts/{{ $post->slug }}"><h2>{{ $post->title }}</h2></a>
-
-            @endauth
---}}            
-
             <a class="headline" href="/posts/{{ $post->slug }}"><h2>{{ $post->title }}</h2></a>
 
             <div class="post-date-line">
@@ -37,7 +27,6 @@
                 <i class="fa fa-pencil-square-o" title="Author"></i> rp&nbsp;&nbsp;&nbsp;
                 <i class="fa fa-tags" title="Tags"></i> <a href="#">db</a>&nbsp;&nbsp;&nbsp;
                 <a title="Comments" href="#"><i class="fa fa-comments" title="Comments"></i>&nbsp;3</a>
-                <a href="#">Leave a comment</a>
             </div>
             <hr>
         </div>    

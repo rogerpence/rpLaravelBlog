@@ -50,3 +50,15 @@ a.headline:hover {
     color: black !important;
 }
 
+a i.admin-icon {
+    color: white;
+}
+
+a[disabled] i.admin-icon {
+    color: darkslategrey !important;
+}
+
+.admin-nav {
+    color: black;
+    font-size: 150%;
+}
