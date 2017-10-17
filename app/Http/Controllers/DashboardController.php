@@ -6,16 +6,19 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function show() 
+    public function home() 
     {
-        return view('dashboard.main');
+        $view = new \stdClass();
+        $view->subview = 'dashboard.home';
+
+        return view('dashboard.main')->with('view', $view);        ;
     }        
 
     public function posts() 
     {
-        $view = ['url' => route('posts.store'),
-                 'action' => 'posts'
-                ];        
+        $view = new \stdClass();
+        $view->subview = 'dashboard.posts';
+
         return view('dashboard.main')->with('view', $view);        
     }        
 
@@ -23,10 +26,9 @@ class DashboardController extends Controller
     {
         $comments = \App\Comment::orderBy('created_at', 'desc')->get();
         
-        $view = ['url' => route('posts.store'),
-                 'comments' => $comments,
-                 'action' => 'comments'
-                ];        
+        $view = new \stdClass();
+        $view->subview = 'dashboard.comments';
+
         return view('dashboard.main', compact('comments'))->with('view', $view);;
     }        
     

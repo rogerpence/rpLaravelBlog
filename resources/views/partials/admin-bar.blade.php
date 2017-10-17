@@ -4,7 +4,7 @@
             <a title="Home" class="nav-link" href="/"><i class="fa fa-home admin-icon"></i></a>
         </li>
         <li class="nav-item">
-            <a title="Dashboard" class="nav-link" href="{{ route('dashboard.show') }}"><i class="fa fa-tachometer admin-icon"></i></a>
+            <a title="Dashboard" class="nav-link" href="{{ route('dashboard.home') }}"><i class="fa fa-tachometer admin-icon"></i></a>
         </li>
         <li class="nav-item">
             <a title="New post" class="nav-link" href="/posts/create"><i class="fa fa-plus-circle admin-icon"></i></a>

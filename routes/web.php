@@ -34,7 +34,8 @@ Route::patch('/posts', 'PostsController@store')->name('posts.store');
 
 Route::post('/comments/{slug}', 'CommentsController@store')->name('comments.store');
 
-Route::get('/dashboard', 'DashboardController@show')->name('dashboard.show');
+Route::get('/dashboard', 'DashboardController@home')->name('dashboard.home');
+Route::get('/dashboard/home', 'DashboardController@home')->name('dashboard.home');
 Route::get('/dashboard/posts', 'DashboardController@posts')->name('dashboard.posts');
 Route::get('/dashboard/comments', 'DashboardController@comments')->name('dashboard.comments');
 
