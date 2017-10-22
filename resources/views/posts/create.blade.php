@@ -32,18 +32,20 @@
 
                 <div class="form-group">
                     <div class="form-row">
-                        <div class="col col-sm-3">
-                            <button type="submit" class="btn btn-primary btn-md">Save</button>
+                        <div class="col col-sm-2">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-md">Save</button>
+                            </div>                                
                         </div>
-                        <div class="col">
+                        <div class="col com-sm-2">
                             <div class="form-group">
                                 <div class="dropdown">
-                                    <select name="status" id="status">
+                                    <select name="status" id="status" class="mb-select">
                                         <option value="0" {!! $post->status == 0 ? 'selected="selected"' : ''!!}>Draft</option>
                                         <option value="1" {!! $post->status == 1 ? 'selected="selected"' : ''!!}>Published</option>
                                     </select>
                                 </div>
-                            </div>                        
+                            </div>    
                         </div>
                     </div>
                 </div>
