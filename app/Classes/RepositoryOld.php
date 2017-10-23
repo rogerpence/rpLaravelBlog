@@ -23,6 +23,7 @@ class Repository {
         $html = $parse_down->text(request('body'));
         
         $post->title = request('title');
+        $post->subtitle = request('subtitle');
         $post->slug = request('slug');
         $post->body_html = $html;
         $post->body_markdown = request('body');

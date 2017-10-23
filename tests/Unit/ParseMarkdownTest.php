@@ -10,7 +10,7 @@ class ParseMarkdownTest extends TestCase
 {
     public function testParse()
     {
-        $repo = new Repository();
+        $repo = new PostsRepository();
 
         $parse_down = new \ParsedownExtra();
      

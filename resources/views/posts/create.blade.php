@@ -64,6 +64,18 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="subtitle">Subtitle</label>
+                    <a data-toggle="popover" title="Title" data-trigger="hover" data-content="Option post subtitle."
+                        href="#" onclick="return false;">
+                        &nbsp;
+                        <i class="fa fa-info-circle"></i>
+                    </a>
+
+                    <input type="text" class="form-control" id="subtitle" titledby="titleHelp" name="subtitle" placeholder="Post subtitle"
+                        value="{{old('subtitle', $post->subtitle)}}">
+                </div>
+
+                <div class="form-group">
                     <label for="slug">Slug</label>
                     <a data-toggle="popover" slug="Title" data-trigger="hover" data-content="For best search results this needs to be as close to four or five words as possible."
                         href="#" onclick="return false;">

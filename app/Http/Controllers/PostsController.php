@@ -45,10 +45,10 @@ class PostsController extends Controller
         $id = (request()->has('postid')) ? request('postid') : 0;
         $this->validate(request(), \App\Post::getValidationRules($id));                
 
-        (new Repository())->storePost(request()->all());
+        (new PostsRepository())->storePost(request()->all());
         
         // The above is shorthand for this:
-        // $repo = new Repository(); 
+        // $repo = new PostsRepository(); 
         // $repo->addPost(request()->all());
         
         return redirect()->route('posts.list');

@@ -13,6 +13,9 @@
         <div class="post">
 
             <a class="headline" href="/posts/{{ $post->slug }}"><h2>{{ $post->title }}</h2></a>
+            @isset($post->subtitle)
+                <h4>{{$post->subtitle}}</h4>
+            @endisset
 
             <div class="post-date-line">
                 {{$post->created_at->format('l, M d, Y')}} by rp
