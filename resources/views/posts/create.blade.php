@@ -3,6 +3,8 @@
 @section('main.head')
    <!-- CSS or other HTML at end of head tag. -->
    <link rel="stylesheet" href="{{ asset('assets/css/simplemde.min.css') }}">
+   <link rel="stylesheet" href="{{ asset('assets/js/vendor/jquery-ui.min.css') }}">
+   <link rel="stylesheet" href="{{ asset('assets/js/vendor/jquery-ui.theme.min.css') }}">
    <style>
     #abstract-container .CodeMirror, #abstract-container  .CodeMirror-scroll 
     {
@@ -65,7 +67,7 @@
 
                 <div class="form-group">
                     <label for="subtitle">Subtitle</label>
-                    <a data-toggle="popover" title="Title" data-trigger="hover" data-content="Option post subtitle."
+                    <a data-toggle="popover" title="Title" data-trigger="hover" data-content="Optional post subtitle."
                         href="#" onclick="return false;">
                         &nbsp;
                         <i class="fa fa-info-circle"></i>
@@ -73,6 +75,18 @@
 
                     <input type="text" class="form-control" id="subtitle" titledby="titleHelp" name="subtitle" placeholder="Post subtitle"
                         value="{{old('subtitle', $post->subtitle)}}">
+                </div>
+
+                <div class="form-group">
+                    <label for="tags">Tags</label>
+                    <a data-toggle="popover" title="Tags" data-trigger="hover" data-content="Post tags."
+                        href="#" onclick="return false;">
+                        &nbsp;
+                        <i class="fa fa-info-circle"></i>
+                    </a>
+
+                    <input type="text" class="form-control" id="post-tags" titledby="titleHelp" name="post-tags" placeholder="Post tags"
+                        value="">
                 </div>
 
                 <div class="form-group">
@@ -133,10 +147,6 @@
 @section('main.body-at-bottom')
     <script src="{{ asset('assets/js/simplemde.min.js') }}"></script>
     <script src="{{ asset('assets/js/create.blade.php.js') }}"></script>   
-
-    <script>
-
-
-    </script>
-
+    <!-- <script src="{{ asset('assets/js/vendor/jquery.js') }}"></script>     -->
+    <script src="{{ asset('assets/js/vendor/jquery-ui.min.js') }}"></script>    
 @endsection

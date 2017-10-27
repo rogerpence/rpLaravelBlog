@@ -30,6 +30,35 @@ let documentReady = () => {
     new rp.core.TypingTracker('seo_description', MAX_SEO_DESC_LENGTH)
 
     $('[data-toggle="popover"]').popover()
+
+    $( "input#post-tags" ).autocomplete( {
+        source : function(req, add) {
+            // req.term = value entered in text box.
+            let url = '/api/tags?' + req.term;
+            let promise = $.getJSON(url)
+            promise.done(function(json) {
+                add(json);                
+            });
+            promise.fail(function(jqxhr,textStatus,error) {    
+               let x = 'x';                     
+            });
+        },    
+        select : function(e, ui) {
+            $( "#slug" ).val( ui.item.value );
+            return false;
+        } 
+    });     
+
+    // $( "input#post-tags" ).autocomplete( {
+    //     source : function( req, add ) {
+    //         var s = [ "John", "Paul", "George", "Ringo" ];
+    //         add( s );
+    //     },
+    //     select : function( e, ui ) {
+    //         $( "#slug" ).val( ui.item.value );
+    //     } 
+    // });     
+    
 };
 
 rp.core.documentReady(documentReady);
