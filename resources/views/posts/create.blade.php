@@ -5,6 +5,7 @@
    <link rel="stylesheet" href="{{ asset('assets/css/simplemde.min.css') }}">
    <link rel="stylesheet" href="{{ asset('assets/js/vendor/jquery-ui.min.css') }}">
    <link rel="stylesheet" href="{{ asset('assets/js/vendor/jquery-ui.theme.min.css') }}">
+   <link rel="stylesheet" href="{{ asset('assets/css/tagchief.css') }}">
    <style>
     #abstract-container .CodeMirror, #abstract-container  .CodeMirror-scroll 
     {
@@ -85,8 +86,18 @@
                         <i class="fa fa-info-circle"></i>
                     </a>
 
-                    <input type="text" class="form-control" id="post-tags" titledby="titleHelp" name="post-tags" placeholder="Post tags"
-                        value="">
+                    <div class="tags-container">
+                        <!--
+                        The input tags are displayed in div.tags-flex-container tag. This div tag
+                        must have an input#tag-text-input element in it (or you could specify a different
+                        id with TagChief's options. Tags are added to the page with insertAdjacentHTML 
+                        preceeding this input tag. 
+                        -->
+                        <input id="tag-text-input" class="tag-input" type="text"></input>
+                        <br>
+                        <input id="tag-list-for-server" type="hidden"></input>
+                    </div>                    
+
                 </div>
 
                 <div class="form-group">
@@ -149,4 +160,5 @@
     <script src="{{ asset('assets/js/create.blade.php.js') }}"></script>   
     <!-- <script src="{{ asset('assets/js/vendor/jquery.js') }}"></script>     -->
     <script src="{{ asset('assets/js/vendor/jquery-ui.min.js') }}"></script>    
+    <script src="{{ asset('assets/js/tagchief.js') }}"></script>    
 @endsection

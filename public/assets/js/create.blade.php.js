@@ -31,10 +31,10 @@ let documentReady = () => {
 
     $('[data-toggle="popover"]').popover()
 
-    $( "input#post-tags" ).autocomplete( {
+    $( "#tag-text-input" ).autocomplete( {
         source : function(req, add) {
             // req.term = value entered in text box.
-            let url = '/api/tags?' + req.term;
+            let url = '/api/tags?startswith=' + req.term;
             let promise = $.getJSON(url)
             promise.done(function(json) {
                 add(json);                
@@ -44,7 +44,20 @@ let documentReady = () => {
             });
         },    
         select : function(e, ui) {
-            $( "#slug" ).val( ui.item.value );
+            document.getElementById('tag-text-input').value = '';
+
+            // var TABKEY = 9;
+            // this.value = ui.item.value;
+
+            // if (event.keyCode == TABKEY) { 
+            //     event.preventDefault();
+            //     this.value = this.value + " ";
+            //     $('#search').focus();
+            // }
+
+            return false;
+
+            //$( "#slug" ).val( ui.item.value );
             return false;
         } 
     });     

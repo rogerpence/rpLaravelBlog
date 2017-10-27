@@ -13,11 +13,19 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('tags', function () {
+Route::get('tags', function (Request $request) {
 //    $tags = \App\Tag::orderBy('name')->pluck('name');
-    $find = 'l';
-    //$tags = \App\Tag::orderBy('name')->where('name', 'like', $find . '%')->pluck('name');
-    $tags = \App\Tag::orderBy('name')->where('name', '>=', $find)->pluck('name');
+
+    //if ($request->has('startswith')) {
+        $find = $request->input('startswith', '');
+    
+        //$tags = \App\Tag::orderBy('name')->where('name', 'like', $find . '%')->pluck('name');
+        $tags = \App\Tag::orderBy('name')->where('name', '>=', $find)->pluck('name');
+    //}        
+    //else {
+
+    //}        
+
     return $tags;
 });
 
