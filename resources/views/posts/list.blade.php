@@ -6,8 +6,6 @@
     <title>rogerpence.com</title>
 @endsection 
 
-@endsection 
-
 @section('left-column')
     @foreach ($posts as $post)            
         <div class="post">

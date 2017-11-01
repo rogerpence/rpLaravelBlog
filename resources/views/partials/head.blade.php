@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 
     <!-- MDB css -->
-    <link rel="stylesheet" href="{{ asset('assets/mdb/css/mdb.min.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('assets/mdb/css/mdb.min.css') }}"> -->
     
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
 

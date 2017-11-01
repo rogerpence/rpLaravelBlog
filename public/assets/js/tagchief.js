@@ -62,9 +62,7 @@ rp.tagchief = (function() {
         const tags = document.querySelectorAll('span[id^="tag-"]');
         const tagsList = [];
 
-        let i = 0;
-
-        for (i = 0; i < tags.length; i++) {
+        for (let i = 0; i < tags.length; i++) {
             const tag = tags[i];
             tagsList.push(tag.textContent.trim());
         };
