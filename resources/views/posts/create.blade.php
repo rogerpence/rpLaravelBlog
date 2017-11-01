@@ -93,7 +93,7 @@
                         id with TagChief's options. Tags are added to the page with insertAdjacentHTML 
                         preceeding this input tag. 
                         -->
-                        <input id="tag-text-input" class="tag-input" type="text"></input>
+                        <input id="tag-text-input" class="form-control tag-input" type="text"></input>
                         <br>
                         <input id="tag-list-for-server" type="hidden"></input>
                     </div>                    

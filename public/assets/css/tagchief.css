@@ -62,14 +62,16 @@ span.tag:hover>.tag-x {
 }
 
 .tag-input {
-    border: none;
+
+    border: inline;
+    /* border: none;
     padding-top: 2px;
     padding-bottom: 4px;
     padding-right: 8px;
     padding-left: 8px;
     background-color: whitesmoke;
     margin-left: 4px;
-    height: 22px;
+    height: 22px; */
     order: 500;
     text-transform: lowercase;
 }

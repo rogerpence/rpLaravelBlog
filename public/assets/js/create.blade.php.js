@@ -14,7 +14,7 @@ let documentReady = () => {
     var simplemdeAbstract = new SimpleMDE({
         element: document.getElementById("abstract"),
         autofocus: false
-        // toolbar: false
+        //toolbar: true
     });
 
     var simplemdeBody = new SimpleMDE({
