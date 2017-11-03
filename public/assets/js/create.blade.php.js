@@ -59,7 +59,12 @@ let documentReady = () => {
 
             //$( "#slug" ).val( ui.item.value );
             return false;
-        } 
+        },
+        focus: function (event, ui) {
+            var menu = $(this).data("uiAutocomplete").menu.element;
+            focused = menu.find("li:has(a.ui-state-focus)");
+            console.log(focused.attr('class'));
+        }         
     });     
 
     // $( "input#post-tags" ).autocomplete( {

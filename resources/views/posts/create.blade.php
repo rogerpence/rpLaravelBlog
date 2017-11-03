@@ -95,7 +95,7 @@
                         -->
                         <input id="tag-text-input" class="form-control tag-input" type="text"></input>
                         <br>
-                        <input id="tag-list-for-server" type="hidden"></input>
+                        <input name="tag-list-for-server" id="tag-list-for-server" type="hidden"></input>
                     </div>                    
 
                 </div>

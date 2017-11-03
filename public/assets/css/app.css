@@ -62,3 +62,41 @@ a[disabled] i.admin-icon {
     color: black;
     font-size: 150%;
 }
+
+.neilyoung {
+    /* background-color: pink; */
+    color: navy;
+    font-weight: 900;
+}
+
+/* ui-menu .ui-menu-item a.ui-state-hover,
+.ui-menu .ui-menu-item a.ui-state-active,
+.ui-menu .ui-menu-item a.ui-state-focus */
+
+/* a.ui-state-focus
+
+ {
+
+    border: 1px solid navy;
+    background-color: pink !important;
+} */
+
+/* .ui-menu .ui-menu-item:hover, .ui-state-hover, .ui-widget-content
+.ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus {
+    background-color: red !important;
+    font-weight: bold;
+} */
+/* 
+.ui-state-hover {
+    background: #428BCA!important;
+}
+/*
+.ui-widget-content .ui-state-active {
+    color: #5b518b; 
+} */
+
+
+/* .ui-autocomplete .ui-menu-item a.ui-state-focus {
+    background: #C4FFC4 !important;
+    border: 1px solid #32BE61 !important;
+} */

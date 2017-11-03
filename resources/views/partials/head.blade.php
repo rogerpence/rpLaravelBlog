@@ -17,6 +17,6 @@
     
     <link rel="stylesheet" href="{{ asset('assets/css/progressbar.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('assets/css/component-custom-switch.min.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('assets/css/component-custom-switch.min.css') }}"> -->
 
     
