@@ -17,18 +17,6 @@ rp.tagchief = (function() {
 
         let e = ev || window.event;
 
-        // Half-assed attempt to delete last tag with backspace key. 
-        // if (e.keyCode==BACKSPACEKEY) {
-        //     var j = document.querySelector('input.tag-text-input').previousElementSibling;    
-        //     if (j !== null) {
-        //         j.previousElementSibling.click();
-        //     }        
-
-        //     e.preventDefault();
-        //     this.focus();
-        //     return false;
-        // }
-
         if (e.keyCode == ESCAPEKEY) {
             this.value = '';
             e.preventDefault();
@@ -69,7 +57,7 @@ rp.tagchief = (function() {
         return tagsList
     };
 
-    var refreshTagsList = () => {
+    var refreshServerListAndTabIndex = () => {
         const tagsList = getTagsTextAsArray();
 
         document.getElementById(inputTagIdForServer).value = tagsList.sort().join(',');
@@ -110,7 +98,7 @@ rp.tagchief = (function() {
         // Remove tag element.
         tagOwnerElement.parentElement.removeChild(tagOwnerElement);
 
-        refreshTagsList();
+        refreshServerListAndTabIndex();
         // Put focus back into input tag. 
         document.getElementById(tagTextInputId).focus();
 
@@ -136,7 +124,7 @@ rp.tagchief = (function() {
         let mytag = document.getElementById('tag-' + tag);
         mytag.addEventListener('click', removeTag);
 
-        refreshTagsList();
+        refreshServerListAndTabIndex();
 
         if (typeof onTagAdded == 'function') {
             onTagAdded(tag);

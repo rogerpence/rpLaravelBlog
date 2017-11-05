@@ -31,7 +31,6 @@ const addTagsToDataList = (tags, targetId, newTag) => {
 
     if (typeof newTag !== 'undefined') {
         tags.push(newTag);
-        newTags.push(newTag);
     }
 
     for (let i = 0, len = tags.length; i < len; i++) {
@@ -42,7 +41,9 @@ const addTagsToDataList = (tags, targetId, newTag) => {
     el.insertAdjacentHTML('afterbegin', tagList.sort().join(''));
 };
 
-const isTagInList = (tagToFind) => {
+const appendTagIfNotPresent = (tagToFind, targetId) => {
+    targetId = targetId || 'all-tags';
+    
     let el = document.getElementById('all-tags');
     let tags = [];
 
@@ -54,13 +55,14 @@ const isTagInList = (tagToFind) => {
             if (child.tagName === 'OPTION') {
                 var tagText = child.value;
                 if (tagToFind === tagText) {
-                    return true;
+                    return false;
                 }
                 tags.push(tagText);
             }                
         }
         removeTagsFromDatalist();
-        addTagsToDataList(tags, 'all-tags', tagToFind);
+        addTagsToDataList(tags, 'all-tags', tagToFind);        
+        return true;
     }
 };
 
@@ -80,7 +82,7 @@ const options = {
             // Add code here to be performed when a tag is added.
             // The tag added is passed as the single argument to this event handler.
             console.log('added: ' + tag);
-            isTagInList(tag);
+            appendTagIfNotPresent(tag);
         },
         onTagRemovedHandler: (tag) => {
             // Add code here to be performed when a tag is removed.
