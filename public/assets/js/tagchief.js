@@ -35,7 +35,6 @@ rp.tagchief = (function() {
             this.focus();
             return false;
 
-//        } else if (e.keyCode == TABKEY || e.keyCode == ENTERKEY) {
         } else if (e.keyCode == ENTERKEY) {
             if (this.value.trim() == '') {
                 e.preventDefault();
@@ -179,42 +178,9 @@ rp.tagchief = (function() {
 
     return {
         addTagsForReadOnly: addTagsForReadOnly,
-        setOptions: setOptions
+        setOptions: setOptions,
+        addTag: addTag,
+        isDuplicate: isDuplicate
     };
 }());
 
-
-let options = {
-    // Other options to consider:
-    //   - mixedCaseTags
-    //   - allowDuplicateTags
-
-    // All of the editableTags properties are optional.
-
-    // Spell your keys correctly! An incorrect spelling won't cause an error.     
-    editableTags: {
-        tagTextInputId: 'tag-text-input', // default is 'tag-text-input'
-        inputTagIdForServer: 'tag-list-for-server', // default is 'tag-list-for-server'
-        initialTags: [],
-        onTagAddedHandler: (tag) => {
-            // Add code here to be performed when a tag is added.
-            // The tag added is passed as the single argument to this event handler.
-            console.log('added: ' + tag);
-        },
-        onTagRemovedHandler: (tag) => {
-            // Add code here to be performed when a tag is removed.
-            // The tag removed is passed as the single argument to this event handler.
-            console.log('removed: ' + tag);
-        }
-    },
-
-    // If the outputTags key is provided, it must 
-    // provide both the 'tags' key and the 'containerId' key.
-    // This set of keys is only required if you're going to call 'addTagsForReadOnly'
-    // outputTags: {
-    //     tags: ['php', 'laravel', 'eloquent', 'db', 'mysql'],
-    //     containerId: 'tag-output-container'
-    // }
-};
-
-rp.tagchief.setOptions(options);

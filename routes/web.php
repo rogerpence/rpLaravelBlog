@@ -28,7 +28,6 @@ Route::get('/posts/{slug}',    'PostsController@show')->name('posts.show');
 
 Route::get('/posts/{id}/edit', 'PostsController@edit')->name('posts.edit');
 
-
 Route::post('/posts', 'PostsController@store')->name('posts.store');
 Route::patch('/posts', 'PostsController@store')->name('posts.store');
 
@@ -38,4 +37,6 @@ Route::get('/dashboard', 'DashboardController@home')->name('dashboard.home');
 Route::get('/dashboard/home', 'DashboardController@home')->name('dashboard.home');
 Route::get('/dashboard/posts', 'DashboardController@posts')->name('dashboard.posts');
 Route::get('/dashboard/comments', 'DashboardController@comments')->name('dashboard.comments');
+
+Route::get('/test', 'TestsController@auto')->name('test.auto');
 
