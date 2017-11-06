@@ -40,6 +40,6 @@
 <script src="{{ asset('assets/js/app.js') }}"></script>
 <script src="{{ asset('assets/js/rpjs.js') }}"></script>
 <script src="{{ asset('assets/js/tagchief.js') }}"></script>
-<script src="{{ asset('assets/js/tagchiefdatalist-new.js') }}"></script>
+<script src="{{ asset('assets/js/tagchiefdatalist.js') }}"></script>
 
 </html>

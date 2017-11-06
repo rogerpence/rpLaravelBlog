@@ -3,10 +3,11 @@ var rp = rp || {};
 rp.tagchief = (function() {
     const TAG_TEMPLATE_EDIT = '<span style="order:1" id="tag-{{tag}}" class="tag">{{tag}}<a href="#" class="tag-x"><i data-tag="tag-{{tag}}" class="fa fa-trash"></i></a></span>';
     const TAG_TEMPLATE_READONLY = '<span class="tag">{{tag}}</span>';
+
     // The following values are set (or changed) with setOptions().
-    let onTagRemoved = undefined;
-    let onTagAdded = undefined;
-    let onDupeDetected = undefined;
+    let onTagRemoved;
+    let onTagAdded;
+    let onDupeDetected;
     let inputTagIdForServer = "tag-list-for-server";
     let tagTextInputId = 'tag-text-input';
 

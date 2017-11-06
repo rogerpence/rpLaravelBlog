@@ -2,138 +2,169 @@ var rp = rp || {};
 
 rp.tagChiefDataListProvider = (function () {
 
-    const DATALIST_ID = 'all-tags';
-    const TAG_TEXT_INPUT_ID = 'tag-text-input';
+    let datalistId;
+    let tagTextInputId;
+    let tagList = [];
+    let newTags = [];
 
-    const isTagInDataList = (tagToFind, targetId) => {
-        targetId = targetId || DATALIST_ID;
+    const initialize = (options) => {
+        datalistId = options.datalistId;
+        tagTextInputId = options.tagTextInputId;
 
-        let el = document.getElementById(targetId);
+        const fn = (list) => {
+            assignInitialTagsList(list);
+            assignTagsListToDataList();
+        };                
 
-        if (el.hasChildNodes()) {
-            let children = el.childNodes;
-
-            for (let i = 0; i < children.length; i++) {
-                var child = children[i];
-                if (child.tagName === 'OPTION') {
-                    var tagText = child.value;
-                    if (tagToFind === tagText) {
-                        return true;
-                    }
+        if (options.hasOwnProperty('url')) {
+            let promise = performGetJsonRequest(options.url)
+            .then(
+                function(data) {
+                    fn(data);
+                },
+                function(error) {
+                    console.error('Ajax get Json call failed: ', error)   
                 }
-            }
+            );
         }
-        return false;
+        else if (options.hasOwnProperty('list')) {
+            fn(options.list);
+        }
     };
 
-    const removeTagsFromDatalist = () => {
-        el = document.getElementById(DATALIST_ID);
+    const performGetJsonRequest = (url) => {
+        return new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", url);
+
+            xhr.onload = () => {
+                if (xhr.status == 200) {
+                    resolve(JSON.parse(xhr.response));
+                }
+                else {
+                    reject(Error(xhr.statusText));
+                }
+            }
+
+            xhr.onerror = () => {
+                reject(Error('Network error'));
+            }
+
+            xhr.send();
+        });
+    }
+
+    const clearAndFocusTagInputElement = () => {
+        let el = document.getElementById(tagTextInputId);
+        el.focus();
+        el.value = '';
+    }
+
+    const assignInitialTagsList = (initialTagList, targetId) => {
+        tagList = initialTagList.slice(0);
+    };
+    
+    const assignTagsListToDataList = () => {
+        removeChildrenFromDatalist();
+
+        var tagsArray = tagList.concat(newTags);
+
+        let options = [];
+
+        for (let i = 0, len = tagsArray.length; i < len; i++) {
+            options.push(`<option value="${tagsArray[i]}">`);
+        }
+
+        let el = document.getElementById(datalistId);
+        el.insertAdjacentHTML('afterbegin', options.sort().join(''));
+    };
+ 
+    const isTagInTagList = (tagToFind) => {
+        return tagList.includes(tagToFind);
+    };
+
+    const removeChildrenFromDatalist = () => {
+        el = document.getElementById(datalistId);
         while (el.hasChildNodes()) {
             el.removeChild(el.lastChild);
         }
     };
-
-    const addTagsToDataList = (tags, targetId, newTag) => {
-        let tagList = [];
-
-        if (typeof newTag !== 'undefined') {
-            tags.push(newTag);
+    
+    const appendTagIfAdhocTag = (tagToFind) => {
+        if (newTags.includes(tagToFind)) {
+            return false;
         }
-
-        for (let i = 0, len = tags.length; i < len; i++) {
-            tagList.push(`<option value="${tags[i]}">`);
+        if (tagList.includes(tagToFind)) {
+            return false;
         }
-
-        let el = document.getElementById(targetId);
-        el.insertAdjacentHTML('afterbegin', tagList.sort().join(''));
-    };
-
-    const appendTagIfNotPresent = (tagToFind, targetId) => {
-        targetId = targetId || DATALIST_ID;
         
-        let el = document.getElementById(DATALIST_ID);
-        let tags = [];
+        newTags.push(tagToFind);
+        assignTagsListToDataList();      
+        hideDatalistDropDown();        
 
-        if (el.hasChildNodes()) {
-            let children = el.childNodes;
+        return true;
+    }        
 
-            for (let i = 0; i < children.length; i++) {
-                var child = children[i];
-                if (child.tagName === 'OPTION') {
-                    var tagText = child.value;
-                    if (tagToFind === tagText) {
-                        return false;
-                    }
-                    tags.push(tagText);
-                }                
-            }
-            removeTagsFromDatalist();
-            addTagsToDataList(tags, DATALIST_ID, tagToFind);      
-            return true;
-        }
-    };    
+    const removeIfAdhocTag = (tag) => {
+        // If tag is in newTags array it is an adhoc tag. 
+        let index = newTags.indexOf(tag);
+        if (index > -1) {
+            newTags.splice(index, 1);
+            assignTagsListToDataList();        
+        }            
+    }
 
     const registerInputHandler = (fn) => {
         document.getElementById('tag-text-input').addEventListener('input', fn);        
     };
 
+    const hideDatalistDropDown = () => {
+        let currentElement = document.activeElement;
+        document.activeElement.blur();
+        window.focus();
+
+        return currentElement;
+    }
+
     return {
         registerInputHandler: registerInputHandler,
-        addTagsToDataList: addTagsToDataList,
-        isTagInDataList: isTagInDataList,
-        appendTagIfNotPresent: appendTagIfNotPresent
+        initialize: initialize,
+        isTagInTagList: isTagInTagList,
+        appendTagIfAdhocTag: appendTagIfAdhocTag,
+        hideDatalistDropDown: hideDatalistDropDown,
+        clearAndFocusTagInputElement: clearAndFocusTagInputElement,
+        removeIfAdhocTag: removeIfAdhocTag
     };
 
-}());
-    
+}());  
 
 const tagChiefOptions = {
-    // Other options to consider:
-    //   - mixedCaseTags
-    //   - allowDuplicateTags
-
-    // All of the editableTags properties are optional.
-
-    // Spell your keys correctly! An incorrect spelling won't cause an error.     
     editableTags: {
-        tagTextInputId: TAG_TEXT_INPUT_ID, // default is 'tag-text-input'
+        tagTextInputId: 'tag-text-input', // default is 'tag-text-input'
         inputTagIdForServer: 'tag-list-for-server', // default is 'tag-list-for-server'
         initialTags: [],
         onTagAddedHandler: (tag) => {
-            // Add code here to be performed when a tag is added.
-            // The tag added is passed as the single argument to this event handler.
-            console.log('added: ' + tag);
-            rp.tagChiefDataListProvider.appendTagIfNotPresent(tag);
-            let el = document.getElementById(TAG_TEXT_INPUT_ID);
-            el.focus();
-            el.value = '';
+        //tagList.push(tagToFind);
+            rp.tagChiefDataListProvider.appendTagIfAdhocTag(tag);
+            rp.tagChiefDataListProvider.clearAndFocusTagInputElement();
         },
         onTagRemovedHandler: (tag) => {
-            // Add code here to be performed when a tag is removed.
-            // The tag removed is passed as the single argument to this event handler.
-            console.log('removed: ' + tag);
+            rp.tagChiefDataListProvider.removeIfAdhocTag(tag);
+        },
+        onDupeDetected: (tag) => {
+            rp.tagChiefDataListProvider.hideDatalistDropDown();
         }
-    },
-
-    // If the outputTags key is provided, it must 
-    // provide both the 'tags' key and the 'containerId' key.
-    // This set of keys is only required if you're going to call 'addTagsForReadOnly'
-    // outputTags: {
-    //     tags: ['php', 'laravel', 'eloquent', 'db', 'mysql'],
-    //     containerId: 'tag-output-container'
-    // }
+    }
 };
-
 
 $(function() {
     rp.tagchief.setOptions(tagChiefOptions);
 
     rp.tagChiefDataListProvider.registerInputHandler(function(e) {
         let tagText = this.value;
-
         let isDupe = rp.tagchief.isDuplicate(tagText);
 
-        if (rp.tagChiefDataListProvider.isTagInDataList(tagText) && ! isDupe ) {
+        if (rp.tagChiefDataListProvider.isTagInTagList(tagText) && !isDupe) {
             rp.tagchief.addTag(tagText);
             this.value = '';
             this.focus();        
@@ -145,13 +176,13 @@ $(function() {
         }            
     });    
 
-    let url = '/api/tags?startswith=' + 'j';
-    let promise = $.getJSON(url)
-    promise.done(function (json) {
-        rp.tagChiefDataListProvider.addTagsToDataList(json, DATALIST_ID);
-    });
-    promise.fail(function (jqxhr, textStatus, error) {
-        console.log('Ajax failed fetching tag list.')
-    });
+    let providerOptions = {
+        datalistId: 'all-tags',
+        tagTextInputId:'tag-text-input',
+        url: '/api/tags'
+        //list: ['a','b','c']       
+    };
+    
+    rp.tagChiefDataListProvider.initialize(providerOptions);
 });
 
