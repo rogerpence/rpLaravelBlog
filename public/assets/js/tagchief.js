@@ -6,6 +6,7 @@ rp.tagchief = (function() {
     // The following values are set (or changed) with setOptions().
     let onTagRemoved = undefined;
     let onTagAdded = undefined;
+    let onDupeDetected = undefined;
     let inputTagIdForServer = "tag-list-for-server";
     let tagTextInputId = 'tag-text-input';
 
@@ -81,8 +82,10 @@ rp.tagchief = (function() {
             window.setTimeout(function() {
                 dupedTag.classList.remove('dupe-flash');
             }, 800);
+            if (typeof onDupeDetected == 'function') {
+                onDupeDetected(tagText);
+            }       
         }
-
         return isDupe;
     };
 
@@ -158,6 +161,7 @@ rp.tagchief = (function() {
             // addInitialTags() method.
             onTagRemoved = options.editableTags.onTagRemovedHandler;
             onTagAdded = options.editableTags.onTagAddedHandler;
+            onDupeDetected = options.editableTags.onDupeDetected;
         }
         if (options.hasOwnProperty('outputTags')) {
             addTagsForReadOnly(options.outputTags.containerId, options.outputTags.tags);
