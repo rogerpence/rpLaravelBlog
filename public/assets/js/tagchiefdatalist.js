@@ -10,6 +10,7 @@ rp.tagChiefDataListProvider = (function () {
     const initialize = (options) => {
         datalistId = options.datalistId;
         tagTextInputId = options.tagTextInputId;
+        registerInputHandler(options.inputHandlerFn);
 
         const fn = (list) => {
             assignInitialTagsList(list);
@@ -30,6 +31,10 @@ rp.tagChiefDataListProvider = (function () {
         else if (options.hasOwnProperty('list')) {
             fn(options.list);
         }
+    };
+
+    const registerInputHandler = (fn) => {
+        document.getElementById(tagTextInputId).addEventListener('input', fn);        
     };
 
     const performGetJsonRequest = (url) => {
@@ -114,10 +119,6 @@ rp.tagChiefDataListProvider = (function () {
         }            
     }
 
-    const registerInputHandler = (fn) => {
-        document.getElementById('tag-text-input').addEventListener('input', fn);        
-    };
-
     const hideDatalistDropDown = () => {
         let currentElement = document.activeElement;
         document.activeElement.blur();
@@ -127,7 +128,6 @@ rp.tagChiefDataListProvider = (function () {
     }
 
     return {
-        registerInputHandler: registerInputHandler,
         initialize: initialize,
         isTagInTagList: isTagInTagList,
         appendTagIfAdhocTag: appendTagIfAdhocTag,
@@ -137,51 +137,4 @@ rp.tagChiefDataListProvider = (function () {
     };
 
 }());  
-
-const tagChiefOptions = {
-    editableTags: {
-        tagTextInputId: 'tag-text-input', // default is 'tag-text-input'
-        inputTagIdForServer: 'tag-list-for-server', // default is 'tag-list-for-server'
-        initialTags: [],
-        onTagAddedHandler: (tag) => {
-            rp.tagChiefDataListProvider.appendTagIfAdhocTag(tag);
-            rp.tagChiefDataListProvider.clearAndFocusTagInputElement();
-        },
-        onTagRemovedHandler: (tag) => {
-            rp.tagChiefDataListProvider.removeIfAdhocTag(tag);
-        },
-        onDupeDetected: (tag) => {
-            rp.tagChiefDataListProvider.hideDatalistDropDown();
-        }
-    }
-};
-
-// $(function() {
-//     //rp.tagchief.setOptions(tagChiefOptions);
-
-//     rp.tagChiefDataListProvider.registerInputHandler(function(e) {
-//         let tagText = this.value;
-//         let isDupe = rp.tagchief.isDuplicate(tagText);
-
-//         if (rp.tagChiefDataListProvider.isTagInTagList(tagText) && !isDupe) {
-//             rp.tagchief.addTag(tagText);
-//             this.value = '';
-//             this.focus();        
-//         }    
-
-//         if (isDupe) {
-//             this.value = '';
-//             this.focus();        
-//         }            
-//     });    
-
-//     let providerOptions = {
-//         datalistId: 'all-tags',
-//         tagTextInputId:'tag-text-input',
-//         url: '/api/tags'
-//         //list: ['a','b','c']       
-//     };
-    
-//     rp.tagChiefDataListProvider.initialize(providerOptions);
-// });
 

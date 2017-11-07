@@ -1,15 +1,21 @@
 
 
-(function() {
+// (function() {
+//     document.getElementById('title').addEventListener('input', function () {
+//         var slug = document.getElementById('slug');
+//         var slugText = this.value.replace(/(\s+)/g, '-').toLowerCase();
+//         slugText = slugText.replace(/(\.)/g, '').toLowerCase();
+//         slug.value = slugText;
+//     });
+// })();
+
+let documentReady = () => {
     document.getElementById('title').addEventListener('input', function () {
         var slug = document.getElementById('slug');
         var slugText = this.value.replace(/(\s+)/g, '-').toLowerCase();
         slugText = slugText.replace(/(\.)/g, '').toLowerCase();
         slug.value = slugText;
     });
-})();
-
-let documentReady = () => {
 
     var simplemdeAbstract = new SimpleMDE({
         element: document.getElementById("abstract"),
@@ -22,7 +28,6 @@ let documentReady = () => {
         autofocus: false
     });
 
-
     const MAX_SEO_TITLE_LENGTH = 70;
     const MAX_SEO_DESC_LENGTH = 160;
 
@@ -30,6 +35,53 @@ let documentReady = () => {
     new rp.core.TypingTracker('seo_description', MAX_SEO_DESC_LENGTH)
 
     $('[data-toggle="popover"]').popover()
+
+    const tagChiefOptions = {
+        editableTags: {
+            tagTextInputId: 'tag-text-input', // default is 'tag-text-input'
+            inputTagIdForServer: 'tag-list-for-server', // default is 'tag-list-for-server'
+            onTagAddedHandler: (tag) => {
+                rp.tagChiefDataListProvider.appendTagIfAdhocTag(tag);
+                rp.tagChiefDataListProvider.clearAndFocusTagInputElement();
+            },
+            onTagRemovedHandler: (tag) => {
+                rp.tagChiefDataListProvider.removeIfAdhocTag(tag);
+            },
+            onDupeDetected: (tag) => {
+                rp.tagChiefDataListProvider.hideDatalistDropDown();
+            }
+        }
+    };
+
+    rp.tagchief.setOptions(tagChiefOptions);
+
+    let providerOptions = {
+        datalistId: 'all-tags',
+        tagTextInputId: 'tag-text-input',
+        inputHandlerFn: () => {
+            let tagText = this.value;
+            let isDupe = rp.tagchief.isDuplicate(tagText);
+
+            if (rp.tagChiefDataListProvider.isTagInTagList(tagText) && !isDupe) {
+                rp.tagchief.addTag(tagText);
+                this.value = '';
+                this.focus();
+            }
+
+            if (isDupe) {
+                this.value = '';
+                this.focus();
+            }
+        },
+        url: '/api/tags'
+        //list: ['a','b','c']       
+    };
+
+    rp.tagChiefDataListProvider.initialize(providerOptions);
+};
+
+rp.core.documentReady(documentReady);
+
 
     // $( "#tag-text-input" ).autocomplete( {
     //     source : function(req, add) {
@@ -55,51 +107,3 @@ let documentReady = () => {
     //     }         
     // });     
 
-    const tagChiefOptions = {
-        editableTags: {
-            tagTextInputId: 'tag-text-input', // default is 'tag-text-input'
-            inputTagIdForServer: 'tag-list-for-server', // default is 'tag-list-for-server'
-            onTagAddedHandler: (tag) => {
-                rp.tagChiefDataListProvider.appendTagIfAdhocTag(tag);
-                rp.tagChiefDataListProvider.clearAndFocusTagInputElement();
-            },
-            onTagRemovedHandler: (tag) => {
-                rp.tagChiefDataListProvider.removeIfAdhocTag(tag);
-            },
-            onDupeDetected: (tag) => {
-                rp.tagChiefDataListProvider.hideDatalistDropDown();
-            }
-        }
-    };
-
-        rp.tagchief.setOptions(tagChiefOptions);
-
-        rp.tagChiefDataListProvider.registerInputHandler(function (e) {
-            let tagText = this.value;
-            let isDupe = rp.tagchief.isDuplicate(tagText);
-
-            if (rp.tagChiefDataListProvider.isTagInTagList(tagText) && !isDupe) {
-                rp.tagchief.addTag(tagText);
-                this.value = '';
-                this.focus();
-            }
-
-            if (isDupe) {
-                this.value = '';
-                this.focus();
-            }
-        });
-
-        let providerOptions = {
-            datalistId: 'all-tags',
-            tagTextInputId: 'tag-text-input',
-            url: '/api/tags'
-            //list: ['a','b','c']       
-        };
-
-        rp.tagChiefDataListProvider.initialize(providerOptions);
-
-    
-};
-
-rp.core.documentReady(documentReady);

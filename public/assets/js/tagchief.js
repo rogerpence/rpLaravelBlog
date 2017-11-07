@@ -155,8 +155,6 @@ rp.tagchief = (function() {
         let existingTags = (el.value).split(',').sort();
         el.value = '';
 
-        //let tagsArray = ['javascript', 'css'];
-
         for (let i = 0, len = existingTags.length; i < len; i++) {
             addTag(existingTags[i].trim());
         }

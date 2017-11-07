@@ -35,25 +35,25 @@ class PostsRepository {
         $post->date_to_publish = new \DateTime('1959-06-02');
         $post->save();
         
-        \DB::table('post_tag')->where('post_id','=', $post->id)->delete();
+//        \DB::table('post_tag')->where('post_id','=', $post->id)->delete();
+
+        \App\PostTag::where('post_id', $post->id)->delete();
+
         $tags = explode(',', request('tag-list-for-server'));    
         
         foreach ($tags as $tag_name) {
-            $tag_row = \DB::table('tags')->where('name', '=', $tag_name)->pluck('id');
-            if (count($tag_row) == 0) {
+            $tag_id = \App\Tag::where('name', $tag_name)->pluck('id')->first();
+            if ( $tag_id == null) {
                 $new_tag = new \App\Tag();
                 $new_tag->name = trim($tag_name);
                 $new_tag->save();                   
                 $tag_id = $new_tag->id;
             }               
-            else {
-                $tag_id = $tag_row[0];
-            }
-
+   
             $posttag = new \App\PostTag();
             $posttag->tag_id = $tag_id;
             $posttag->post_id = $post->id;
-            $posttag->save();
+            $posttag->save();   
         }      
     }    
 }
