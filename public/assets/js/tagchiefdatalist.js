@@ -5,7 +5,7 @@ rp.tagChiefDataListProvider = (function () {
     let datalistId;
     let tagTextInputId;
     let tagList = [];
-    let newTags = [];
+    let adhocTagList = [];
 
     const initialize = (options) => {
         datalistId = options.datalistId;
@@ -67,7 +67,7 @@ rp.tagChiefDataListProvider = (function () {
     const assignTagsListToDataList = () => {
         removeChildrenFromDatalist();
 
-        var tagsArray = tagList.concat(newTags);
+        var tagsArray = tagList.concat(adhocTagList);
 
         let options = [];
 
@@ -91,14 +91,14 @@ rp.tagChiefDataListProvider = (function () {
     };
     
     const appendTagIfAdhocTag = (tagToFind) => {
-        if (newTags.includes(tagToFind)) {
+        if (adhocTagList.includes(tagToFind)) {
             return false;
         }
         if (tagList.includes(tagToFind)) {
             return false;
         }
         
-        newTags.push(tagToFind);
+        adhocTagList.push(tagToFind);
         assignTagsListToDataList();      
         hideDatalistDropDown();        
 
@@ -106,10 +106,10 @@ rp.tagChiefDataListProvider = (function () {
     }        
 
     const removeIfAdhocTag = (tag) => {
-        // If tag is in newTags array it is an adhoc tag. 
-        let index = newTags.indexOf(tag);
+        // If tag is in adhocTagList array it is an adhoc tag. 
+        let index = adhocTagList.indexOf(tag);
         if (index > -1) {
-            newTags.splice(index, 1);
+            adhocTagList.splice(index, 1);
             assignTagsListToDataList();        
         }            
     }
@@ -144,7 +144,6 @@ const tagChiefOptions = {
         inputTagIdForServer: 'tag-list-for-server', // default is 'tag-list-for-server'
         initialTags: [],
         onTagAddedHandler: (tag) => {
-        //tagList.push(tagToFind);
             rp.tagChiefDataListProvider.appendTagIfAdhocTag(tag);
             rp.tagChiefDataListProvider.clearAndFocusTagInputElement();
         },
@@ -157,32 +156,32 @@ const tagChiefOptions = {
     }
 };
 
-$(function() {
-    rp.tagchief.setOptions(tagChiefOptions);
+// $(function() {
+//     //rp.tagchief.setOptions(tagChiefOptions);
 
-    rp.tagChiefDataListProvider.registerInputHandler(function(e) {
-        let tagText = this.value;
-        let isDupe = rp.tagchief.isDuplicate(tagText);
+//     rp.tagChiefDataListProvider.registerInputHandler(function(e) {
+//         let tagText = this.value;
+//         let isDupe = rp.tagchief.isDuplicate(tagText);
 
-        if (rp.tagChiefDataListProvider.isTagInTagList(tagText) && !isDupe) {
-            rp.tagchief.addTag(tagText);
-            this.value = '';
-            this.focus();        
-        }    
+//         if (rp.tagChiefDataListProvider.isTagInTagList(tagText) && !isDupe) {
+//             rp.tagchief.addTag(tagText);
+//             this.value = '';
+//             this.focus();        
+//         }    
 
-        if (isDupe) {
-            this.value = '';
-            this.focus();        
-        }            
-    });    
+//         if (isDupe) {
+//             this.value = '';
+//             this.focus();        
+//         }            
+//     });    
 
-    let providerOptions = {
-        datalistId: 'all-tags',
-        tagTextInputId:'tag-text-input',
-        url: '/api/tags'
-        //list: ['a','b','c']       
-    };
+//     let providerOptions = {
+//         datalistId: 'all-tags',
+//         tagTextInputId:'tag-text-input',
+//         url: '/api/tags'
+//         //list: ['a','b','c']       
+//     };
     
-    rp.tagChiefDataListProvider.initialize(providerOptions);
-});
+//     rp.tagChiefDataListProvider.initialize(providerOptions);
+// });
 

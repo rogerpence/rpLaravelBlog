@@ -148,16 +148,25 @@ rp.tagchief = (function() {
     };
 
     var addInitialTags = (initialTags) => {
-        initialTags.forEach(function(tag) {
-            addTag(tag);
-        });
+        let el = document.getElementById(inputTagIdForServer);
+        if (el.value == '') {
+            return;
+        }
+        let existingTags = (el.value).split(',').sort();
+        el.value = '';
+
+        //let tagsArray = ['javascript', 'css'];
+
+        for (let i = 0, len = existingTags.length; i < len; i++) {
+            addTag(existingTags[i].trim());
+        }
     };
 
     var setOptions = (options) => {
         if (options.hasOwnProperty('editableTags')) {
             tagTextInputId = options.editableTags.tagTextInputId;
             inputTagIdForServer = options.editableTags.inputTagIdForServer;
-            addInitialTags(options.editableTags.initialTags);
+            addInitialTags();
             // Note that onTagAdded doesn't fire for tags added with 
             // addInitialTags() method.
             onTagRemoved = options.editableTags.onTagRemovedHandler;

@@ -54,7 +54,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="title">Title</label>
+                    <label for="title"><strong>Title</strong></label>
                     <a data-toggle="popover" title="Title" data-trigger="hover" data-content="For best search results this needs to be as close to 70 characters as possible."
                         href="#" onclick="return false;">
                         &nbsp;
@@ -67,7 +67,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="subtitle">Subtitle</label>
+                    <label for="subtitle"><strong>Subtitle</strong></label>
                     <a data-toggle="popover" title="Title" data-trigger="hover" data-content="Optional post subtitle."
                         href="#" onclick="return false;">
                         &nbsp;
@@ -79,7 +79,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="tags">Tags</label>
+                    <label for="tags"><strong>Tags</strong></label>
                     <a data-toggle="popover" title="Tags" data-trigger="hover" data-content="Post tags."
                         href="#" onclick="return false;">
                         &nbsp;
@@ -93,15 +93,19 @@
                         id with TagChief's options. Tags are added to the page with insertAdjacentHTML 
                         preceeding this input tag. 
                         -->
-                        <input id="tag-text-input" class="form-control tag-input" type="text"></input>
-                        <br>
-                        <input name="tag-list-for-server" id="tag-list-for-server" type="hidden"></input>
-                    </div>                    
+                        <input id="tag-text-input" class="form-control tag-input" type="text" list="all-tags"></input>
+                        <datalist id="all-tags">
+                        </datalist>  
 
+                        <br>
+                        <input name="tag-list-for-server" id="tag-list-for-server" type="hidden"  
+                               value="{{old('tag-list-for-server', $view['taglist'])}}"></input>
+                    </div>                    
                 </div>
 
+
                 <div class="form-group">
-                    <label for="slug">Slug</label>
+                    <label for="slug"><strong>Slug</strong></label>
                     <a data-toggle="popover" slug="Title" data-trigger="hover" data-content="For best search results this needs to be as close to four or five words as possible."
                         href="#" onclick="return false;">
                         &nbsp;
@@ -114,14 +118,14 @@
                 </div>
 
                 <div class="form-group" id="abstract-container">
-                    <label for="abstract">Abstract</label>
+                    <label for="abstract"><strong>Abstract</strong></label>
                     <small class="text-danger">{{ $errors->first('abstract') }}</small>
 
                     <textarea name="abstract" id="abstract">{{old('abstract', $post->abstract)}}</textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="seo-description">SEO description</label>
+                    <label for="seo-description"><strong>SEO description</strong></label>
                     <a data-toggle="popover" title="SEO Description" data-trigger="hover" 
                        data-content="For best search results this needs to be as close to 160 characters as possible."
                         href="#" onclick="return false;">
@@ -134,7 +138,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="body">Body</label>
+                    <label for="body"><strong>Body</strong></label>
                     <small class="text-danger">{{ $errors->first('body') }}</small>
                     <textarea name="body" id="body">{{old('body', $post->body_markdown)}}</textarea>
                 </div>
@@ -150,15 +154,25 @@
             </div>
 
         </div> <!-- End class="row" -->
+
+        <br>
+        
     </form>
 </div>
 
 @endsection 
 
 @section('main.body-at-bottom')
+    <script>
+        var tags_list = "{!!$view['taglist']!!}";
+    </script>
     <script src="{{ asset('assets/js/simplemde.min.js') }}"></script>
+    
     <script src="{{ asset('assets/js/create.blade.php.js') }}"></script>   
     <!-- <script src="{{ asset('assets/js/vendor/jquery.js') }}"></script>     -->
     <script src="{{ asset('assets/js/vendor/jquery-ui.min.js') }}"></script>    
     <script src="{{ asset('assets/js/tagchief.js') }}"></script>    
+    <script src="{{ asset('assets/js/tagchiefdatalist.js') }}"></script>
+
+    
 @endsection

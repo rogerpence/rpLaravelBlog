@@ -31,51 +31,74 @@ let documentReady = () => {
 
     $('[data-toggle="popover"]').popover()
 
-    $( "#tag-text-input" ).autocomplete( {
-        source : function(req, add) {
-            // req.term = value entered in text box.
-            let url = '/api/tags?startswith=' + req.term;
-            let promise = $.getJSON(url)
-            promise.done(function(json) {
-                add(json);                
-            });
-            promise.fail(function(jqxhr,textStatus,error) {    
-               let x = 'x';                     
-            });
-        },    
-        select : function(e, ui) {
-            document.getElementById('tag-text-input').value = '';
+    // $( "#tag-text-input" ).autocomplete( {
+    //     source : function(req, add) {
+    //         // req.term = value entered in text box.
+    //         let url = '/api/tags?startswith=' + req.term;
+    //         let promise = $.getJSON(url)
+    //         promise.done(function(json) {
+    //             add(json);                
+    //         });
+    //         promise.fail(function(jqxhr,textStatus,error) {    
+    //            let x = 'x';                     
+    //         });
+    //     },    
+    //     select : function(e, ui) {
+    //         document.getElementById('tag-text-input').value = '';
+    //         return false;
 
-            // var TABKEY = 9;
-            // this.value = ui.item.value;
-
-            // if (event.keyCode == TABKEY) { 
-            //     event.preventDefault();
-            //     this.value = this.value + " ";
-            //     $('#search').focus();
-            // }
-
-            return false;
-
-            //$( "#slug" ).val( ui.item.value );
-            return false;
-        },
-        focus: function (event, ui) {
-            var menu = $(this).data("uiAutocomplete").menu.element;
-            focused = menu.find("li:has(a.ui-state-focus)");
-            console.log(focused.attr('class'));
-        }         
-    });     
-
-    // $( "input#post-tags" ).autocomplete( {
-    //     source : function( req, add ) {
-    //         var s = [ "John", "Paul", "George", "Ringo" ];
-    //         add( s );
     //     },
-    //     select : function( e, ui ) {
-    //         $( "#slug" ).val( ui.item.value );
-    //     } 
+    //     focus: function (event, ui) {
+    //         var menu = $(this).data("uiAutocomplete").menu.element;
+    //         focused = menu.find("li:has(a.ui-state-focus)");
+    //         console.log(focused.attr('class'));
+    //     }         
     // });     
+
+    const tagChiefOptions = {
+        editableTags: {
+            tagTextInputId: 'tag-text-input', // default is 'tag-text-input'
+            inputTagIdForServer: 'tag-list-for-server', // default is 'tag-list-for-server'
+            onTagAddedHandler: (tag) => {
+                rp.tagChiefDataListProvider.appendTagIfAdhocTag(tag);
+                rp.tagChiefDataListProvider.clearAndFocusTagInputElement();
+            },
+            onTagRemovedHandler: (tag) => {
+                rp.tagChiefDataListProvider.removeIfAdhocTag(tag);
+            },
+            onDupeDetected: (tag) => {
+                rp.tagChiefDataListProvider.hideDatalistDropDown();
+            }
+        }
+    };
+
+        rp.tagchief.setOptions(tagChiefOptions);
+
+        rp.tagChiefDataListProvider.registerInputHandler(function (e) {
+            let tagText = this.value;
+            let isDupe = rp.tagchief.isDuplicate(tagText);
+
+            if (rp.tagChiefDataListProvider.isTagInTagList(tagText) && !isDupe) {
+                rp.tagchief.addTag(tagText);
+                this.value = '';
+                this.focus();
+            }
+
+            if (isDupe) {
+                this.value = '';
+                this.focus();
+            }
+        });
+
+        let providerOptions = {
+            datalistId: 'all-tags',
+            tagTextInputId: 'tag-text-input',
+            url: '/api/tags'
+            //list: ['a','b','c']       
+        };
+
+        rp.tagChiefDataListProvider.initialize(providerOptions);
+
     
 };
 

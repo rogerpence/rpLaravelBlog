@@ -20,6 +20,12 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+/*
+DB::table('post_tag')->where('post_id','=', $post_id)->delete();
+$post->tags->pluck('name');
+*/
+
     public function index()
     {
         $posts = \App\Post::orderBy('created_at', 'desc')->get();
@@ -41,9 +47,7 @@ class PostsController extends Controller
     }
 
     public function store()
-    {
-        dd(request()->all());
-        
+    {       
         $id = (request()->has('postid')) ? request('postid') : 0;
         $this->validate(request(), \App\Post::getValidationRules($id));                
 
@@ -69,6 +73,8 @@ class PostsController extends Controller
         // $post = \App\Post::find($id);
         $post = \App\Post::where('slug', '=', $slug )->first();
         $comments = $post->hasMany(Comment::class)->where('comment_id',0)->where('approved', true)->get();
+        $tag_array = $post->tags->pluck('name')->toArray();
+        $taglist = implode(",", $tag_array);
 
         //$replies = $comment->hasMany(App\Comment::class)->where('comment_id',$comments->id);
 
@@ -88,11 +94,14 @@ class PostsController extends Controller
         $post = \App\Post::find($id);
         // dd($post);
         // return view('posts.create', compact('posts'));
-
+        $tag_array = $post->tags->pluck('name')->toArray();
+        $taglist = implode(",", $tag_array);
         $view = ['url' => route('posts.store'),
                  'action' => 'POST',
-                 'spoof_action' => 'PATCH'];          
-        return view('posts.create')->with('post', $post)->with('view', $view);
+                 'spoof_action' => 'PATCH',
+                 'taglist' => $taglist];          
+        return view('posts.create')->with('post', $post)->
+                                     with('view', $view);
     }        
 }
 

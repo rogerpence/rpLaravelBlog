@@ -2,7 +2,7 @@
 
 namespace App\Classes;
 
-class Repository {
+class Repositoryxxx {
 
     public function getMessage($name)
     {
@@ -33,6 +33,10 @@ class Repository {
         $post->seo_keywords = ''; 
         $post->status = request('status');
         $post->date_to_publish = new \DateTime('1959-06-02');
+
+        $tags = explode(',', $tagstr);
+
+
 
         $post->save();
     }

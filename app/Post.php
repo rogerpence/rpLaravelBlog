@@ -27,6 +27,11 @@ class Post extends Model
         // Works.            
         // $post->hasMany(Comment::class)->where('comment_id','=',0)->get()
     }
+
+    public function tags() 
+    {
+        return $this->belongsToMany(Tag::class);
+    }
 }
 
 
