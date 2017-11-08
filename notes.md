@@ -46,3 +46,13 @@ Each `.desktop` file must also be made executable with:
     chgmod u+x run1vm.desktop
 
 After saving a `.desktop` file it shows immediately on your desktop.
+
+
+Queries
+
+Get a list of tags with posts associated with them.
+App\Tag::has('posts')->pluck('name');
+
+Get a list of tags associated with a post
+
+$post->tags->pluck('name')

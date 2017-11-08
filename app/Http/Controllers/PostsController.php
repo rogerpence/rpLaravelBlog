@@ -72,7 +72,9 @@ $post->tags->pluck('name');
 
         // $post = \App\Post::find($id);
         $post = \App\Post::where('slug', '=', $slug )->first();
-        $comments = $post->hasMany(Comment::class)->where('comment_id',0)->where('approved', true)->get();
+//        if (count($post->comments) > 0) {
+            $comments = $post->hasMany(Comment::class)->where('comment_id',0)->where('approved', true)->get();
+  //      }
         $tag_array = $post->tags->pluck('name')->toArray();
         $taglist = implode(",", $tag_array);
 

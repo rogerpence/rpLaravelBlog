@@ -21,6 +21,7 @@ class PostsTableSeeder extends Seeder
                 'title' => $title,
                 'slug' => $faker->randomLetter() . '-' . $faker->randomLetter(), 
                 'abstract' => $faker->text(280),
+                'abstract_html' => $faker->text(280),
                 'seo_description' => $faker->text(30),
                 'seo_keywords' => $faker->text(18),
                 'body_html' => $faker->text(240),

@@ -4,6 +4,7 @@
    <!-- CSS or other HTML at end of head tag. -->
    @section('main.head')
     <title>rogerpence.com</title>
+    <link rel="stylesheet" href="{{ asset('assets/css/tagchief.css') }}">
 @endsection 
 
 @section('left-column')
@@ -19,14 +20,24 @@
                 {{$post->created_at->format('l, M d, Y')}} by rp
             </div>        
             <div>
-                {!! $post->abstract !!}
+                {!! $post->abstract_html !!}
             </div>
             <br>
-            <div>
+
+            <div class="tags-container">
                 <!-- <button type="button" class="btn btn-sm btn-primary">Read more</button>&nbsp;&nbsp;&nbsp; -->
-                <a class="btn btn-primary btn-tiny" href="/posts/{{ $post->id }}" role="button">Read more</a>
-                <a href="#">Laravel</a> | <a href="#">JavaScript</a> | <a href="#">PHP</a>
+                <a class="small xbtn xbtn-primary xbtn-tiny" href="/posts/{{ $post->id }}" role="xbutton">Read more</a>&nbsp;
+                @if (count($post->tags))
+                    @foreach ($post->tags as $tag)
+                        <span class="tag">
+                            <a href="/posts/tags/{{$tag->name}}">
+                                {{$tag->name}} 
+                            </a>                        
+                        </span>
+                    @endforeach
+                @endif 
             </div>
+
             <hr>
         </div>    
     @endforeach

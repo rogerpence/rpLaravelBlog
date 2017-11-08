@@ -2,10 +2,11 @@
 
 namespace App\Classes;
 
-class Repositoryxxx {
+class DataBaseUtility {
 
     public function getMessage($name)
     {
+        print_r('hi there');
         return 'Hello, ' . $name;
     }
 

@@ -40,3 +40,4 @@ Route::get('/dashboard/comments', 'DashboardController@comments')->name('dashboa
 
 Route::get('/test', 'TestsController@auto')->name('test.auto');
 
+Route::get('/posts/tags/{tag}', 'TagsController@index');

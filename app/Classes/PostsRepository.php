@@ -29,6 +29,7 @@ class PostsRepository {
         $post->body_markdown = request('body');
 
         $post->abstract = request('abstract');
+        $post->abstract_html = $parse_down->text(request('abstract'));
         $post->seo_description = request('seo_description');
         $post->seo_keywords = ''; 
         $post->status = request('status');

@@ -5,7 +5,7 @@ body {
 .tags-container {
     width: 100%;
     justify-content: left;
-    border: solid 1px whitesmoke;
+    /*border: solid 1px whitesmoke;*/
     flex-wrap: wrap;
     -webkit-flex-wrap: wrap;
     -ms-box-orient: horizontal;
@@ -42,6 +42,10 @@ span.tag {
     -moz-transition: background-color .5s linear;
     -webkit-transition: background-color .5s linear;
     -ms-transition: background-color .5s linear;
+}
+
+span.tag a {
+    text-decoration: none;
 }
 
 a.tag-x, a.tag-x-readonly {

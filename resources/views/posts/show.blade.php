@@ -24,6 +24,7 @@
                 @if(!$comments->isEmpty())
                     <br>
                     <h4>Comments</h4>
+                    @if (count($comments)) 
                     @foreach ($comments as $comment)
                         <ul class="list-group>">
                             <li class="list-group-item" style="background-color: whitesmoke">
@@ -38,6 +39,7 @@
                             </li>
                         </ul>
                     @endforeach
+                    @endif
                 @endif               
                 <h4>Add your comment</h4>                                   
                 <div>

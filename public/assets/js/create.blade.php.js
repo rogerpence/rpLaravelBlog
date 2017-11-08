@@ -58,19 +58,23 @@ let documentReady = () => {
     let providerOptions = {
         datalistId: 'all-tags',
         tagTextInputId: 'tag-text-input',
-        inputHandlerFn: () => {
-            let tagText = this.value;
+        inputHandlerFn: (e, obj) => {
+            // Handles 'input' event from tagTextInputId element. The e argument
+            // is the event object passed to the 'input' handler and the 'obj'
+            // is the element identified by 'tagTextInputId.' That option value
+            // can't be directly referenced here because it is out of scope.  
+            let tagText = obj.value;
             let isDupe = rp.tagchief.isDuplicate(tagText);
 
             if (rp.tagChiefDataListProvider.isTagInTagList(tagText) && !isDupe) {
                 rp.tagchief.addTag(tagText);
-                this.value = '';
-                this.focus();
+                obj.value = '';
+                obj.focus();
             }
 
             if (isDupe) {
-                this.value = '';
-                this.focus();
+                obj.value = '';
+                obj.focus();
             }
         },
         url: '/api/tags'

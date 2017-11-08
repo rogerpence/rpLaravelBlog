@@ -10,7 +10,13 @@ rp.tagChiefDataListProvider = (function () {
     const initialize = (options) => {
         datalistId = options.datalistId;
         tagTextInputId = options.tagTextInputId;
-        registerInputHandler(options.inputHandlerFn);
+
+        let el = document.getElementById(tagTextInputId);
+        el.addEventListener('input', function(e) {
+            if (typeof options.inputHandlerFn == 'function') {
+                options.inputHandlerFn(e, this);
+            }                
+        });        
 
         const fn = (list) => {
             assignInitialTagsList(list);
@@ -31,10 +37,6 @@ rp.tagChiefDataListProvider = (function () {
         else if (options.hasOwnProperty('list')) {
             fn(options.list);
         }
-    };
-
-    const registerInputHandler = (fn) => {
-        document.getElementById(tagTextInputId).addEventListener('input', fn);        
     };
 
     const performGetJsonRequest = (url) => {
@@ -135,6 +137,4 @@ rp.tagChiefDataListProvider = (function () {
         clearAndFocusTagInputElement: clearAndFocusTagInputElement,
         removeIfAdhocTag: removeIfAdhocTag
     };
-
-}());  
-
+}()); 
