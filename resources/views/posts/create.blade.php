@@ -67,6 +67,19 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="slug"><strong>Slug</strong></label>
+                    <a data-toggle="popover" slug="Title" data-trigger="hover" data-content="For best search results this needs to be as close to four or five words as possible."
+                        href="#" onclick="return false;">
+                        &nbsp;
+                        <i class="fa fa-info-circle"></i>
+                    </a>
+                    <small class="text-danger">{{ $errors->first('slug') }}</small>
+
+                    <input maxlength="70" type="text" class="form-control" id="slug" titledby="titleHelp" name="slug" placeholder="Post slug"
+                        value="{{old('slug', $post->slug)}}">
+                </div>
+               
+                <div class="form-group">
                     <label for="subtitle"><strong>Subtitle</strong></label>
                     <a data-toggle="popover" title="Title" data-trigger="hover" data-content="Optional post subtitle."
                         href="#" onclick="return false;">
@@ -101,20 +114,6 @@
                         <input name="tag-list-for-server" id="tag-list-for-server" type="hidden"  
                                value="{{old('tag-list-for-server', $view['taglist'])}}"></input>
                     </div>                    
-                </div>
-
-
-                <div class="form-group">
-                    <label for="slug"><strong>Slug</strong></label>
-                    <a data-toggle="popover" slug="Title" data-trigger="hover" data-content="For best search results this needs to be as close to four or five words as possible."
-                        href="#" onclick="return false;">
-                        &nbsp;
-                        <i class="fa fa-info-circle"></i>
-                    </a>
-                    <small class="text-danger">{{ $errors->first('slug') }}</small>
-
-                    <input maxlength="70" type="text" class="form-control" id="slug" titledby="titleHelp" name="slug" placeholder="Post slug"
-                        value="{{old('slug', $post->slug)}}">
                 </div>
 
                 <div class="form-group" id="abstract-container">

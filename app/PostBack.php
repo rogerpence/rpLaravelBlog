@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PostBack extends Model
 {
-    protected $table = 'postsback';
+    protected $table = 'posts_back';
     public $timestamps = false;
    
 }
