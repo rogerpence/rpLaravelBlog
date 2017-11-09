@@ -18,12 +18,14 @@
 
             <div class="post-date-line">
                 {{$post->created_at->format('l, M d, Y')}} by rp
-            </div>        
+            @auth
+                <a title="Edit post" href="/posts/{{ $post->slug }}" ><i class="fa fa-pencil"></i></a>
+            @endauth          
+            </div>
             <div>
                 {!! $post->abstract_html !!}
             </div>
-            <br>
-
+            
             <div class="tags-container">
                 <!-- <button type="button" class="btn btn-sm btn-primary">Read more</button>&nbsp;&nbsp;&nbsp; -->
                 <a class="small xbtn xbtn-primary xbtn-tiny" href="/posts/{{ $post->id }}" role="xbutton">Read more</a>&nbsp;

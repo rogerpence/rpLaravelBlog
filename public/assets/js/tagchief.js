@@ -25,7 +25,7 @@ rp.tagchief = (function() {
             this.focus();
             return false;
 
-        } else if (e.keyCode == ENTERKEY) {
+        } else if (e.keyCode == TABKEY) {
             if (this.value.trim() == '') {
                 e.preventDefault();
                 this.focus();

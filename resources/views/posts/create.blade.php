@@ -54,8 +54,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="title"><strong>Title</strong></label>
-                    <a data-toggle="popover" title="Title" data-trigger="hover" data-content="For best search results this needs to be as close to 70 characters as possible."
+                    <label for="title"><strong>Title and slug</strong></label>
+                    <a data-toggle="popover" title="Title" data-trigger="hover" data-content="Blog title (~70 characters) and its slug (below)."
                         href="#" onclick="return false;">
                         &nbsp;
                         <i class="fa fa-info-circle"></i>
@@ -64,9 +64,13 @@
 
                     <input maxlength="70" type="text" class="form-control" id="title" titledby="titleHelp" name="title" placeholder="Post title"
                         value="{{old('title', $post->title)}}">
+
+                    <small class="text-danger">{{ $errors->first('slug') }}</small>
+                    <input maxlength="70" type="text" class="form-control" id="slug" titledby="titleHelp" name="slug" placeholder="Post slug"
+                        value="{{old('slug', $post->slug)}}">
                 </div>
 
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="slug"><strong>Slug</strong></label>
                     <a data-toggle="popover" slug="Title" data-trigger="hover" data-content="For best search results this needs to be as close to four or five words as possible."
                         href="#" onclick="return false;">
@@ -77,7 +81,7 @@
 
                     <input maxlength="70" type="text" class="form-control" id="slug" titledby="titleHelp" name="slug" placeholder="Post slug"
                         value="{{old('slug', $post->slug)}}">
-                </div>
+                </div> -->
                
                 <div class="form-group">
                     <label for="subtitle"><strong>Subtitle</strong></label>
