@@ -43,7 +43,7 @@
                         <div class="col com-sm-2">
                             <div class="form-group">
                                 <div class="dropdown">
-                                    <select name="status" id="status" class="mb-select">
+                                    <select class="form-control" name="status" id="status" class="mb-select">
                                         <option value="0" {!! $post->status == 0 ? 'selected="selected"' : ''!!}>Draft</option>
                                         <option value="1" {!! $post->status == 1 ? 'selected="selected"' : ''!!}>Published</option>
                                     </select>
@@ -54,7 +54,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="title"><strong>Title and slug</strong></label>
+                    <label for="title"><strong>Title and Slug</strong></label>
                     <a data-toggle="popover" title="Title" data-trigger="hover" data-content="Blog title (~70 characters) and its slug (below)."
                         href="#" onclick="return false;">
                         &nbsp;

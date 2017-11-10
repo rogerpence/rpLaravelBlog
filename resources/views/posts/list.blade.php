@@ -18,9 +18,6 @@
 
             <div class="post-date-line">
                 {{$post->created_at->format('l, M d, Y')}} by rp
-            @auth
-                <a title="Edit post" href="/posts/{{ $post->slug }}" ><i class="fa fa-pencil"></i></a>
-            @endauth          
             </div>
             <div>
                 {!! $post->abstract_html !!}
@@ -28,6 +25,9 @@
             
             <div class="tags-container">
                 <!-- <button type="button" class="btn btn-sm btn-primary">Read more</button>&nbsp;&nbsp;&nbsp; -->
+                @auth
+                    <a title="Edit post" href="/posts/{{ $post->id }}/edit" ><i class="fa fa-pencil"></i></a>&nbsp;
+                @endauth          
                 <a class="small xbtn xbtn-primary xbtn-tiny" href="/posts/{{ $post->id }}" role="xbutton">Read more</a>&nbsp;
                 @if (count($post->tags))
                     @foreach ($post->tags as $tag)
@@ -41,13 +41,24 @@
             </div>
 
             <hr>
-        </div>    
+        </div>    ''
     @endforeach
 
 @endsection    
 
 @section('right-column')
-    Right column
+        <h4>Tags</h4>
+
+            <div class="tags-container">                
+            @foreach ($activeTags as $activeTag) 
+            <a class="pseudo-list" href="/posts/tags/{{ $activeTag }}">{{ $activeTag }}</a> 
+            @if($activeTag != end($activeTags))&nbsp;|&nbsp;@endif
+            {{-- <li class="xlist-group simple-list-item">
+                <a class="xxsimple-list-item" href="/posts/tags/{{ $activeTag }}">{{ $activeTag }}</a>&nbsp;
+            </li> --}}
+            @endforeach        
+            </div>
+        
 @endsection 
 
 @section('main.body-at-bottom')

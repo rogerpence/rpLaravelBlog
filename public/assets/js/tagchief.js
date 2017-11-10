@@ -27,9 +27,7 @@ rp.tagchief = (function() {
 
         } else if (e.keyCode == TABKEY) {
             if (this.value.trim() == '') {
-                e.preventDefault();
-                this.focus();
-                return false;
+                return true;
             }
 
             if (isDuplicate(this.value.trim().toLowerCase())) {

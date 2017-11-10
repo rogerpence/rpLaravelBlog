@@ -32,6 +32,12 @@ class Post extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+
+    public static function activeTags() 
+    {
+        return \App\Tag::has('posts')->orderby('name','asc')->pluck('name')->toArray();
+    }        
+    
 }
 
 
