@@ -5,6 +5,7 @@
    <link rel="stylesheet" href="{{ asset('assets/css/simplemde.min.css') }}">
    <link rel="stylesheet" href="{{ asset('assets/js/vendor/jquery-ui.min.css') }}">
    <link rel="stylesheet" href="{{ asset('assets/js/vendor/jquery-ui.theme.min.css') }}">
+   <link rel="stylesheet" href="{{ asset('assets/js/vendor/flatpickr.css') }}">
    <link rel="stylesheet" href="{{ asset('assets/css/tagchief.css') }}">
    <style>
     #abstract-container .CodeMirror, #abstract-container  .CodeMirror-scroll 
@@ -40,7 +41,9 @@
                                 <button type="submit" class="btn btn-primary btn-md">Save</button>
                             </div>                                
                         </div>
-                        <div class="col com-sm-2">
+
+
+                        <!-- <div class="col com-sm-2">
                             <div class="form-group">
                                 <div class="dropdown">
                                     <select class="form-control" name="status" id="status" class="mb-select">
@@ -49,7 +52,9 @@
                                     </select>
                                 </div>
                             </div>    
-                        </div>
+                        </div> -->
+
+
                     </div>
                 </div>
 
@@ -70,6 +75,19 @@
                         value="{{old('slug', $post->slug)}}">
                 </div>
 
+                <div class="form-group">
+                    <label for="subtitle"><strong>Subtitle</strong></label>
+                    <a data-toggle="popover" title="Title" data-trigger="hover" data-content="Optional post subtitle."
+                        href="#" onclick="return false;">
+                        &nbsp;
+                        <i class="fa fa-info-circle"></i>
+                    </a>
+
+                    <input type="text" class="form-control" id="subtitle" titledby="titleHelp" name="subtitle" placeholder="Post subtitle"
+                        value="{{old('subtitle', $post->subtitle)}}">
+                </div>
+                
+
                 <!-- <div class="form-group">
                     <label for="slug"><strong>Slug</strong></label>
                     <a data-toggle="popover" slug="Title" data-trigger="hover" data-content="For best search results this needs to be as close to four or five words as possible."
@@ -82,18 +100,31 @@
                     <input maxlength="70" type="text" class="form-control" id="slug" titledby="titleHelp" name="slug" placeholder="Post slug"
                         value="{{old('slug', $post->slug)}}">
                 </div> -->
-               
-                <div class="form-group">
-                    <label for="subtitle"><strong>Subtitle</strong></label>
-                    <a data-toggle="popover" title="Title" data-trigger="hover" data-content="Optional post subtitle."
-                        href="#" onclick="return false;">
-                        &nbsp;
-                        <i class="fa fa-info-circle"></i>
-                    </a>
-
-                    <input type="text" class="form-control" id="subtitle" titledby="titleHelp" name="subtitle" placeholder="Post subtitle"
-                        value="{{old('subtitle', $post->subtitle)}}">
-                </div>
+                <!-- <div class="form-group"> -->
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="date-to-publish"><strong>Publication date</strong></label>
+                        <a data-toggle="popover" title="Publication date" data-trigger="hover" data-content="Optional post date-to-publish."
+                            href="#" onclick="return false;">
+                            &nbsp;
+                            <i class="fa fa-info-circle"></i>                        
+                        </a>
+                        <input type="text" class="form-control" id="date-to-publish" titledby="titleHelp" name="date-to-publish" placeholder="Publication date"
+                            value="{{old('date_to_publish', $post->date_to_publish)}}">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="status"><strong>Post status</strong></label>
+                        <a data-toggle="popover" title="Post status" data-trigger="hover" data-content="Automatically set to 'publish' on Publication Date."
+                            href="#" onclick="return false;">
+                            &nbsp;
+                            <i class="fa fa-info-circle"></i>                        
+                        </a>
+                        <select class="form-control" name="status" id="status" class="mb-select">
+                            <option value="0" {!! $post->status == 0 ? 'selected="selected"' : ''!!}>Draft</option>
+                            <option value="1" {!! $post->status == 1 ? 'selected="selected"' : ''!!}>Published</option>
+                        </select>
+                    </div>
+                </div>                    
 
                 <div class="form-group">
                     <label for="tags"><strong>Tags</strong></label>
@@ -171,11 +202,12 @@
     </script>
     <script src="{{ asset('assets/js/simplemde.min.js') }}"></script>
     
-    <script src="{{ asset('assets/js/create.blade.php.js') }}"></script>   
     <!-- <script src="{{ asset('assets/js/vendor/jquery.js') }}"></script>     -->
     <script src="{{ asset('assets/js/vendor/jquery-ui.min.js') }}"></script>    
     <script src="{{ asset('assets/js/tagchief.js') }}"></script>    
     <script src="{{ asset('assets/js/tagchiefdatalist.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/flatpickr.js') }}"></script>    
+    <script src="{{ asset('assets/js/create.blade.php.js') }}"></script>   
 
     
 @endsection

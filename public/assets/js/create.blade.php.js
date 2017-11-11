@@ -82,6 +82,10 @@ let documentReady = () => {
     };
 
     rp.tagChiefDataListProvider.initialize(providerOptions);
+
+    const dp = document.getElementById('date-to-publish');
+    const fp = flatpickr(dp, {});
+
 };
 
 rp.core.documentReady(documentReady);

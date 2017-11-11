@@ -48,6 +48,8 @@ $post->tags->pluck('name');
 
     public function store()
     {       
+
+        dd(request()->all());            
         $id = (request()->has('postid')) ? request('postid') : 0;
         $this->validate(request(), \App\Post::getValidationRules($id));                
 
