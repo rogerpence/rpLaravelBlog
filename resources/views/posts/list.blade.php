@@ -32,7 +32,7 @@
                 @auth
                     <a title="Edit post" href="/posts/{{ $post->id }}/edit" ><i class="fa fa-pencil"></i></a>&nbsp;
                 @endauth          
-                <a class="small xbtn xbtn-primary xbtn-tiny" href="/posts/{{ $post->slug }}" role="xbutton">Read more</a>&nbsp;
+                <a class="small xbtn xbtn-primary xbtn-tiny" href="/posts/{{ $post->slug }}" role="xbutton">Read post</a>&nbsp;
                 @if (count($post->tags))
                     @foreach ($post->tags as $tag)
                         <span class="tag">

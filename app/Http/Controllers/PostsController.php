@@ -51,7 +51,8 @@ $post->tags->pluck('name');
 
         $view = ['url' => route('posts.store'),
                  'action' => 'POST',
-                 'taglist' => ''];        
+                 'taglist' => '',
+                 'mode' => 'create'];        
         return view('posts.create', compact('post'))->with('view', $view);;
     }
 
@@ -99,6 +100,14 @@ $post->tags->pluck('name');
                                    with('post_id', $post->id);
     }        
 
+    public function destroy($id)
+    {
+        $post = \App\Post::find($id);
+        \App\PostTag::where('post_id',$id)->delete();
+        $post->delete();
+
+        return redirect()->route('posts.list');
+    }
 
     public function edit($id) 
     {
@@ -108,7 +117,8 @@ $post->tags->pluck('name');
         $view = ['url' => route('posts.store'),
                  'action' => 'POST',
                  'spoof_action' => 'PATCH',
-                 'taglist' => $taglist];          
+                 'taglist' => $taglist,  
+                 'mode' => 'edit'];        
         return view('posts.create')->with('post', $post)->
                                      with('view', $view);
     }        

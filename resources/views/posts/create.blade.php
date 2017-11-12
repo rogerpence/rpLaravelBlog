@@ -3,8 +3,10 @@
 @section('main.head')
    <!-- CSS or other HTML at end of head tag. -->
    <link rel="stylesheet" href="{{ asset('assets/css/simplemde.min.css') }}">
-   <link rel="stylesheet" href="{{ asset('assets/js/vendor/jquery-ui.min.css') }}">
-   <link rel="stylesheet" href="{{ asset('assets/js/vendor/jquery-ui.theme.min.css') }}">
+   <!-- <link rel="stylesheet" href="{{ asset('assets/js/vendor/jquery-ui.min.css') }}"> -->
+   <!-- <link rel="stylesheet" href="{{ asset('assets/js/vendor/jquery-ui.theme.min.css') }}"> -->
+   <link rel="stylesheet" href="{{ asset('assets/js/vendor/tingle.css') }}">
+   
    <link rel="stylesheet" href="{{ asset('assets/js/vendor/flatpickr.css') }}">
    <link rel="stylesheet" href="{{ asset('assets/css/tagchief.css') }}">
    <style>
@@ -24,7 +26,7 @@
         @endif
 
         @if (isset($post->id))
-            <input type="hidden" name="postid" value="{{ $post->id }}"> 
+            <input type="hidden" id="postid" name="postid" value="{{ $post->id }}"> 
         @endif
 
         {{ csrf_field() }}
@@ -181,6 +183,10 @@
 
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-sm">Save</button>
+
+                    @if( $view['mode'] == 'edit')
+                        <a id="delete-post" class="btn btn-danger pull-right btn-sm" href="#" role="button">Delete post</a>
+                    @endif                    
                 </div>
             </div>
 
@@ -204,6 +210,7 @@
     
     <!-- <script src="{{ asset('assets/js/vendor/jquery.js') }}"></script>     -->
     <script src="{{ asset('assets/js/vendor/jquery-ui.min.js') }}"></script>    
+    <script src="{{ asset('assets/js/vendor/tingle.js') }}"></script>        
     <script src="{{ asset('assets/js/tagchief.js') }}"></script>    
     <script src="{{ asset('assets/js/tagchiefdatalist.js') }}"></script>
     <script src="{{ asset('assets/js/vendor/flatpickr.js') }}"></script>    
