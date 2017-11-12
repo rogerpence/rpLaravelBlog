@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Classes\PostsRepository;
 use App\Comment;
+use Illuminate\Support\Facades\Auth;
+
 
 class PostsController extends Controller
 {
@@ -28,8 +30,12 @@ $post->tags->pluck('name');
 
     public function index()
     {
-        $posts = \App\Post::orderBy('created_at', 'desc')->get();
-
+        if (Auth::user()) {
+            $posts = \App\Post::orderBy('created_at', 'desc')->get();
+        }
+        else {
+            $posts = \App\Post::where('status', 1)->orderBy('created_at', 'desc')->get();            
+        }
         // // return view('posts.create', compact('post'));
         // $data = ['url' => action('PostsController@index'),
         //          'action' => 'POST'];  
@@ -41,15 +47,19 @@ $post->tags->pluck('name');
     {
         $post = new \App\Post;
 
+        $post->date_to_publish = \Carbon\Carbon::now()->toDateString();
+
         $view = ['url' => route('posts.store'),
-                 'action' => 'POST'];        
+                 'action' => 'POST',
+                 'taglist' => ''];        
         return view('posts.create', compact('post'))->with('view', $view);;
     }
 
     public function store()
     {       
 
-        dd(request()->all());            
+        //dd(request()->all());           
+
         $id = (request()->has('postid')) ? request('postid') : 0;
         $this->validate(request(), \App\Post::getValidationRules($id));                
 
@@ -72,11 +82,8 @@ $post->tags->pluck('name');
         // dd(request()->all());
         // dd($id);
 
-        // $post = \App\Post::find($id);
         $post = \App\Post::where('slug', '=', $slug )->first();
-//        if (count($post->comments) > 0) {
-            $comments = $post->hasMany(Comment::class)->where('comment_id',0)->where('approved', true)->get();
-  //      }
+        $comments = $post->hasMany(Comment::class)->where('comment_id',0)->where('approved', true)->get();
         $tag_array = $post->tags->pluck('name')->toArray();
         $taglist = implode(",", $tag_array);
 
@@ -96,8 +103,6 @@ $post->tags->pluck('name');
     public function edit($id) 
     {
         $post = \App\Post::find($id);
-        // dd($post);
-        // return view('posts.create', compact('posts'));
         $tag_array = $post->tags->pluck('name')->toArray();
         $taglist = implode(",", $tag_array);
         $view = ['url' => route('posts.store'),

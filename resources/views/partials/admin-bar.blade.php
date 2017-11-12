@@ -10,15 +10,23 @@
             <a title="New post" class="nav-link" href="/posts/create"><i class="fa fa-plus-circle admin-icon"></i></a>
         </li>
 
-        <!-- @if ( ! empty($slug) ) 
+        {{--
+        @if ( ! empty($slug) ) 
+        --}}
+
+        {{--
         <li class="nav-item">
             <a title="Edit post" class="nav-link" href="{{ route('posts.edit', [$post_id]) }}" ><i class="fa fa-pencil admin-icon"></i></a>
         </li>        
+        --}}
+
+        {{--
         @else
         <li class="nav-item">
             <a title="Edit post" class="nav-link" disabled><i class="fa fa-pencil admin-icon"></i></a>
         </li>                
-        @endif -->
+        @endif
+        --}}
 
     </ul>
 </div>

@@ -19,18 +19,32 @@ rp.tagchief = (function() {
 
         let e = ev || window.event;
 
-        if (e.keyCode == ESCAPEKEY) {
+        console.log("'" + this.value + "'");
+
+        if (e.keyCode == ESCAPEKEY) 
+        {
             this.value = '';
             e.preventDefault();
             this.focus();
             return false;
-
-        } else if (e.keyCode == TABKEY) {
+        }
+        else if (e.keyCode == BACKSPACEKEY) 
+        {            
             if (this.value.trim() == '') {
+                e.preventDefault();
+                this.focus();
+                return false;
+            }
+        } 
+        else if (e.keyCode == TABKEY) 
+        {
+            if (this.value.trim() == '') 
+            {
                 return true;
             }
 
-            if (isDuplicate(this.value.trim().toLowerCase())) {
+            if (isDuplicate(this.value.trim().toLowerCase())) 
+            {
                 this.value = '';
                 e.preventDefault();
                 this.focus();
@@ -116,6 +130,10 @@ rp.tagchief = (function() {
     }
 
     var addTag = (tag) => {
+        if (tag.trim() == '') 
+        {
+            return;
+        }
         let html = getTagHtml(tag, TAG_TEMPLATE_EDIT);
 
         // Insert new tag html immediately before input tag

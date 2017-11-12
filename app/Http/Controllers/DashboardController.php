@@ -29,7 +29,9 @@ class DashboardController extends Controller
         $view = new \stdClass();
         $view->subview = 'dashboard.comments';
 
-        return view('dashboard.main', compact('comments'))->with('view', $view);;
+        return view('dashboard.main', compact('comments'))->with('view', $view);
     }        
+    
+
     
 }

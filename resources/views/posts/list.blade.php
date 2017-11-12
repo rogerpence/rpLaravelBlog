@@ -17,18 +17,22 @@
             @endisset
 
             <div class="post-date-line">
-                {{$post->created_at->format('l, M d, Y')}} by rp
+                @if ($post->status==0)
+                    <span style="display:inline;" class="badge badge-warning">Draft</span>
+                @endif            
+
+                {{substr($post->date_to_publish,0,10)}} by rp
             </div>
+
             <div>
                 {!! $post->abstract_html !!}
             </div>
             
             <div class="tags-container">
-                <!-- <button type="button" class="btn btn-sm btn-primary">Read more</button>&nbsp;&nbsp;&nbsp; -->
                 @auth
                     <a title="Edit post" href="/posts/{{ $post->id }}/edit" ><i class="fa fa-pencil"></i></a>&nbsp;
                 @endauth          
-                <a class="small xbtn xbtn-primary xbtn-tiny" href="/posts/{{ $post->id }}" role="xbutton">Read more</a>&nbsp;
+                <a class="small xbtn xbtn-primary xbtn-tiny" href="/posts/{{ $post->slug }}" role="xbutton">Read more</a>&nbsp;
                 @if (count($post->tags))
                     @foreach ($post->tags as $tag)
                         <span class="tag">
@@ -48,16 +52,13 @@
 
 @section('right-column')
         <h4>Tags</h4>
-
-            <div class="tags-container">                
+        <div class="tags-container">                
             @foreach ($activeTags as $activeTag) 
             <a class="pseudo-list" style="color: black;" href="/posts/tags/{{ $activeTag }}">{{ $activeTag }}</a> 
-            @if($activeTag != end($activeTags))<i class="fa fa-circle"style="font-size:40%;margin-top:10px;margin-left:5px;margin-right:5px;"></i>@endif
-            {{-- <li class="xlist-group simple-list-item">
-                <a class="xxsimple-list-item" href="/posts/tags/{{ $activeTag }}">{{ $activeTag }}</a>&nbsp;
-            </li> --}}
+            @if($activeTag != end($activeTags))
+                <i class="fa fa-circle"style="font-size:40%;margin-top:10px;margin-left:5px;margin-right:5px;"></i>@endif
             @endforeach        
-            </div>
+        </div>
         
 @endsection 
 

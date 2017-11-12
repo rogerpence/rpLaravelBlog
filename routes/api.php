@@ -29,6 +29,13 @@ Route::get('tags', function (Request $request) {
     return $tags;
 });
 
+Route::get('columns', function (Request $request) {
+     $table_name = $request->input('table');
+     $columns = DB::select('show columns from ' . $table_name);
+    return $columns;
+});
+
+
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });

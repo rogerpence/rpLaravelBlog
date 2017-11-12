@@ -33,7 +33,8 @@ class PostsRepository {
         $post->seo_description = request('seo_description');
         $post->seo_keywords = ''; 
         $post->status = request('status');
-        $post->date_to_publish = new \DateTime('1959-06-02');
+        $publish_date = \Carbon\Carbon::createFromFormat('Y-m-d', request('date-to-publish'));
+        $post->date_to_publish = $publish_date;
         $post->save();
         
 //        \DB::table('post_tag')->where('post_id','=', $post->id)->delete();

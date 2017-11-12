@@ -120,8 +120,8 @@
                             <i class="fa fa-info-circle"></i>                        
                         </a>
                         <select class="form-control" name="status" id="status" class="mb-select">
-                            <option value="0" {!! $post->status == 0 ? 'selected="selected"' : ''!!}>Draft</option>
-                            <option value="1" {!! $post->status == 1 ? 'selected="selected"' : ''!!}>Published</option>
+                            <option class="option-element" value="0" {!! $post->status == 0 ? 'selected="selected"' : ''!!}>Draft</option>
+                            <option class="option-element" value="1" {!! $post->status == 1 ? 'selected="selected"' : ''!!}>Published</option>
                         </select>
                     </div>
                 </div>                    

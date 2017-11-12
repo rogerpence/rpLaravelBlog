@@ -13,8 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        'App\Console\Commands\DBUtility'
-        //
+        'App\Console\Commands\blogTableCopyCommand'
     ];
 
     /**
@@ -40,4 +39,5 @@ class Kernel extends ConsoleKernel
 
         require base_path('routes/console.php');
     }
+
 }
