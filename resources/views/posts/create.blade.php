@@ -20,7 +20,7 @@
 @section('content')
 <div class="container">
     <!-- <form method="POST" action="/posts"> -->
-    <form method="{{ $view['action'] }}" action="{{ $view['url'] }}">
+    <form id="post-content-form" method="{{ $view['action'] }}" action="{{ $view['url'] }}">
         @if (isset($view['spoof_action']))
             <input type="hidden" name="_method" value="{{ $view['spoof_action'] }}"> 
         @endif

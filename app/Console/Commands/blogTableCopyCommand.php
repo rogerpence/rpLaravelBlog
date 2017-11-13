@@ -64,19 +64,21 @@ class blogTableCopyCommand extends Command
         $bar = $this->output->createProgressBar(count($posts));
 
         foreach ($posts as $post) {
-            $postback = new \App\PostBack();
-            $postback->title = $post->title;
-            $postback->subtitle = $post->subtitle;
-            $postback->slug = $post->slug;
-            $postback->body_html = $post->body_html;
-            $postback->body_markdown = $post->body_markdown;
-            $postback->abstract = $post->abstract;
-            $postback->abstract_html = $post->abstract_html;
-            $postback->seo_description = $post->seo_description;
-            $postback->seo_keywords = $post->seo_keywords;
-            $postback->status = $post->status;
-            $postback->date_to_publish = $post->date_to_publish;
-            $postback->save(); 
+            if (substr($post->title,0,2) == '**') {
+                $postback = new \App\PostBack();
+                $postback->title = $post->title;
+                $postback->subtitle = $post->subtitle;
+                $postback->slug = $post->slug;
+                $postback->body_html = $post->body_html;
+                $postback->body_markdown = $post->body_markdown;
+                $postback->abstract = $post->abstract;
+                $postback->abstract_html = $post->abstract_html;
+                $postback->seo_description = $post->seo_description;
+                $postback->seo_keywords = $post->seo_keywords;
+                $postback->status = $post->status;
+                $postback->date_to_publish = $post->date_to_publish;
+                $postback->save(); 
+            }                
 
             $bar->advance();
         }                   

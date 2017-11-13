@@ -75,6 +75,10 @@ a[disabled] i.admin-icon {
     margin-left: -30px;
 }
 
+pre {
+    background-color: whitesmoke;
+    line-height: 24px;
+}
 
 
 

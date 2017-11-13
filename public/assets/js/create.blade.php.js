@@ -1,15 +1,30 @@
 
 
-// (function() {
-//     document.getElementById('title').addEventListener('input', function () {
-//         var slug = document.getElementById('slug');
-//         var slugText = this.value.replace(/(\s+)/g, '-').toLowerCase();
-//         slugText = slugText.replace(/(\.)/g, '').toLowerCase();
-//         slug.value = slugText;
-//     });
-// })();
+(function() {
+    document.getElementById('title').addEventListener('input', function () {
+        var slug = document.getElementById('slug');
+        var slugText = this.value.replace(/(\s+)/g, '-').toLowerCase();
+        slugText = slugText.replace(/(\.)/g, '').toLowerCase();
+        slug.value = slugText;
+    });
+})();
 
 let documentReady = () => {
+
+    document.addEventListener('keydown', (e) => {
+        const SKey = 83;
+
+        if (e.ctrlKey && e.keyCode == SKey) 
+        {
+            event.preventDefault();
+            document.getElementById('post-content-form').submit();
+            return false;
+        }            
+        else 
+        {
+            return true;
+        }
+    });
 
     function post(path, params, method) {
         method = method || "post"; // Set method to post by default if not specified.
@@ -44,13 +59,17 @@ let documentReady = () => {
 
     var simplemdeAbstract = new SimpleMDE({
         element: document.getElementById("abstract"),
-        autofocus: false
+        autofocus: false,
+        indentWithTabs: true,
+        tabSize: 4
         //toolbar: true
     });
 
     var simplemdeBody = new SimpleMDE({
         element: document.getElementById("body"),
-        autofocus: false
+        indentWithTabs: true,
+        autofocus: false,
+        tabSize: 4        
     });
 
     const MAX_SEO_TITLE_LENGTH = 70;
@@ -111,51 +130,54 @@ let documentReady = () => {
     const dp = document.getElementById('date-to-publish');
     const fp = flatpickr(dp, {});
 
-    // instanciate new modal
-    var modal = new tingle.modal({
-        footer: true,
-        stickyFooter: false,
-        closeMethods: ['escape'],
-        closeLabel: "Close",
-        cssClass: ['custom-class-1', 'custom-class-2'],
-        onOpen: function () {
-            //console.log('modal open');
-        },
-        onClose: function () {
-            //console.log('modal closed');
-        },
-        beforeClose: function () {
-            // here's goes some logic
-            // e.g. save content before closing the modal
-            return true; // close the modal
-            //return false; // nothing happens
-        }
-    });
+    const isDeletable = document.getElementById('delete-post');
+    if (isDeletable) {
+        // instanciate new modal
+        var modal = new tingle.modal({
+            footer: true,
+            stickyFooter: false,
+            closeMethods: ['escape'],
+            closeLabel: "Close",
+            cssClass: ['custom-class-1', 'custom-class-2'],
+            onOpen: function () {
+                //console.log('modal open');
+            },
+            onClose: function () {
+                //console.log('modal closed');
+            },
+            beforeClose: function () {
+                // here's goes some logic
+                // e.g. save content before closing the modal
+                return true; // close the modal
+                //return false; // nothing happens
+            }
+        });
 
-    // set content
-    modal.setContent('<h3>Are you sure you want to delete this post?</h3>');
+        // set content
+        modal.setContent('<h3>Are you sure you want to delete this post?</h3>');
 
-    // add a button
-    modal.addFooterBtn('No', 'tingle-btn tingle-btn--primary', function () {
-        modal.close();
-    });
-    
-    // add another button
-    modal.addFooterBtn('Yes', 'tingle-btn tingle-btn--danger', function () {
-        // here goes some logic
-        let parms = {};        
-        let el = document.querySelector('input[name="_token"]');
-        parms._token = el.value;
-        parms._method = 'delete';
+        // add a button
+        modal.addFooterBtn('No', 'tingle-btn tingle-btn--primary', function () {
+            modal.close();
+        });
+        
+        // add another button
+        modal.addFooterBtn('Yes', 'tingle-btn tingle-btn--danger', function () {
+            // here goes some logic
+            let parms = {};        
+            let el = document.querySelector('input[name="_token"]');
+            parms._token = el.value;
+            parms._method = 'delete';
 
-        let post_id = document.getElementById('postid').value;
+            let post_id = document.getElementById('postid').value;
 
-        post(`/post/${post_id}`, parms);        
-    });    
+            post(`/post/${post_id}`, parms);        
+        });    
 
-    document.getElementById('delete-post').addEventListener('click', (e) => {
-        modal.open()
-    });    
+        document.getElementById('delete-post').addEventListener('click', (e) => {
+            modal.open()
+        });    
+    }        
 
 };
 

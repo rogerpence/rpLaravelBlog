@@ -13,7 +13,8 @@ class CommentsRepository {
         $comment->comment_id = 0;
         $comment->approved = true;
         $comment->text = request('comment_text');        
-        $comment->from = request('from');
+        $comment->from = request('comment_from');
+        $comment->email = request('comment_email');
 
         $comment->save();
     }

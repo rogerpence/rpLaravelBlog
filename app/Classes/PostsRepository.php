@@ -22,15 +22,15 @@ class PostsRepository {
         $parse_down = new \ParsedownExtra();
         $html = $parse_down->text(request('body'));
         
-        $post->title = request('title');
-        $post->subtitle = request('subtitle');
-        $post->slug = request('slug');
-        $post->body_html = $html;
-        $post->body_markdown = request('body');
+        $post->title = trim(request('title'));
+        $post->subtitle = trim(request('subtitle'));
+        $post->slug = trim(request('slug'));
+        $post->body_html = trim($html);
+        $post->body_markdown = trim(trim(request('body')));
 
-        $post->abstract = request('abstract');
-        $post->abstract_html = $parse_down->text(request('abstract'));
-        $post->seo_description = request('seo_description');
+        $post->abstract = trim(request('abstract'));
+        $post->abstract_html = trim($parse_down->text(request('abstract')));
+        $post->seo_description = trim(request('seo_description'));
         $post->seo_keywords = ''; 
         $post->status = request('status');
         $publish_date = \Carbon\Carbon::createFromFormat('Y-m-d', request('date-to-publish'));

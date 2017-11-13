@@ -41,7 +41,8 @@ class CommentsController extends Controller
         //dd($request->all()); 
 
         $this->validate(request(), 
-            ['from' => 'required',
+            [
+             'comment_email' => 'required',   
              'comment_text' => 'required'
             ]
         );                

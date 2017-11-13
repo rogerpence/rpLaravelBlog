@@ -4,6 +4,18 @@ use Illuminate\Database\Seeder;
 
 class PostsTableSeeder extends Seeder
 {
+
+    private function addTag($post_id, $tags) {
+        foreach ($tags as $tag_name) {
+            $tag_id = \App\Tag::where('name', $tag_name)->pluck('id')->first();
+
+            $posttag = new \App\PostTag();
+            $posttag->tag_id = $tag_id;
+            $posttag->post_id = $post_id;
+            $posttag->save();   
+        }                
+    }        
+    
     /**
      * Run the database seeds.
      *
@@ -29,8 +41,17 @@ class PostsTableSeeder extends Seeder
                 'status' => 1,
                 'date_to_publish' => $faker->datetime()
             ]);
-        }        
+        }    
+        
+        Artisan::call('blog:copy-table', ['table' => 'postback']);
+
+        $post_id = \App\Post::where('title', '**Ubuntu 17.04 connects to network but not the Internet')->pluck('id')->first();      
+        $this->addTag($post_id, ['ubuntu', 'virtualbox']);
+
+        $post_id = \App\Post::where('title', '**Launch VirtualBox VM with a .desktop file')->pluck('id')->first();      
+        $this->addTag($post_id, ['ubuntu', 'virtualbox']);
     }  
+
 }
 
 

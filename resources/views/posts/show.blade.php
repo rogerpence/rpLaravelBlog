@@ -41,6 +41,7 @@
                     @endforeach
                     @endif
                 @endif               
+                <br>
                 <h4>Add your comment</h4>                                   
                 <div>
                     <form method="post" action="{{ route('comments.store', [$slug]) }}">
@@ -50,9 +51,15 @@
                         @include('partials.error-list')                        
 
                         <div class="form-group">
-                            <label for="from">Email address or name</label>
-                            <input type="text" class="form-control" name="from" id="from" aria-describe or namedby="emailHelp" 
-                                    placeholder="Email or name">
+                            <label for="from">Email</label>
+                            <input type="email" class="form-control" name="comment_email" id="comment-email" 
+                                    placeholder="Email">
+                            <small id="emailHelp" class="form-text text-muted">You email is never shared with anyone else.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="from">Name</label>
+                            <input type="text" class="form-control" name="comment_from" id="comment-from" 
+                                    placeholder="Name">
                         </div>
                         <div class="form-group">
                             <label for="comment_text">Comment</label>
