@@ -22,7 +22,7 @@
         </div>                
         
         @include('partials.scripts-at-bottom')
-        @include('main.body-at-bottom')
+        @yield('main.body-at-bottom')
     </body>
 </html>
 

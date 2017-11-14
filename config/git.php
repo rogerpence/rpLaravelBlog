@@ -1,5 +1,5 @@
 <?php
  
 return [
-    'commit' => '6ee7689'
+    'commit' => 'cbcc59f 2017-11-12 23:35:54'
 ];

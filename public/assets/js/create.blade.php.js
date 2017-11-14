@@ -154,7 +154,9 @@ let documentReady = () => {
         });
 
         // set content
-        modal.setContent('<h3>Are you sure you want to delete this post?</h3>');
+        postTitle = document.getElementById('title').value;
+         modal.setContent('<h4>Are you sure you want to delete this post?</h4>' + 
+        '<h4>' + postTitle + '</h4>');
 
         // add a button
         modal.addFooterBtn('No', 'tingle-btn tingle-btn--primary', function () {

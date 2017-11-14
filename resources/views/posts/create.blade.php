@@ -40,7 +40,7 @@
                     <div class="form-row">
                         <div class="col col-sm-2">
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-md">Save</button>
+                                <button type="submit" class="btn btn-primary btn-sm" title="Save post (Ctrl+S)">Save</button>
                             </div>                                
                         </div>
 
@@ -182,7 +182,7 @@
                 <hr>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                    <button type="submit" class="btn btn-primary btn-sm" title="Save post (Ctrl+S)">Save</button>
 
                     @if( $view['mode'] == 'edit')
                         <a id="delete-post" class="btn btn-danger pull-right btn-sm" href="#" role="button">Delete post</a>

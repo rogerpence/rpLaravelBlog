@@ -1,5 +1,3 @@
 <?php
 
-$name = 'Roger Pence';
-
-echo $name;
+exec('python getCommit.py');

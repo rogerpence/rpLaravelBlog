@@ -50,6 +50,9 @@ class PostsTableSeeder extends Seeder
 
         $post_id = \App\Post::where('title', '**Launch VirtualBox VM with a .desktop file')->pluck('id')->first();      
         $this->addTag($post_id, ['ubuntu', 'virtualbox']);
+
+        $post_id = \App\Post::where('title', '**How to reset MariaDB\'s root user password')->pluck('id')->first();      
+        $this->addTag($post_id, ['ubuntu']);
     }  
 
 }

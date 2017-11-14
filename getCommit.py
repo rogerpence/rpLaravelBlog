@@ -3,8 +3,14 @@ import subprocess
 file_contents = []
 
 # Capture short commit hash.
-command_output = subprocess.Popen(["git","rev-parse","--short","HEAD"], stdout=subprocess.PIPE)
+
+command_output = subprocess.Popen(["git","show","-s","--format=\"%h %ci\""], stdout=subprocess.PIPE)
+
+#command_output = subprocess.Popen(["git","rev-parse","--short","HEAD"], stdout=subprocess.PIPE)
+
 short_commit = command_output.communicate()[0].decode("utf-8").replace('\n','')
+
+short_commit = short_commit[1:28]
 
 # Define Laravel config file contents.
 file_contents.append("<?php")
