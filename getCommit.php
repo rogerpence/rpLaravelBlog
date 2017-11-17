@@ -12,7 +12,7 @@ function checkForKey(Array $env_entries, $new_keys)
     {
         if (trim($key_entry) != '')
         {
-            $entry = explode('=', $key_entry);
+            $entry = explode('=', $trim(key_entry));
             if ($value == $key) 
             {
                 print_r($values);
@@ -24,13 +24,32 @@ function checkForKey(Array $env_entries, $new_keys)
 $current_config = [];
 
 $env_old = File(getcwd() . '/.env-copy');
-foreach ($env_old as $element) {
-    if (trim($element) < 4) {
-        $parts = explode('=', $element);
-        $current_config[$parts[0]] = $parts[0];    
-    }                
-}        
+$count = 0; 
 
+foreach ($env_old as $element) {
+    if (strpos(trim($element), '=')) {
+        $parts = explode('=', trim($element));
+        print_r($parts);
+        $current_config[$parts[0]] = $parts[1];                    
+    }        
+    else {
+        $current_config['*BLANK' . strval($count)] = '*BLANK';
+        $count += 1;
+    }
+
+
+}        
+print_r($current_config['APP_KEY']);
+echo  $current_config['APP_KEY'];
+print_r($current_config);
+
+foreach ($current_config as $key => $value) {
+    print_r($key . ':' . $value . "\n");
+}    
+
+
+
+die();
 $x = 'f';
 
 
