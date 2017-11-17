@@ -1,78 +1,83 @@
 <?php
-
-function checkForKey(Array $env_entries, $new_keys) 
-{   
-    foreach ($new_keys as $new_key) {
-        $key = $new_key['key'];
-        $value = $new_key['value'];
-        $found = $new_key['found'];
-    }
-        
-    foreach ($env_entries as $key_entry) 
-    {
-        if (trim($key_entry) != '')
-        {
-            $entry = explode('=', $trim(key_entry));
-            if ($value == $key) 
-            {
-                print_r($values);
-            }
-        }            
-    }
-}
-
-$current_config = [];
-
-$env_old = File(getcwd() . '/.env-copy');
-$count = 0; 
-
-foreach ($env_old as $element) {
-    if (strpos(trim($element), '=')) {
-        $parts = explode('=', trim($element));
-        print_r($parts);
-        $current_config[$parts[0]] = $parts[1];                    
-    }        
-    else {
-        $current_config['*BLANK' . strval($count)] = '*BLANK';
-        $count += 1;
-    }
-
-
-}        
-print_r($current_config['APP_KEY']);
-echo  $current_config['APP_KEY'];
-print_r($current_config);
-
-foreach ($current_config as $key => $value) {
-    print_r($key . ':' . $value . "\n");
-}    
-
-
-
-die();
-$x = 'f';
-
-
-
-
-
-
-//print_r($env_old);
-
-$new_keys = [
-    ['key' => 'GIT_HASH', 'value' => 'abcdef', 'found' => false],
-    ['key' => 'GIT_ONE' , 'value' => 'fhgihi', 'found' => false],
-    ['key' => 'DB_USERNAME' , 'value' => 'kvdvdd', 'found' => false]
-];
-
-foreach ($new_keys as $new_key) 
+class EnvFile 
 {
-    checkForKey($env_old, $new_key);
-    // foreach($new_key as $key => $value) 
-    // { 
-        
-    // }                
+    private $env_contents = [];
+
+    public function show_env_file() 
+    {
+        foreach ($this->env_contents as $key => $value) 
+        {
+            print_r($key . ':' . $value . "\n");
+        }    
+    }
+
+    public function add_or_change_key($key, $value) 
+    {
+        if (isset($this->env_contents[$key])) 
+        {
+            $this->env_contents[$key] = $value; 
+        }
+        else 
+        {
+            $this->env_contents[$key] = $value;
+        }
+    }
+
+    public function write_env_file() 
+    {
+        $target = [];
+
+        foreach ($this->env_contents as $key => $value) {
+            if ($key=='*COMMENT') 
+            {
+                $target[] = $value;
+            }
+            else if (preg_match('/^\*BLANK/', $key))
+            {
+                $target[] = ''; 
+            }
+            else {
+                $target[] = "{$key}={$value}";
+            }
+        }    
+
+        file_put_contents('.env-back', implode("\n", $target));
+    }
+    
+    public function parse_env_file($file) 
+    {        
+        $count = 0; 
+
+        $env = File(getcwd() . '/.env-copy');
+
+        foreach ($env as $element) {
+
+            if (preg_match('/^\s*#/', $element))
+            {
+                $this->env_contents['*COMMENT' . strval($count)] = trim($element);                                    
+                $count += 1;
+            }
+            else if (strpos(trim($element), '=')) 
+            {
+                $equalPos = stripos($element, '=');
+                $key = trim(substr($element, 0,$equalPos));
+                $value = trim(substr($element, $equalPos + 1));
+                $this->env_contents[$key] = $value;
+            }        
+            else 
+            {
+                $this->env_contents['*BLANK' . strval($count)] = '*BLANK';
+                $count += 1;
+            }
+        }   
+    }             
 }
 
+$obj = new EnvFile();
+$obj->add_or_change_key('DB_DATABASE', 'CountryWood');
+$obj->add_or_change_key('GIT_HASH', 'abddfd');
+$obj->show_env_file();
+$obj->write_env_file();
 
-
+$hash = substr(exec('git show -s --format="%h %ci"'), 0, 18);
+var_dump($hash);
