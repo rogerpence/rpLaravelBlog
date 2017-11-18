@@ -4,7 +4,7 @@ namespace Tests\Unit;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Classes\Repository;
+use App\Classes\PostsRepository;
 
 class ParseMarkdownTest extends TestCase
 {

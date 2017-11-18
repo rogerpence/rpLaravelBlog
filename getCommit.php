@@ -1,39 +1,32 @@
 <?php
 class EnvFile 
 {
-    private $env_contents = [];
+    private $envContents = [];
 
-    public function show_env_file() 
+    public function getEnvAsArray()
     {
-        foreach ($this->env_contents as $key => $value) 
-        {
-            print_r($key . ':' . $value . "\n");
-        }    
+        return $this->envContents;
     }
 
-    public function add_or_change_key($key, $value) 
+    public function addOrChangeKey($key, $value) 
     {
-        if (isset($this->env_contents[$key])) 
-        {
-            $this->env_contents[$key] = $value; 
+        if (isset($this->envContents[$key])) {
+            $this->envContents[$key] = $value; 
         }
-        else 
-        {
-            $this->env_contents[$key] = $value;
+        else {
+            $this->envContents[$key] = $value;
         }
     }
 
-    public function write_env_file() 
+    public function writeEnvFile() 
     {
         $target = [];
 
-        foreach ($this->env_contents as $key => $value) {
-            if ($key=='*COMMENT') 
-            {
+        foreach ($this->envContents as $key => $value) {
+            if ($key=='*COMMENT') {
                 $target[] = $value;
             }
-            else if (preg_match('/^\*BLANK/', $key))
-            {
+            else if (preg_match('/^\*BLANK/', $key)) {
                 $target[] = ''; 
             }
             else {
@@ -44,40 +37,37 @@ class EnvFile
         file_put_contents('.env-back', implode("\n", $target));
     }
     
-    public function parse_env_file($file) 
+    public function parseEnvFile($file) 
     {        
         $count = 0; 
 
         $env = File(getcwd() . '/.env-copy');
 
         foreach ($env as $element) {
-
-            if (preg_match('/^\s*#/', $element))
-            {
-                $this->env_contents['*COMMENT' . strval($count)] = trim($element);                                    
+            if (preg_match('/^\s*#/', $element)) {
+                $this->envContents['*COMMENT' . strval($count)] = trim($element);                                    
                 $count += 1;
             }
-            else if (strpos(trim($element), '=')) 
-            {
+            else if (strpos(trim($element), '=')) {
                 $equalPos = stripos($element, '=');
                 $key = trim(substr($element, 0,$equalPos));
                 $value = trim(substr($element, $equalPos + 1));
-                $this->env_contents[$key] = $value;
+                $this->envContents[$key] = $value;
             }        
-            else 
-            {
-                $this->env_contents['*BLANK' . strval($count)] = '*BLANK';
+            else {
+                $this->envContents['*BLANK' . strval($count)] = '*BLANK';
                 $count += 1;
             }
         }   
-    }             
+    }          
 }
 
 $obj = new EnvFile();
-$obj->add_or_change_key('DB_DATABASE', 'CountryWood');
-$obj->add_or_change_key('GIT_HASH', 'abddfd');
-$obj->show_env_file();
-$obj->write_env_file();
+$obj->parseEnvFile();
+$obj->addOrChangeKey('DB_DATABASE', 'CountryWood');
+$obj->addOrChangeKey('GIT_HASH', 'abddfd');
+//$obj->showEnvFile();
+$obj->writeEnvFile();
 
 $hash = substr(exec('git show -s --format="%h %ci"'), 0, 18);
 var_dump($hash);
