@@ -6,9 +6,12 @@ class EnvFile
 {
     private $envContents = [];
 
+    private $envFileName;
+
     function __construct($file) 
     {
         $file = getcwd() . $file;
+        $this->envFileName = $file;
 
         if (! file_exists($file)) 
         {
@@ -47,7 +50,8 @@ class EnvFile
             }
         }
 
-        file_put_contents(getcwd() . '/.env-back', implode("\n", $target));
+        //file_put_contents(getcwd() . '/.env-back', implode("\n", $target));
+        file_put_contents($this->envFileName, implode("\n", $target));
     }
 
     private function read($file)

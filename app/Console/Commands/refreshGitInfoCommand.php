@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Classes\EnvFile;
 
 class refreshGitInfoCommand extends Command
 {
@@ -37,7 +38,11 @@ class refreshGitInfoCommand extends Command
      */
     public function handle()
     {
-        exec('python getCommit.py');
+        $file = '/.env';
+        $ref = new EnvFile($file);
+        $hash = substr(exec('git show -s --format="%h %ci"'), 0, 18);
+        $ref->addOrChangeKey('GIT_HASH', $hash);
+        $ref->save();
         $this->info('Git commit info refreshed.');        
     }
 }

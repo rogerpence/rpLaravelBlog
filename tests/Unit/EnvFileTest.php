@@ -11,6 +11,13 @@ class EnvFileTest extends TestCase
      * A basic test example.
      *
      * @return void
+     * 
+     * To debug with PhpUnit 
+     *   - add this environment variable
+     *          XDEBUG_CONFIG="idekey=VSCODE"
+     *   - set a breakpoint(s)
+     *   - set debugger to 'wait for xdebug'
+     *   - run unit tests 
      */
     public function testReadEnvFile()
     {
