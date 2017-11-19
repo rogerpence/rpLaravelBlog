@@ -43,7 +43,7 @@ class PostsTableSeeder extends Seeder
             ]);
         }    
         
-        Artisan::call('blog:copy-table', ['table' => 'postback']);
+        Artisan::call('blog:copy-table', ['action' => 'restore']);
 
         $post_id = \App\Post::where('title', '**Ubuntu 17.04 connects to network but not the Internet')->pluck('id')->first();      
         $this->addTag($post_id, ['ubuntu', 'virtualbox']);
@@ -53,6 +53,9 @@ class PostsTableSeeder extends Seeder
 
         $post_id = \App\Post::where('title', '**How to reset MariaDB\'s root user password')->pluck('id')->first();      
         $this->addTag($post_id, ['ubuntu']);
+
+        $post_id = \App\Post::where('title', '**A simple JavaScript stopwatch')->pluck('id')->first();      
+        $this->addTag($post_id, ['javascript']);
     }  
 
 }

@@ -16,7 +16,17 @@
     <script src="https://use.fontawesome.com/ca38661c31.js"></script>
     
     <link rel="stylesheet" href="{{ asset('assets/css/progressbar.css') }}">
-
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
     <!-- <link rel="stylesheet" href="{{ asset('assets/css/component-custom-switch.min.css') }}"> -->
+    <style>
+        li.L0, li.L1, li.L2, li.L3,
+        li.L5, li.L6, li.L7, li.L8 {
+            list-style-type: decimal !important;
+        }
+        pre {
+            padding: 5px;
+        }
+
+</style>
 
     

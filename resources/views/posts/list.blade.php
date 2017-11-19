@@ -11,7 +11,7 @@
     @foreach ($posts as $post)            
         <div class="post">
 
-            <a class="headline" href="/posts/{{ $post->slug }}"><h2>{{ $post->title }}</h2></a>
+            <a class="headline" href="/posts/{{ $post->slug }}"><h3>{{ $post->title }}</h3></a>
             @isset($post->subtitle)
                 <h4>{{$post->subtitle}}</h4>
             @endisset
@@ -27,8 +27,10 @@
             <div>
                 {!! $post->abstract_html !!}
             </div>
-            
-            <div class="tags-container">
+
+            <div>            
+                <div class="tags-container">
+                </div>
                 @auth
                     <a title="Edit post" href="/posts/{{ $post->id }}/edit" ><i class="fa fa-pencil"></i></a>&nbsp;
                 @endauth          

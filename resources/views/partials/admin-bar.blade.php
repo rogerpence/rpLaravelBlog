@@ -14,11 +14,11 @@
         @if ( ! empty($slug) ) 
         --}}
 
-        {{--
+        @if (isset($post_id))
         <li class="nav-item">
             <a title="Edit post" class="nav-link" href="{{ route('posts.edit', [$post_id]) }}" ><i class="fa fa-pencil admin-icon"></i></a>
         </li>        
-        --}}
+        @endif 
 
         {{--
         @else

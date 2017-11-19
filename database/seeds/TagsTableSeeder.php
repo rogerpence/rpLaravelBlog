@@ -14,7 +14,7 @@ class TagsTableSeeder extends Seeder
         $tags = ['javascript','laravel','php', 
                   'database', 'mysql', 'python',
                   'devops', 'nginx', 'css',
-                  'ubuntu', 'virtualbox'];  
+                  'ubuntu', 'virtualbox', 'motorcycle'];  
                      
         foreach($tags as $tag) {
             App\Tag::create([

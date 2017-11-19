@@ -11,7 +11,7 @@ class blogTableCopyCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'blog:copy-table {table}';
+    protected $signature = 'blog:copy-table {action}';
 
     /**
      * The console command description.
@@ -37,7 +37,13 @@ class blogTableCopyCommand extends Command
      */
     public function handle()
     {
-        $table = $this->argument('table');
+        $action = $this->argument('action');
+        if ($action == 'save') {
+            $table = 'post';
+        }
+        else {
+            $table = 'postback';
+        }
 
         if ($table == 'post') {
             $this->info('Copying \'post\' table to \'postback\' table.');
@@ -48,7 +54,7 @@ class blogTableCopyCommand extends Command
             $this->copyPostsBackTable();
         }
         else {            
-            $this->error('table argument must be \'post\' or \'postback\'.');
+            $this->error('action argument must be \'save\' or \'restore\'.');
             return;
         }
     }

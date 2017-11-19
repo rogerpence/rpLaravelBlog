@@ -56,6 +56,7 @@
                                     placeholder="Email">
                             <small id="emailHelp" class="form-text text-muted">You email is never shared with anyone else.</small>
                         </div>
+
                         <div class="form-group">
                             <label for="from">Name</label>
                             <input type="text" class="form-control" name="comment_from" id="comment-from" 

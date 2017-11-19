@@ -21,13 +21,23 @@ class EnvFileTest extends TestCase
      */
     public function testReadEnvFile()
     {
-        $name = env('APP_NAME', 'LaravelWaylon');
-
         $file ='/.env';        
         $ref = new EnvFile($file);
         $this->assertNotNull($ref);
         $hash = substr(exec('git show -s --format="%h %ci"'), 0, 18);
         $ref->addOrChangeKey('GIT_HASH', $hash);
         $ref->save();
+    }
+
+    public function testCreateSampleEnvFile() {
+        $keysToHide = [
+            'APP_KEY', 
+            'DB_USERNAME', 
+            'DB_PASSWORD'
+        ];
+        $file = '/.env';
+        $ref = new EnvFile($file);
+        $this->assertNotNull($ref);        
+        $ref->saveAsSample($keysToHide);
     }
 }
