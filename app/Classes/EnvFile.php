@@ -20,20 +20,9 @@ class EnvFile
         $this->read($file);
     }
 
-    public function getEnv() {
-        return $this->envContents;    
-    }     
-
     public function addOrChangeKey($key, $value)
     {
-        if (isset($this->envContents[$key])) {
-            $this->envContents[$key] = $value;
-        } else {
-            $this->envContents[$key] = $value;
-        }
-
-        $t = $this->envContents;
-        $h = $this->envContents['GIT_HASH'];
+        $this->envContents[$key] = $value;
     }
 
     public function save()
@@ -46,12 +35,23 @@ class EnvFile
             } else if (preg_match('/^\*BLANK/', $key)) {
                 $target[] = '';
             } else {
-                $target[] = "{$key}={$value}";
+                if (stripos($value, ' ')) {                
+                    $target[] = "{$key}=\"{$value}\"";
+                }
+                else {
+                    $target[] = "{$key}={$value}";
+                }
             }
         }
 
-        //file_put_contents(getcwd() . '/.env-back', implode("\n", $target));
         file_put_contents($this->envFileName, implode("\n", $target));
+    }
+
+    private function removeLeadingAndTrailingQuotes($value) 
+    {
+        $result = preg_replace('/^"/', '', $value);
+        $result = preg_replace('/"$/', '', $result);                                        
+        return $result;        
     }
 
     private function read($file)
@@ -68,6 +68,7 @@ class EnvFile
                 $equalPos = stripos($element, '=');
                 $key = trim(substr($element, 0, $equalPos));
                 $value = trim(substr($element, $equalPos + 1));
+                $value = $this->removeLeadingAndTrailingQuotes($value);
                 $this->envContents[$key] = $value;
             } else {
                 $this->envContents['*BLANK' . strval($count)] = '*BLANK';
