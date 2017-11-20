@@ -1,29 +1,13 @@
 <?php
 
 namespace App\Classes;
+use \App\Classes\TextTokenHelper;
 
 class PostsRepository {
 
     public function getMessage($name)
     {
         return 'Hello, ' . $name;
-    }
-
-    private function swapTokens($body) {
-        $re = '/\{\{\s*lang=(\s*\w*:.*)\}\}/';
-        preg_match_all($re, $body, $matches, PREG_SET_ORDER, 0);
-        if (sizeof($matches) > 0) {
-            foreach ($matches as $match) {
-                if (sizeof($match) == 2) {
-                    $entireToken = $match[0];
-                    $directive = $match[1];
-                    $strpos = stripos($body, $entireToken);
-                    $endpos = $strpos + strlen($enterToken);
-                    $begText = $substr($body, 0, $strpos);
-                    $endText = $substr($body, $strpos, strlen($body) - $strpos);
-                }                
-            }                
-        }
     }
 
     public function storePost($request)
@@ -35,9 +19,15 @@ class PostsRepository {
         else {
             $post = new \App\Post();
         }
-            
+    
+        // <!--prettify lang=js linenums=true-->
+
+        $body = request('body');
+        $tth = new TextTokenHelper();      
+        $body = $tth->swapTokens($body);
+
         $parse_down = new \ParsedownExtra();
-        $html = $parse_down->text(request('body'));
+        $html = $parse_down->text($body);
         
         $post->title = trim(request('title'));
         $post->subtitle = trim(request('subtitle'));

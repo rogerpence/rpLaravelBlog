@@ -1,4 +1,5 @@
 <?php
+
 function getTokenAction($directive, $argument) {
     $linenums = 'false';
     if ($directive == 'prettify') {
@@ -10,16 +11,25 @@ function getTokenAction($directive, $argument) {
         $action = "<!--prettify lang={$language} linenums={$linenums}-->";
         return $action;
     }        
+    else {
+        return 'DIRECTIVE NOT FOUND: ' . $directive;
+    }
+}
+function textBeforeAndAfterToken($body, $entireToken) {
+    $startPos = stripos($body, $entireToken);
+    $endPos = $startPos + strlen($entireToken);
+    $before = substr($body, 0, $startPos);
+    $after = substr($body, $endPos, strlen($body) - $endPos);
+
+    return ['before' => $before, 'after'=> $after];
 }
 
-
+function insertAction($body, $entireToken, $action) {
+    $parts = textBeforeAndAfterToken($body, $entireToken);    
+    return $parts['before'] . $action . $parts['after'];
+} 
 
 function swapTokens($body) {
-    //$re = '/\{\{\s*lang=(\s*\w*:.*)\}\}/';
-    
-    //$re = '/\{\{\s*lang=(\s*.*)\}\}/';
-    //$prettify = '<!--prettify lang=js linenums=true-->';
-
     $re = '/\{\{\s*(.*)\s*=\s*(.*)\s*\}\}/';
     preg_match_all($re, $body, $matches, PREG_SET_ORDER, 0);
     if (sizeof($matches) > 0) {
@@ -29,16 +39,12 @@ function swapTokens($body) {
                 $directive = trim($match[1]);
                 $argument = trim($match[2]);
                 $action = getTokenAction($directive, $argument);
-                $startPos = stripos($body, $entireToken);
-                $endPos = $startPos + strlen($entireToken);
-                $begText = substr($body, 0, $startPos);
-                $endText = substr($body, $endPos, strlen($body) - $endPos);
-
-                $body = $begText . $action . $endText;
+                $body = insertAction($body, $entireToken, $action);
             }                
         }                
     }
 }
+
 //  7 20
 $str = 'abcdefg{{ prettify=js:true }}lmnnopqrst
 abc de {{lang=js:l}} asdf

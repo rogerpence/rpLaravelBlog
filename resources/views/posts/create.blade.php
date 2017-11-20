@@ -18,6 +18,7 @@
 @endsection 
 
 @section('content')
+
 <div class="container">
     <!-- <form method="POST" action="/posts"> -->
     <form id="post-content-form" method="{{ $view['action'] }}" action="{{ $view['url'] }}">

@@ -1,5 +1,5 @@
-<div>
-    <ul class="nav" style="background-color: gray; color: white;">
+<div class="navbar navbar-light bg-dark fixed-top">
+    <ul class="nav">
         <li class="nav-item" >
             <a title="Home" class="nav-link" href="/"><i class="fa fa-home admin-icon"></i></a>
         </li>
@@ -9,7 +9,16 @@
         <li class="nav-item">
             <a title="New post" class="nav-link" href="/posts/create"><i class="fa fa-plus-circle admin-icon"></i></a>
         </li>
-
+        @if (isset($view) && ($view['mode'] == 'edit' || $view['mode'] == 'create'))
+        <li>   
+            <button id="alias-save-button" 
+                    class="btn btn-primary btn-sm" 
+                    onclick="document.getElementById('post-content-form').submit();"
+                    type="button">
+                        Save
+            </button>
+        </li>
+        @endif
         {{--
         @if ( ! empty($slug) ) 
         --}}
