@@ -1,4 +1,4 @@
-<div class="navbar navbar-light bg-dark fixed-top">
+<div class="navbar navbar-light bg-dark">
     <ul class="nav">
         <li class="nav-item" >
             <a title="Home" class="nav-link" href="/"><i class="fa fa-home admin-icon"></i></a>

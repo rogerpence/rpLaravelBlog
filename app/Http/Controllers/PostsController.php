@@ -34,7 +34,7 @@ $post->tags->pluck('name');
             $posts = \App\Post::orderBy('date_to_publish', 'desc')->get();
         }
         else {
-            $posts = \App\Post::where('status', 1)->orderBy('created_at', 'desc')->get();            
+            $posts = \App\Post::where('status', 1)->orderBy('date_to_publish', 'desc')->get();            
         }
         // // return view('posts.create', compact('post'));
         // $data = ['url' => action('PostsController@index'),
