@@ -1,4 +1,4 @@
-<div class="navbar navbar-light bg-dark">
+<div class="navbar navbar-light bg-dark fixed-top">
     <ul class="nav">
         <li class="nav-item" >
             <a title="Home" class="nav-link" href="/"><i class="fa fa-home admin-icon"></i></a>
@@ -36,6 +36,17 @@
         </li>                
         @endif
         --}}
+    </ul>
 
+    <ul class="nav ml-auto">
+        <li class="nav-item">
+            <a title="Logout" style="color:white" class="nav-link" href="{{ route('logout') }}" 
+               onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                <i class="fa fa-sign-out"></i>
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                {{ csrf_field() }}
+            </form>
+        </li>                      
     </ul>
 </div>
