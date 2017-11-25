@@ -43,3 +43,13 @@ Route::get('/dashboard/comments', 'DashboardController@comments')->name('dashboa
 Route::get('/test', 'TestsController@auto')->name('test.auto');
 
 Route::get('/posts/tags/{tag}', 'TagsController@index');
+
+Route::get('{slug}', function($slug) {
+    $pages = ['about', 'contact'];
+    if (in_array($slug, $pages)) {
+        return $slug . ' page';
+    }
+    else {
+        abort(404);                    
+    }
+});
