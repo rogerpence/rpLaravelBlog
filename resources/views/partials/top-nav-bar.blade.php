@@ -2,7 +2,7 @@
     @include('partials.admin-bar')
 @endauth
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="main-nav navbar navbar-expand-lg navbar-light bg-light">
     <!-- <a class="navbar-brand" href="#">rogerpence.com</a> -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
         aria-expanded="false" aria-label="Toggle navigation">
@@ -18,26 +18,8 @@
                 <a class="nav-link" href="#">Contact</a>
             </li>
         </ul>
-        <!-- <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form> -->
-
-        <!-- <ul class="nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" 
-                            aria-haspopup="true" aria-expanded="false">Roger Pence</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Logout</a>
-                            <a class="dropdown-item" href="#">Profile</a>
-                        </div>
-                    </li>
-                </ul> -->
 
         <ul class="nav">
-            @auth
-                <a class="nav-link" title="Admin panel" href=""><i class="fa fa-wrench" aria-hidden="true"></i></a>&nbsp;
-            @endauth
 
             <li class="nav-item dropdown">               
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">

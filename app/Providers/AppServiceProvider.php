@@ -13,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer('posts.list', function($view) {
+        view()->composer('posts.list-new', function($view) {
             $view->with('activeTags', \App\Post::activeTags());                                          
         });
     }

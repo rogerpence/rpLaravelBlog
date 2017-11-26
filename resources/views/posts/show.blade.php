@@ -16,8 +16,8 @@
         <div class="row">
             <div class="col-8">
                 <h2>{{ $post->title }}</h2>
-                <p>Posted on: {{ $post->created_at->format('l, M d, Y') }}</p>                 
-                <div>
+                <p class="small">Posted on: {{ $post->created_at->format('l, M d, Y') }}</p>                 
+                <div class="show-full-post">
                     {!! $post->body_html !!}
                 </div>
 

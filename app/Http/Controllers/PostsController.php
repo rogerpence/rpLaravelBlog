@@ -40,7 +40,8 @@ $post->tags->pluck('name');
         // $data = ['url' => action('PostsController@index'),
         //          'action' => 'POST'];  
 
-        return view('posts.list')->with(compact('posts')); /// ->with('view', $data);
+        // return view('posts.list')->with(compact('posts')); /// ->with('view', $data);
+        return view('posts.list-new')->with(compact('posts')); /// ->with('view', $data);        
     } 
 
     public function create()

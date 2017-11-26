@@ -37,7 +37,7 @@
         @endif
         --}}
     </ul>
-
+{{--
     <ul class="nav ml-auto">
         <li class="nav-item">
             <a title="Logout" style="color:white" class="nav-link" href="{{ route('logout') }}" 
@@ -49,4 +49,5 @@
             </form>
         </li>                      
     </ul>
+--}}    
 </div>

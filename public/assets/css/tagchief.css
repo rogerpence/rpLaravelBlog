@@ -15,7 +15,7 @@ body {
     display: -moz-flex;
     display: -webkit-flex;
     display: flex;
-    padding: 2px;
+    padding: 4px;
 }
 
 span.tag {

@@ -1,4 +1,3 @@
-@section('left-column')
     @foreach ($posts as $post)            
         <div class="post">
 
@@ -12,7 +11,7 @@
                     <span style="display:inline;" class="badge badge-warning">Draft</span>
                 @endif            
 
-                {{substr($post->date_to_publish,0,10)}} by rp
+                <span class="small">{{substr($post->date_to_publish,0,10)}} by rp</span>
             </div>
 
             <div>
@@ -20,8 +19,6 @@
             </div>
 
             <div>            
-                <div class="tags-container">
-                </div>
                 @auth
                     <a title="Edit post" href="/posts/{{ $post->id }}/edit" ><i class="fa fa-pencil"></i></a>&nbsp;
                 @endauth          
@@ -41,21 +38,3 @@
         </div>   
     @endforeach
 
-@endsection    
-
-@section('right-column')
-        <h4>Tags</h4>
-        <div class="tags-container">                
-            @foreach ($activeTags as $activeTag) 
-                <a class="pseudo-list" style="color: black;" href="/posts/tags/{{ $activeTag }}">{{ $activeTag }}</a> 
-                @if($activeTag != end($activeTags))
-                    <i class="fa fa-circle"style="font-size:40%;margin-top:10px;margin-left:5px;margin-right:5px;"></i>
-                @endif
-            @endforeach        
-        </div>
-        
-@endsection 
-
-@section('main.body-at-bottom')
-    <!-- JavaScript or other HTML just before closing body tag. -->
-@endsection
