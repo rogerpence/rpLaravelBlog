@@ -48,6 +48,10 @@ class PostsRepository {
 
         \App\PostTag::where('post_id', $post->id)->delete();
 
+        if (trim(request('tag-list-for-server')) == '') {
+            return;
+        }
+
         $tags = explode(',', request('tag-list-for-server'));    
         
         foreach ($tags as $tag_name) {

@@ -21,6 +21,8 @@ class CreatePostsTable extends Migration
             $table->string('slug',200)->unique();
             $table->string('abstract',800);
             $table->string('abstract_html',800)->nullable();
+            $table->string('source_url',200)->nullable();
+            $table->string('repo_url',200)->nullable();
             $table->string('seo_description', 200);
             $table->string('seo_keywords',200);            
             $table->text('body_html');
