@@ -11,6 +11,8 @@ class CommentsTableSeeder extends Seeder
      */
     public function run()
     {
+        return;
+        
         $faker = Faker\Factory::create();        
 
         App\Comment::create([

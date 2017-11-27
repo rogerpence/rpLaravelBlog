@@ -144,6 +144,18 @@ nav ul {
     grid-template-areas: "header" "content" "sidebar" "footer";
 }
 
+@media (min-width: 320px) {
+    .wrapper {
+        grid-template-columns: 2fr 1fr;
+        grid-template-areas: "header  header" "content sidebar" "footer  footer";
+    }
+    nav ul {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+
 @media (min-width: 500px) {
     .wrapper {
         grid-template-columns: 3fr 2fr;

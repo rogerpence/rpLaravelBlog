@@ -14,7 +14,7 @@
                     <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">                    
                         <label for="exampleInputEmail1">Email address</label>
                         <input type="email" class="form-control" id="email" name="email" 
-                               value="roger.pence@gmail.com"
+                               value=""
                                aria-describedby="emailHelp" placeholder="Email" required autofocus>
                         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                         @if ($errors->has('email'))
@@ -23,10 +23,10 @@
                             </span>
                         @endif                        
                     </div>
-
+{{-- Ss4v52^33Kez --}}
                     <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">                    
                         <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" value="Ss4v52^33Kez" 
+                        <input type="password" class="form-control" value="" 
                                name="password" id="password" 
                                placeholder="Password" required>
                         @if ($errors->has('password'))

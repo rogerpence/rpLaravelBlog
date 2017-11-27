@@ -95,7 +95,7 @@ $post->tags->pluck('name');
         // dump(compact('post'));
         // die();
         // return view('posts.show', compact('post'));
-        return view('posts.show')->with('post', $post)->
+        return view('posts.show-new')->with('post', $post)->
                                    with('comments', $comments)->
                                    with('slug', $slug)->
                                    with('post_id', $post->id);
