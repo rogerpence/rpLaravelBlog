@@ -4,7 +4,6 @@
 @section('content')
 <div class="container">
     <div class="row align-items-center justify-content-center">
-
         <div class="card" style="width: 40rem;">
             <div class="card-body">
                 <h4 class="card-title">User login</h4>
@@ -14,7 +13,7 @@
                     <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">                    
                         <label for="exampleInputEmail1">Email address</label>
                         <input type="email" class="form-control" id="email" name="email" 
-                               value=""
+                               value="{{stripos(Request::url(), '/localhost:') ? 'roger.pence@gmail.com': ''}}"
                                aria-describedby="emailHelp" placeholder="Email" required autofocus>
                         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                         @if ($errors->has('email'))
@@ -26,7 +25,7 @@
 {{-- Ss4v52^33Kez --}}
                     <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">                    
                         <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" value="" 
+                        <input type="password" class="form-control" value="{{stripos(Request::url(), '/localhost:') ? 'Ss4v52^33Kez': ''}}" 
                                name="password" id="password" 
                                placeholder="Password" required>
                         @if ($errors->has('password'))

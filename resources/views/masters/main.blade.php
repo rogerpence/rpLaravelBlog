@@ -9,11 +9,8 @@
         @yield('optional-head')   
     </head>
     <body>
-        @yield('page-header')   
-        <div class="container">
-            @yield('content')
-        </div>
-    </body>
+        @yield('content')
+   </body>
 
     @include('partials.scripts-at-bottom')
     @yield('optional-body-bottom')       

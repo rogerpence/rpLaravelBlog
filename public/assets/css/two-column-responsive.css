@@ -1,0 +1,116 @@
+article {
+    /* border: solid 1px navy; */
+}
+
+aside {
+    /* border: solid 1px maroon; */
+}
+
+.container {
+    margin-top: 2rem;
+}
+
+.wrapper {
+    margin: 0 auto;
+    /* font: 1.2em Helvetica, arial, sans-serif; */
+}
+
+article.content {
+    flex: 3;
+    padding-right: 3rem;
+}
+
+aside.sidebar {
+    flex: 1;
+}
+
+@media only screen and (min-width: 320px) {
+    html {
+        font-size: 75%;
+    }
+    #info::before {
+        content: "Query: >= 575px ";
+    }
+    .wrapper {
+        max-width: 100;
+        display: flex-wrap;
+        /* Force columns to wrap. */
+    }
+}
+
+@media only screen and (min-width: 576px) {
+    html {
+        font-size: 80%;
+    }
+    #info::before {
+        content: "Query: 576px ";
+    }
+    .wrapper {
+        max-width: 100;
+        display: flex-wrap;
+        /* Force columns to wrap. */
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    html {
+        font-size: 85%;
+    }
+    #info::before {
+        content: "Query: 768px ";
+    }
+    .container {
+        max-width: 90%;
+    }
+    .wrapper {
+        max-width: 100%;
+        display: flex;
+    }
+    article.content {
+        flex: 5;
+    }
+    aside.sidebar {
+        flex: 2;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    html {
+        font-size: 100%;
+    }
+    #info::before {
+        content: "Query: 992px ";
+    }
+    .container {
+        max-width: 90%;
+    }
+    .wrapper {
+        max-width: 100%;
+        display: flex;
+    }
+    article.content {
+        flex: 5;
+    }
+    aside.sidebar {
+        flex: 2;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    html {
+        font-size: 100%;
+    }
+    #info::before {
+        content: "Query: 1200px ";
+    }
+    .wrapper {
+        max-width: 90%;
+        display: flex;
+    }
+    article.content {
+        flex: 6;
+    }
+    aside.sidebar {
+        flex: 2;
+    }
+}

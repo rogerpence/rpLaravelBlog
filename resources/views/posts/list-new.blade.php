@@ -3,28 +3,28 @@
 @section('title', '| Posts')
 
 @section('optional-head')
+   <link rel="stylesheet" href="{{ asset('assets/css/two-column-responsive.css') }}">
    <link rel="stylesheet" href="{{ asset('assets/css/tagchief.css') }}">
 @stop
 
 @section('content')
-    @section('page-header')
-        <header>
-            @include('partials.top-nav-bar')
-            @include('partials.blog-header')        
-        </header>
-    @stop               
+    <header>
+        @include('partials.top-nav-bar')
+        @include('partials.blog-header')        
+    </header>
+    <div class="container">   
+        <div class="wrapper">        
+            <article class="content" id="article">
+                @include('partials.post-list')
+            </article>
+            
+            <aside class="sidebar" id="sidebar">
+                @include('partials.tag-list')
+            </aside>
 
-    <div class="wrapper">        
-        <article>
-            @include('partials.post-list')
-        </article>
-        
-        <aside>
-            @include('partials.tag-list')
-        </aside>
-
-        <footer class="main-footer">
-        </footer>
+            <footer class="main-footer">
+            </footer>
+        </div>
     </div>
 @stop
 
