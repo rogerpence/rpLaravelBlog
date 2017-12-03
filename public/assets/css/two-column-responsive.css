@@ -17,7 +17,7 @@ aside {
 
 article.content {
     flex: 3;
-    padding-right: 3rem;
+    padding-right: 1rem;
 }
 
 aside.sidebar {
