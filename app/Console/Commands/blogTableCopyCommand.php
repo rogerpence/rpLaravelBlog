@@ -47,76 +47,96 @@ class blogTableCopyCommand extends Command
 
         if ($table == 'post') {
             $this->info('Copying \'post\' table to \'postback\' table.');
-            $this->copyPostsTable();
+            $this->copyFromPostsTable();
         }
         elseif ($table == 'postback') {
             $this->info('Copying \'postback\' table to \'post\' table.');
-            $this->copyPostsBackTable();
+            $this->copyToPostsTable();
         }
         else {            
             $this->error('action argument must be \'save\' or \'restore\'.');
             return;
         }
     }
-
-    private function copyPostsTable() {
+    private function copyFromPostsTable() {
         // Clear PostBack model's table.
         \DB::statement("SET foreign_key_checks=0");
         \App\PostBack::truncate();            
         \DB::statement("SET foreign_key_checks=1");
 
-        // Copy all from Post to PostBack
-        $posts = \App\Post::all();
+        // Get all posts with tags. 
+        $posts = \App\Post::with('tags')->get();   
+
         $bar = $this->output->createProgressBar(count($posts));
 
         foreach ($posts as $post) {
-            if (substr($post->title,0,2) == '**') {
-                $postback = new \App\PostBack();
-                $postback->title = $post->title;
-                $postback->subtitle = $post->subtitle;
-                $postback->slug = $post->slug;
-                $postback->body_html = $post->body_html;
-                $postback->body_markdown = $post->body_markdown;
-                $postback->abstract = $post->abstract;
-                $postback->abstract_html = $post->abstract_html;
-                $postback->seo_description = $post->seo_description;
-                $postback->seo_keywords = $post->seo_keywords;
-                $postback->status = $post->status;
-                $postback->date_to_publish = $post->date_to_publish;
-                $postback->save(); 
+            $postback = new \App\PostBack();
+            $this->copyPostsBuffer($post, $postback);
+
+            $tagstext = [];
+            foreach ($post->tags as $tag) {
+                $tagstext[] = $tag['name'];
+            }
+
+            if (count($tagstext) > 0 ) {
+                $postback->seo_keywords = implode($tagstext, ',');
             }                
+
+            $postback->save();
 
             $bar->advance();
         }                   
 
-        $headers = ['Title', 'Slug'];
-        $postbacks = \App\PostBack::all(['title', 'slug'])->toArray();
-        $this->table($headers, $postbacks);         
+        // $headers = ['Title', 'Slug'];
+        // $postbacks = \App\PostBack::all(['title', 'slug'])->toArray();
+        // $this->table($headers, $postbacks);         
     }    
 
-    private function copyPostsBackTable() {
+    private function copyPostsBuffer($from, $to) {
+        $to->title = $from->title;
+        $to->subtitle = $from->subtitle;
+        $to->slug = $from->slug;
+        $to->body_html = $from->body_html;
+        $to->body_markdown = $from->body_markdown;
+        $to->repo_url = $from->repo_url;
+        $to->source_url = $from->source_url;        
+        $to->abstract = $from->abstract;
+        $to->abstract_html = $from->abstract_html;
+        $to->seo_description = $from->seo_description;
+        $to->seo_keywords = $from->seo_keywords;
+        $to->status = $from->status;
+        $to->date_to_publish = $from->date_to_publish;        
+    }
 
-        // Copy all from Post to PostBack
+    private function copyToPostsTable() {
+        // \App\PostTag::truncate();            
         $postbacks = \App\PostBack::all();
         $bar = $this->output->createProgressBar(count($postbacks));
 
         foreach ($postbacks as $postback) {
             $post = new \App\Post();
-            $post->title = $postback->title;
-            $post->subtitle = $postback->subtitle;
-            $post->slug = $postback->slug;
-            $post->body_html = $postback->body_html;
-            $post->body_markdown = $postback->body_markdown;
-            $post->abstract = $postback->abstract;
-            $post->abstract_html = $postback->abstract_html;
-            $post->seo_description = $postback->seo_description;
-            $post->seo_keywords = $postback->seo_keywords;
-            $post->status = $postback->status;
-            $post->date_to_publish = $postback->date_to_publish;
-            $post->save(); 
+            $this->copyPostsBuffer($postback, $post);
+            $tag_list = $post->seo_keywords;
+            $post->seo_keywords = '';
+            $post->save();
+
+            if (strlen($tag_list) > 0) {
+                $tagstext = explode(",", $tag_list);
+                $this->addTag($post->id, $tagstext);
+            }                
 
             $bar->advance();
         }                   
-    }    
-    
+    }        
+
+    private function addTag($post_id, $tags) {
+        foreach ($tags as $tag_name) {
+            $tag_id = \App\Tag::where('name', $tag_name)->pluck('id')->first();
+
+            $posttag = new \App\PostTag();
+            $posttag->tag_id = $tag_id;
+            $posttag->post_id = $post_id;
+            $posttag->save();   
+        }                
+    }           
 }

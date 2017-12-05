@@ -105,6 +105,7 @@ $post->tags->pluck('name');
     {
         $post = \App\Post::find($id);
         \App\PostTag::where('post_id',$id)->delete();
+        \App\Comment::where('post_id',$id)->delete();
         $post->delete();
 
         return redirect()->route('posts.list');
