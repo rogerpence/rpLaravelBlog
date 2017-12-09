@@ -1,12 +1,34 @@
-function insertPrettify(markdownEditor) {
-    const prettify = '{{prettify=js:linenums}}';
+// function insertPrettify(markdownEditor) {
+//     const prettify = '{{prettify=js:linenums}}';
+//     let cursorInfo = markdownEditor.codemirror.getCursor('from');
+//     cursorInfo.ch = 0;
+//     markdownEditor.codemirror.replaceRange(prettify, cursorInfo);
+//     cursorInfo.ch = 11;
+//     cursorTo = { 'line': cursorInfo.line, 'ch': cursorInfo.ch + 2};
+//     markdownEditor.codemirror.setCursor(cursorInfo);    
+//     markdownEditor.codemirror.setSelection(cursorInfo, cursorTo);
+// }
+
+/*
+Insert text at beginning of line and optionally select selectText
+*/
+
+function insertTextAtCurrentLine(markdownEditor, text, selectText) {
     let cursorInfo = markdownEditor.codemirror.getCursor('from');
     cursorInfo.ch = 0;
-    markdownEditor.codemirror.replaceRange(prettify, cursorInfo);
-    cursorInfo.ch = 11;
-    cursorTo = { 'line': cursorInfo.line, 'ch': cursorInfo.ch + 2};
-    markdownEditor.codemirror.setCursor(cursorInfo);    
-    markdownEditor.codemirror.setSelection(cursorInfo, cursorTo);
+    markdownEditor.codemirror.replaceRange(text, cursorInfo);
+
+    if (typeof selectText !== 'undefined') {
+        var startingPos = text.indexOf(selectText);
+        cursorInfo.ch += startingPos;
+        cursorTo = {'line': cursorInfo.line, 'ch': cursorInfo.ch + selectText.length};
+        markdownEditor.codemirror.setCursor(cursorInfo);
+        markdownEditor.codemirror.setSelection(cursorInfo, cursorTo);
+    }        
+    else {
+        cursorInfo.ch = 0; 
+        markdownEditor.codemirror.setCursor(cursorInfo);        
+    }
 }
 
 (function() {
@@ -23,7 +45,8 @@ let documentReady = () => {
     // Add global hot keys to editor panel.
     document.addEventListener('keydown', (e) => {
         const S_Key = 83;
-       const L_Key = 76;
+        const L_Key = 76;
+        const M_Key = 77;
 
         if (e.ctrlKey && e.keyCode == S_Key) {
             e.stopPropagation();
@@ -34,7 +57,14 @@ let documentReady = () => {
         else if (e.ctrlKey && e.keyCode == L_Key) {
             e.stopPropagation();
             e.preventDefault();
-            insertPrettify(simplemdeBody);
+            let text = '{{prettify=js:linenums}}';
+            insertTextAtCurrentLine(simplemdeBody, text, 'js');           
+        }
+        else if (e.ctrlKey && e.keyCode == M_Key) {
+            e.stopPropagation();
+            e.preventDefault();
+            let text = '<small>caption</small>';
+            insertTextAtCurrentLine(simplemdeBody, text, 'caption');
         }
         else  {
             return true;
