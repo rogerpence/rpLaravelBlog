@@ -24,6 +24,9 @@ a.blog-header-link {
 a.blog-header-link:hover {
     color: blue;
 }
+div.jumbotron div {
+    padding: 0 1em 0 1em;
+}
 
 /* label[for='markdown'] {
     display: block;
