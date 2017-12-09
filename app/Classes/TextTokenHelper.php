@@ -7,11 +7,14 @@ class TextTokenHelper {
     private function prettifyDirective($argument) {
         /*
          | Directive syntax:
-         |     {{prettify=[lang|*default]:[true|*false]}}         
+         |     {{prettify=[lang|*default]:[true|linenums]}}         
          | Examples
          |     {{prettify=js:true}}
-         |     {{prettify=js:false}}
+         |     {{prettify=js:linenums}}
          |     {{prettify=default}}
+         | 'true' or 'linenums' as second argument to prettify 
+         | adds line numbers.
+         | 
         */
         $linenums = 'false';
         $parts = explode(':', $argument);
@@ -23,10 +26,12 @@ class TextTokenHelper {
             $language = 'lang=' . $language;                
         }
         if (sizeof($parts)==2) {
-            $linenums = $parts[1];                
+            if ($parts[1] == 'linenums' || $parts[1] = 'true') {
+                $linenums = 'true';
+            }
         }
         $action = "<!--prettify {$language} linenums={$linenums}-->";
-        return $action;        
+        return $action;                
     }
 
     private function getDirectiveAction($directive, $argument) {
