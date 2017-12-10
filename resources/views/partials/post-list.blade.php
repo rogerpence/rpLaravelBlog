@@ -3,7 +3,7 @@
 
             <a class="headline" href="/posts/{{ $post->slug }}"><h3>{{ $post->title }}</h3></a>
             @isset($post->subtitle)
-                <h4>{{$post->subtitle}}</h4>
+                <h4 class="subtitle">{{$post->subtitle}}</h4>
             @endisset
 
             <div class="post-date-line">

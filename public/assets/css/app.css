@@ -45,6 +45,11 @@ textarea[id='markdown'] {
     border-radius: .2rem;
 }    
 
+h4.subtitle {
+    font-style: italic;
+    font-size: 120%;
+}
+
 a.headline {
     color: rgb(36, 35, 35);
 }
