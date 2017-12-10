@@ -12,6 +12,41 @@
 /*
 Insert text at beginning of line and optionally select selectText
 */
+let currentMDEditor = '';
+
+/*
+{
+    'key': 'O',
+        'text': '{{prettify=js:linenums}}',
+            'select' : 'js'
+},    
+*/
+
+let macros = [
+    {
+        'key': 'L',
+        'text': '<!--prettify lang=js linenums=true-->',
+        'select':'js'
+    },
+    {
+        'key': 'M',
+        'text': '<small>caption</small>',
+        'select': 'caption'
+    },    
+    {
+        'key': 'J',
+        'text': 'roger\n\pence'        
+    }
+];
+
+/*
+<div class="thumbnail pad-box-lg align-left" >
+    <img src = "/media/images/avr-does-lots-of-things.png" >
+    <div class = "text-center" >
+       <small>AVR empowers your RPG programmers to do</small>
+    </div>       
+</div>
+*/
 
 function insertTextAtCurrentLine(markdownEditor, text, selectText) {
     let cursorInfo = markdownEditor.codemirror.getCursor('from');
@@ -42,33 +77,37 @@ function insertTextAtCurrentLine(markdownEditor, text, selectText) {
 
 let documentReady = () => {
 
-    // Add global hot keys to editor panel.
+    // Add hot keys to add/change page.
     document.addEventListener('keydown', (e) => {
         const S_Key = 83;
         const L_Key = 76;
         const M_Key = 77;
 
+        let j = String.fromCharCode(S_Key);
+        
+        // Page level keys.
         if (e.ctrlKey && e.keyCode == S_Key) {
             e.stopPropagation();
             e.preventDefault();
             document.getElementById('post-content-form').submit();
             return false;
-        }            
-        else if (e.ctrlKey && e.keyCode == L_Key) {
-            e.stopPropagation();
-            e.preventDefault();
-            let text = '{{prettify=js:linenums}}';
-            insertTextAtCurrentLine(simplemdeBody, text, 'js');           
+        }   
+
+        if (currentMDEditor !== 'body') {
+            return;        
         }
-        else if (e.ctrlKey && e.keyCode == M_Key) {
-            e.stopPropagation();
-            e.preventDefault();
-            let text = '<small>caption</small>';
-            insertTextAtCurrentLine(simplemdeBody, text, 'caption');
-        }
-        else  {
-            return true;
-        }
+
+        // Apply macros keys for content textarea.
+        macros.forEach((element, index, array) => {
+            if (e.ctrlKey && element.key.toUpperCase().charCodeAt(0) == e.keyCode ) {
+                e.stopPropagation();
+                e.preventDefault();
+                insertTextAtCurrentLine(simplemdeBody, element.text, element.select);
+                return; 
+            }
+        });
+
+        return ;
     }, true);
 
     function post(path, params, method) {
@@ -106,7 +145,10 @@ let documentReady = () => {
         element: document.getElementById("abstract"),
         autofocus: false,
         indentWithTabs: true,
-        tabSize: 4
+        tabSize: 4,        
+        shortcuts: {
+            "toggleFullScreen": "F8"
+        }        
         //toolbar: true
     });
 
@@ -114,9 +156,20 @@ let documentReady = () => {
         element: document.getElementById("body"),
         indentWithTabs: true,
         autofocus: false,
-        tabSize: 4        
+        tabSize: 4,
+        shortcuts: {
+            "toggleFullScreen": "F8" 
+        }        
     });
 
+    simplemdeBody.codemirror.on('focus', () => {
+        currentMDEditor = 'body';
+    });
+
+    simplemdeBody.codemirror.on('blur', () => {
+        currentMDEditor = '';
+    });
+    
     const MAX_SEO_TITLE_LENGTH = 70;
     const MAX_SEO_DESC_LENGTH = 160;
 

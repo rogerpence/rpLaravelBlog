@@ -5,6 +5,7 @@
 @stop
 
 @section('optional-head')
+   <meta name="description" content="{{$post->seo_description}}"/>   
    <link rel="stylesheet" href="{{ asset('assets/css/two-column-responsive.css') }}">
    <link rel="stylesheet" href="{{ asset('assets/css/tagchief.css') }}">
 @stop

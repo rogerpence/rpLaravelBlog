@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Classes;
-use \App\Classes\TextTokenHelper;
+// use \App\Classes\TextTokenHelper;
 
 class PostsRepository {
 
@@ -21,10 +21,11 @@ class PostsRepository {
         }
     
         // <!--prettify lang=js linenums=true-->
+        // {{prettify=bash:linenums}}
 
         $body = request('body');
-        $tth = new TextTokenHelper();      
-        $body = $tth->swapTokens($body);
+        //$tth = new TextTokenHelper();      
+        //$body = $tth->swapTokens($body);
 
         $parse_down = new \ParsedownExtra();
         $html = $parse_down->text($body);
