@@ -9,7 +9,7 @@ class PageController extends Controller
     // public function show(\App\Post $post) 
     public function show($slug) 
     {
-        $pages = ['about'];
+        $pages = ['about', 'contact'];
         if (in_array($slug, $pages)) {        
             $post = \App\Post::where('slug', '=', $slug )->first();
             return view('posts.show-page')->with('post', $post);

@@ -125,6 +125,8 @@
                         <select class="form-control" name="status" id="status" class="mb-select">
                             <option class="option-element" value="0" {!! $post->status == 0 ? 'selected="selected"' : ''!!}>Draft</option>
                             <option class="option-element" value="1" {!! $post->status == 1 ? 'selected="selected"' : ''!!}>Published</option>
+                            <option class="option-element" value="2" {!! $post->status == 2 ? 'selected="selected"' : ''!!}>Page</option>
+                            <option class="option-element" value="3" {!! $post->status == 3 ? 'selected="selected"' : ''!!}>Private</option>
                         </select>
                     </div>
                 </div>                    
