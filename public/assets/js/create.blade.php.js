@@ -154,13 +154,20 @@ let documentReady = () => {
 
     var simplemdeBody = new SimpleMDE({
         element: document.getElementById("body"),
-        indentWithTabs: true,
+        autosave: {
+            enabled: true,
+            uniqueId: 'bodyContent',
+            delay: 1000
+        },            
+        indentWithTabs: false,
         autofocus: false,
         tabSize: 4,
         shortcuts: {
             "toggleFullScreen": "F8" 
-        }        
+        }
     });
+
+    //insertTextAtCurrentLine(simpleMDE, '<!--prettify lang=js linenums=true-->', 'js'),
 
     simplemdeBody.codemirror.on('focus', () => {
         currentMDEditor = 'body';
@@ -169,7 +176,14 @@ let documentReady = () => {
     simplemdeBody.codemirror.on('blur', () => {
         currentMDEditor = '';
     });
-    
+
+    // simplemdeBody.toolbar.push({
+    //         name: "Prettify",
+    //         action: alert('hello'),
+    //         className: "fa fa-code",
+    //         title: "Insert prettify"
+    //     });
+
     const MAX_SEO_TITLE_LENGTH = 70;
     const MAX_SEO_DESC_LENGTH = 160;
 
@@ -282,6 +296,8 @@ let documentReady = () => {
 };
 
 rp.core.documentReady(documentReady);
+
+
 
 
     // $( "#tag-text-input" ).autocomplete( {

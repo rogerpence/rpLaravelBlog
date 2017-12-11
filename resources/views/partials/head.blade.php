@@ -14,12 +14,15 @@
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
 
     <script src="https://use.fontawesome.com/ca38661c31.js"></script>
+
+    <!-- <script defer src="https://use.fontawesome.com/releases/v5.0.1/js/all.js"></script> -->
     
     <link rel="stylesheet" href="{{ asset('assets/css/progressbar.css') }}">
 
     <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
     
     <!-- <link rel="stylesheet" href="{{ asset('assets/css/component-custom-switch.min.css') }}"> -->
+    <!-- Customize Google prettify line numbers. -->
     <style>
         li.L0, li.L1, li.L2, li.L3,
         li.L5, li.L6, li.L7, li.L8 {

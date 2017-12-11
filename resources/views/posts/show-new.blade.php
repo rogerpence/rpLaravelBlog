@@ -95,6 +95,7 @@
     </div>   
 @stop
 
+
 @section('optional-body-bottom')
-<!-- custom scripts here -->
+    <script src="{{ asset('assets/js/show-new.blade.php.js') }}"></script>   
 @stop
