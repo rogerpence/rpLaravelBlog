@@ -44,20 +44,6 @@
                                 <button type="submit" class="btn btn-primary btn-sm" title="Save post (Ctrl+S)">Save</button>
                             </div>                                
                         </div>
-
-
-                        <!-- <div class="col com-sm-2">
-                            <div class="form-group">
-                                <div class="dropdown">
-                                    <select class="form-control" name="status" id="status" class="mb-select">
-                                        <option value="0" {!! $post->status == 0 ? 'selected="selected"' : ''!!}>Draft</option>
-                                        <option value="1" {!! $post->status == 1 ? 'selected="selected"' : ''!!}>Published</option>
-                                    </select>
-                                </div>
-                            </div>    
-                        </div> -->
-
-
                     </div>
                 </div>
 
@@ -70,11 +56,11 @@
                     </a>
                     <small class="text-danger">{{ $errors->first('title') }}</small>
 
-                    <input maxlength="70" type="text" class="form-control" id="title" titledby="titleHelp" name="title" placeholder="Post title"
+                    <input maxlength="70" type="text" class="form-control save" id="title" titledby="titleHelp" name="title" placeholder="Post title"
                         value="{{old('title', $post->title)}}">
 
                     <small class="text-danger">{{ $errors->first('slug') }}</small>
-                    <input maxlength="70" type="text" class="form-control" id="slug" titledby="titleHelp" name="slug" placeholder="Post slug"
+                    <input maxlength="70" type="text" class="form-control save" id="slug" titledby="titleHelp" name="slug" placeholder="Post slug"
                         value="{{old('slug', $post->slug)}}">
                 </div>
 
@@ -86,23 +72,10 @@
                         <i class="fa fa-info-circle"></i>
                     </a>
 
-                    <input type="text" class="form-control" id="subtitle" titledby="titleHelp" name="subtitle" placeholder="Post subtitle"
+                    <input type="text" class="form-control save" id="subtitle" titledby="titleHelp" name="subtitle" placeholder="Post subtitle"
                         value="{{old('subtitle', $post->subtitle)}}">
                 </div>
                 
-
-                <!-- <div class="form-group">
-                    <label for="slug"><strong>Slug</strong></label>
-                    <a data-toggle="popover" slug="Title" data-trigger="hover" data-content="For best search results this needs to be as close to four or five words as possible."
-                        href="#" onclick="return false;">
-                        &nbsp;
-                        <i class="fa fa-info-circle"></i>
-                    </a>
-                    <small class="text-danger">{{ $errors->first('slug') }}</small>
-
-                    <input maxlength="70" type="text" class="form-control" id="slug" titledby="titleHelp" name="slug" placeholder="Post slug"
-                        value="{{old('slug', $post->slug)}}">
-                </div> -->
                 <!-- <div class="form-group"> -->
                 <div class="form-row">
                     <div class="form-group col-md-4">
@@ -112,7 +85,7 @@
                             &nbsp;
                             <i class="fa fa-info-circle"></i>                        
                         </a>
-                        <input type="text" class="form-control" id="date-to-publish" titledby="titleHelp" name="date-to-publish" placeholder="Publication date"
+                        <input type="text" class="form-control save" id="date-to-publish" titledby="titleHelp" name="date-to-publish" placeholder="Publication date"
                             value="{{old('date_to_publish', $post->date_to_publish)}}">
                     </div>
                     <div class="form-group col-md-4">
@@ -122,7 +95,7 @@
                             &nbsp;
                             <i class="fa fa-info-circle"></i>                        
                         </a>
-                        <select class="form-control" name="status" id="status" class="mb-select">
+                        <select class="form-control save" name="status" id="status" class="mb-select">
                             <option class="option-element" value="0" {!! $post->status == 0 ? 'selected="selected"' : ''!!}>Draft</option>
                             <option class="option-element" value="1" {!! $post->status == 1 ? 'selected="selected"' : ''!!}>Published</option>
                             <option class="option-element" value="2" {!! $post->status == 2 ? 'selected="selected"' : ''!!}>Page</option>
@@ -146,12 +119,12 @@
                         id with TagChief's options. Tags are added to the page with insertAdjacentHTML 
                         preceeding this input tag. 
                         -->
-                        <input id="tag-text-input" class="form-control tag-input" type="text" list="all-tags"></input>
+                        <input id="tag-text-input" class="form-control tag-input save" type="text" list="all-tags"></input>
                         <datalist id="all-tags">
                         </datalist>  
 
                         <br>
-                        <input name="tag-list-for-server" id="tag-list-for-server" type="hidden"  
+                        <input name="tag-list-for-server" class="save" id="tag-list-for-server" type="hidden"  
                                value="{{old('tag-list-for-server', $view['taglist'])}}"></input>
                     </div>                    
                 </div>
@@ -160,7 +133,7 @@
                     <label for="abstract"><strong>Abstract</strong></label>
                     <small class="text-danger">{{ $errors->first('abstract') }}</small>
 
-                    <textarea name="abstract" id="abstract">{{old('abstract', $post->abstract)}}</textarea>
+                    <textarea data-md="simplemdeAbstract" class="save" name="abstract" id="abstract">{{old('abstract', $post->abstract)}}</textarea>
                 </div>
 
                 <div class="form-group">
@@ -172,14 +145,14 @@
                         <i class="fa fa-info-circle"></i>
                     </a>
                     <small class="text-danger">{{ $errors->first('seo_description', $post->seo_description) }}</small>
-                    <textarea class="form-control" id="seo_description" titledby="titleHelp" name="seo_description" 
+                    <textarea class="form-control save" id="seo_description" titledby="titleHelp" name="seo_description" 
                               placeholder="SEO description">{{old('seo_description', $post->seo_description)}}</textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="body"><strong>Body</strong></label>
                     <small class="text-danger">{{ $errors->first('body') }}</small>
-                    <textarea name="body" id="body">{{old('body', $post->body_markdown)}}</textarea>
+                    <textarea data-md="simplemdeBody" class="save" name="body" id="body">{{old('body', $post->body_markdown)}}</textarea>
                 </div>
 
                 <hr>

@@ -1,13 +1,22 @@
-// function insertPrettify(markdownEditor) {
-//     const prettify = '{{prettify=js:linenums}}';
-//     let cursorInfo = markdownEditor.codemirror.getCursor('from');
-//     cursorInfo.ch = 0;
-//     markdownEditor.codemirror.replaceRange(prettify, cursorInfo);
-//     cursorInfo.ch = 11;
-//     cursorTo = { 'line': cursorInfo.line, 'ch': cursorInfo.ch + 2};
-//     markdownEditor.codemirror.setCursor(cursorInfo);    
-//     markdownEditor.codemirror.setSelection(cursorInfo, cursorTo);
-// }
+let valuesOriginal;
+let valuesCurrent;
+
+let collectInputs = () => {
+    inputs = document.querySelectorAll('.save');
+
+    let values = [];
+    for (var i = 0; i < inputs.length; i++) {
+        values.push({
+            'id': inputs[i].id,
+            'value': inputs[i].value,
+            'newValue' : '',
+            'name': inputs[i].name,
+            'changed': false
+        });
+    }
+    return values;
+}
+
 
 /*
 Insert text at beginning of line and optionally select selectText
@@ -75,7 +84,28 @@ function insertTextAtCurrentLine(markdownEditor, text, selectText) {
     });
 })();
 
+// window.onbeforeunload = function(e) {
+//     var message = 'Are you sure you want abandon unsaved changes on this page?';
+//     valuesCurrent = collectInputs();
+//     let cancelUnload = false;
+//     for (let i = 0; i < valuesCurrent.length; i++) {
+//         if (valuesOriginal[i].value !== valuesCurrent[i].value) {
+//             valuesOriginal[i].changed = true;
+//             valuesOriginal[i].newValue = valuesCurrent[i].value;
+//             cancelUnload = true;
+//         }
+//     }
+//     if (cancelUnload) {
+//         var e = e || window.event;
+//         if (e) {
+//             e.returnValue = message;
+//         }
+//         return message;
+//     }                
+// };
+
 let documentReady = () => {
+
 
     // Add hot keys to add/change page.
     document.addEventListener('keydown', (e) => {
@@ -155,7 +185,7 @@ let documentReady = () => {
     var simplemdeBody = new SimpleMDE({
         element: document.getElementById("body"),
         autosave: {
-            enabled: true,
+            enabled: false,
             uniqueId: 'bodyContent',
             delay: 1000
         },            
@@ -267,7 +297,7 @@ let documentReady = () => {
 
         // set content
         postTitle = document.getElementById('title').value;
-         modal.setContent('<h4>Are you sure you want to delete this post?</h4>' + 
+        modal.setContent('<h4>Are you sure you want to delete this post?</h4>' + 
         '<h4>' + postTitle + '</h4>');
 
         // add a button
@@ -293,6 +323,7 @@ let documentReady = () => {
         });    
     }        
 
+    valuesOriginal = collectInputs();
 };
 
 rp.core.documentReady(documentReady);
