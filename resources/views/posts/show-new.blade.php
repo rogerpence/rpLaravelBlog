@@ -23,6 +23,13 @@
         @include('partials.blog-header')        
     </header>
 
+    <div class="print-header">
+        <div>
+            <h3 class="display-5">rogerpence.com</h3>
+            <p class="lead">A nerd's blog</p>
+        </div>
+    </div>    
+
     <div class="container">
         <div class="wrapper">
             <article class="content" id="article">
@@ -53,36 +60,41 @@
                     @endif
                 @endif               
                 <br>
-                <h4>Add your comment</h4>                                   
-                <div>
-                    <form method="post" action="{{ route('comments.store', [$slug]) }}">
+                <div class="comments">
+                    <h4>Add your comment</h4>                                   
+                    <div>
+                        <form method="post" action="{{ route('comments.store', [$slug]) }}">
 
-                        {{ csrf_field() }}
+                            {{ csrf_field() }}
 
-                        @include('partials.error-list')                        
+                            @include('partials.error-list')                        
 
-                        <div class="form-group">
-                            <label for="from">Email</label>
-                            <input type="email" class="form-control" name="comment_email" id="comment-email" 
-                                    placeholder="Email">
-                            <small id="emailHelp" class="form-text text-muted">You email is never shared with anyone else.</small>
-                        </div>
+                            <div class="form-group">
+                                <label for="from">Email</label>
+                                <input type="email" class="form-control" name="comment_email" id="comment-email" 
+                                        placeholder="Email">
+                                <small id="emailHelp" class="form-text text-muted">You email is never shared with anyone else.</small>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="from">Name</label>
-                            <input type="text" class="form-control" name="comment_from" id="comment-from" 
-                                    placeholder="Name">
-                        </div>
-                        <div class="form-group">
-                            <label for="comment_text">Comment</label>
-                            <textarea class="form-control" id="comment_text" name="comment_text" 
-                                        placeholder="Your comment"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
+                            <div class="form-group">
+                                <label for="from">Name</label>
+                                <input type="text" class="form-control" name="comment_from" id="comment-from" 
+                                        placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="comment_text">Comment</label>
+                                <textarea class="form-control" id="comment_text" name="comment_text" 
+                                            placeholder="Your comment"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
 
-                    <br>
+                        <br>
+                    </div>
                 </div>
+                <footer class="main-footer">
+                    <small>&copy; Copyright 2017 by Roger Pence. All rights reserved.</small>
+                </footer>                                
             </article>
 
             <aside class="sidebar" id="sidebar">

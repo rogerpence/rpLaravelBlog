@@ -1,0 +1,24 @@
+.print-header {
+    display: none;
+}
+
+@media print {
+    html {
+        font-size: 65%;
+    }
+    .print-header {
+        display: block;
+    }
+    header {
+        display: none;
+    }
+    pre {
+        border: none;
+    }
+    .comments {
+        display: none;
+    }
+    aside {
+        display: none;
+    }
+}
