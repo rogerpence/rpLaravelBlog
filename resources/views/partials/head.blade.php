@@ -8,7 +8,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('assets/js/vendor/bootstrap.css') }}">
 
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">    
+    <link rel="shortcut icon" href="favicon.ico?" type="image/x-icon">    
 
     <!-- MDB css -->
     <!-- <link rel="stylesheet" href="{{ asset('assets/mdb/css/mdb.min.css') }}"> -->
