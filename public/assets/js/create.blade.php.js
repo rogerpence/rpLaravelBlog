@@ -109,6 +109,9 @@ let documentReady = () => {
 
     // Add hot keys to add/change page.
     document.addEventListener('keydown', (e) => {
+        const Home_Key = 36;
+        const End_Key = 35; 
+        const E_Key = 69;
         const S_Key = 83;
         const L_Key = 76;
         const M_Key = 77;
@@ -125,6 +128,20 @@ let documentReady = () => {
 
         if (currentMDEditor !== 'body') {
             return;        
+        }
+
+        if (e.ctrlKey && e.keyCode == End_Key) {
+            e.stopPropagation();
+            e.preventDefault();
+            simplemdeBody.codemirror.execCommand('goLineRight');
+            return false;
+        }
+
+        if (e.ctrlKey && e.keyCode == Home_Key) {
+            e.stopPropagation();
+            e.preventDefault();
+            simplemdeBody.codemirror.execCommand('goLineLeftSmart');
+            return false;
         }
 
         // Apply macros keys for content textarea.
