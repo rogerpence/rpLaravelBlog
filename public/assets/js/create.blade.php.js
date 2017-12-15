@@ -23,7 +23,7 @@ rp.abstractMarkdownEditor = (function () {
             indentWithTabs: true,
             tabSize: 4,
             shortcuts: {
-                "toggleFullScreen": "F8"
+                "toggleFullScreen": "F2"
             }
             //toolbar: true    
         });
@@ -57,10 +57,13 @@ rp.bodyMarkdownEditor = (function () {
 
     function setCustomKeys(editor) {
         editor.codemirror.setOption("extraKeys", {
-            'Ctrl-End': function (cm) {
+            // 'F8': function(cm) {
+            //     cm.setFullscreen();   
+            // },
+            'End': function (cm) {
                 cm.execCommand('goLineRight');
             },
-            'Ctrl-Home': function (cm) {
+            'Home': function (cm) {
                 cm.execCommand('goLineLeftSmart');
             },
             'Ctrl-L': function (cm) {
