@@ -113,3 +113,12 @@ pre {
 .copy-code-button {
     margin-top: 0; 
 }
+
+/*
+ | These two lines bring the SimpleMDE editor 
+ | on top of the fixed admin navbar. 
+ */
+.editor-toolbar.fullscreen {
+    z-index: 9000 !important;
+    height: 55px !important;
+}
