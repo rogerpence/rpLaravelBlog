@@ -139,7 +139,7 @@
                 <div class="form-group">
                     <label for="seo-description"><strong>SEO description</strong></label>
                     <a data-toggle="popover" title="SEO Description" data-trigger="hover" 
-                       data-content="For best search results this needs to be as close to 160 characters as possible."
+                       data-content="For best search results this needs to be as close to its maximum length as possible."
                         href="#" onclick="return false;">
                         &nbsp;
                         <i class="fa fa-info-circle"></i>

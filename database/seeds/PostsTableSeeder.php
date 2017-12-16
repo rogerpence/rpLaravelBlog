@@ -5,16 +5,16 @@ use Illuminate\Database\Seeder;
 class PostsTableSeeder extends Seeder
 {
 
-    private function addTag($post_id, $tags) {
-        foreach ($tags as $tag_name) {
-            $tag_id = \App\Tag::where('name', $tag_name)->pluck('id')->first();
+    // private function addTag($post_id, $tags) {
+    //     foreach ($tags as $tag_name) {
+    //         $tag_id = \App\Tag::where('name', $tag_name)->pluck('id')->first();
 
-            $posttag = new \App\PostTag();
-            $posttag->tag_id = $tag_id;
-            $posttag->post_id = $post_id;
-            $posttag->save();   
-        }                
-    }        
+    //         $posttag = new \App\PostTag();
+    //         $posttag->tag_id = $tag_id;
+    //         $posttag->post_id = $post_id;
+    //         $posttag->save();   
+    //     }                
+    // }        
     
     /**
      * Run the database seeds.

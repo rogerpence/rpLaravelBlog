@@ -18,7 +18,13 @@ class blogTableCopyCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Copy a table';
+    protected $description = 'Save or restore Posts table
+    Copy Posts table to backup Posts table:
+        blog:copy-table save
+    
+    Restore Posts from backup Posts table:
+        blog:copy-table restore    
+    ';
 
     /**
      * Create a new command instance.
@@ -86,7 +92,8 @@ class blogTableCopyCommand extends Command
 
             $bar->advance();
         }                   
-
+        
+        $bar->finish();
         // $headers = ['Title', 'Slug'];
         // $postbacks = \App\PostBack::all(['title', 'slug'])->toArray();
         // $this->table($headers, $postbacks);         
@@ -126,12 +133,22 @@ class blogTableCopyCommand extends Command
             }                
 
             $bar->advance();
-        }                   
+        }
+        
+        $bar->finish();        
     }        
 
     private function addTag($post_id, $tags) {
         foreach ($tags as $tag_name) {
             $tag_id = \App\Tag::where('name', $tag_name)->pluck('id')->first();
+            // Add tags as needed.
+            if (!isset($tag_id)) {
+                $new_tag = \App\Tag::create([
+                                'name' => $tag_name
+                            ]);                
+                $tag_id = $new_tag->id;                            
+            }
+
 
             $posttag = new \App\PostTag();
             $posttag->tag_id = $tag_id;

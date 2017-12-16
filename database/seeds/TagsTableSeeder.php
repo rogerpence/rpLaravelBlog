@@ -11,15 +11,6 @@ class TagsTableSeeder extends Seeder
      */
     public function run()
     {
-        $tags = ['javascript','laravel','php', 
-                  'database', 'mysql', 'python',
-                  'devops', 'nginx', 'css',
-                  'ubuntu', 'virtualbox', 'motorcycle'];  
-                     
-        foreach($tags as $tag) {
-            App\Tag::create([
-                'name' => $tag
-            ]);
-        }                    
+        // Tags are added when DB is restored from PostsBack.
     }  
 }

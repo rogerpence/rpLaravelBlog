@@ -98,7 +98,7 @@ rp.simpleControls = (function () {
 
     function addTypingTracker() {
         const MAX_SEO_TITLE_LENGTH = 70;
-        const MAX_SEO_DESC_LENGTH = 160;
+        const MAX_SEO_DESC_LENGTH = 300;
         new rp.core.TypingTracker('title', MAX_SEO_TITLE_LENGTH)
         new rp.core.TypingTracker('seo_description', MAX_SEO_DESC_LENGTH)
     }
