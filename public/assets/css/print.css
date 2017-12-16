@@ -21,4 +21,13 @@
     aside {
         display: none;
     }
+
+    p small  a.copy-to-clipboard {
+        display: none;
+    }
+
+    p  a.copy-to-clipboard {
+        display: none;
+    }
+
 }
