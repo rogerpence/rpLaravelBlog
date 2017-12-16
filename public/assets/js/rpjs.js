@@ -67,7 +67,9 @@ rp.core = (function () {
             this.progressElement.setAttribute('value', charsEntered);
             // Set characters remaining value.    
             let target = document.getElementById(this.id + '-max-value');
-            target.textContent = ' characters to go: ' + (MAX_LIMIT - this.element.value.length);
+            let charsRemaining = MAX_LIMIT - this.element.value.length;
+            target.textContent = `${charsEntered} characters of ${MAX_LIMIT}`;
+            //target.textContent = ' characters to go: ' + (MAX_LIMIT - this.element.value.length);
         };
 
         this.setInitialValues = function () {
