@@ -52,6 +52,7 @@ rp.showPostPage = (function () {
     const UNORDERED_LIST_TAG_NAME = 'OL';
     const PRE_TAG_NAME = 'PRE';
     const SMALL_TAG = 'small';
+
     const CODE_COPIED_MESSAGE = 'Code copied to clipboard';
 
     function hasLineNumbers(element) {
@@ -59,9 +60,13 @@ rp.showPostPage = (function () {
     }
 
     var findCodePreTag = function (element) {
-        if (element.previousElementSibling.tagName == PRE_TAG_NAME) {
-            return element.previousElementSibling;
-        }
+        if (element.previousElementSibling && 
+            typeof element.previousElementSibling.tagName !== 'undefined') {
+            if (element.previousElementSibling.tagName == PRE_TAG_NAME) {
+                return element.previousElementSibling;
+            }
+        }            
+
         currentElement = element.parentNode.previousSibling;
         while (currentElement.tagName !== PRE_TAG_NAME) {
             currentElement = currentElement.previousSibling;
@@ -105,7 +110,6 @@ rp.showPostPage = (function () {
             });
         }
     }
-
 
     return {
         assignCopyCodeToClipboardEventHandler: assignCopyCodeToClipboardEventHandler
