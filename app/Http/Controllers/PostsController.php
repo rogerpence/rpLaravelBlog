@@ -40,8 +40,10 @@ $post->tags->pluck('name');
         // $data = ['url' => action('PostsController@index'),
         //          'action' => 'POST'];  
 
+        $pages = \App\Post::select('title','slug')->where('status', 2)->get()->toArray();
+
         // return view('posts.list')->with(compact('posts')); /// ->with('view', $data);
-        return view('posts.list-new')->with(compact('posts')); /// ->with('view', $data);        
+        return view('posts.list-new')->with(compact('posts')); //->with('pages', $pages); /// ->with('view', $data);        
     } 
 
     public function create()
