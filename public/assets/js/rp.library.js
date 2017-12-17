@@ -6,7 +6,9 @@ rp.library = (function() {
     function collapseAll() {
         let headings = document.querySelectorAll(collapsedTag);
         for (var i = 0; i < headings.length; i++) {
-            headings[i].parentElement.nextElementSibling.style.display = 'none';
+            if (headings[i].parentElement.nextElementSibling) {
+                headings[i].parentElement.nextElementSibling.style.display = 'none';
+            }                
         }           
     }
 
@@ -33,7 +35,7 @@ rp.library = (function() {
                 // Assign the target tag's click handler.
                 headings[i].addEventListener('click', function (e) {
                     e.preventDefault();
-                    collapseAll('h5');
+                    collapseAll(collapsedTag);
                     var links = this.parentElement.nextElementSibling;
                     links.style.display = (links.style.display == 'none') ? 'block' : 'none';
                 });

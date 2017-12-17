@@ -1,5 +1,5 @@
         <div class="active-tag-list">
-        <h4>Tags</h4>
+        <h4 class="no-collapse">Tags</h4>
             <div class="tags-container">                        
                 @foreach ($activeTags as $activeTag) 
                     <a class="pseudo-list" style="color: black;" href="/posts/tags/{{ $activeTag }}">{{ $activeTag }}</a> 

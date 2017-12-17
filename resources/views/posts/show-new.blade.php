@@ -60,6 +60,8 @@
                     @endif
                 @endif               
                 <br>
+                <hr>
+                <br>
                 <div class="comments">
                     <h5 class="no-collapse">Add your comment</h5>
                     <div>
