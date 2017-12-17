@@ -110,6 +110,7 @@ class blogTableCopyCommand extends Command
         $to->abstract = $from->abstract;
         $to->abstract_html = $from->abstract_html;
         $to->seo_description = $from->seo_description;
+        $to->javascript = $from->javascript;
         $to->seo_keywords = $from->seo_keywords;
         $to->status = $from->status;
         $to->date_to_publish = $from->date_to_publish;        

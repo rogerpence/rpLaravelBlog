@@ -41,7 +41,7 @@
 @section('optional-body-bottom')
 <!-- custom scripts here -->
 <script>
-    rp.library.collapsize('h5');
+    {!!$post->javascript!!}
 </script>
         
 @stop

@@ -24,7 +24,8 @@ class CreatePostsTable extends Migration
             $table->string('source_url',200)->nullable();
             $table->string('repo_url',200)->nullable();
             $table->string('seo_description', 500);
-            $table->string('seo_keywords',200);            
+            $table->string('seo_keywords',200);    
+            $table->string('javascript', 500)->nullable();        
             $table->text('body_html');
             $table->text('body_markdown');
             $table->integer('status');

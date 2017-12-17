@@ -40,6 +40,7 @@ class PostsRepository {
         $post->abstract_html = trim($parse_down->text(request('abstract')));
         $post->seo_description = trim(request('seo_description'));
         $post->seo_keywords = ''; 
+        $post->javascript = trim(request('javascript'));
         $post->status = request('status');
         $publish_date = \Carbon\Carbon::createFromFormat('Y-m-d', request('date-to-publish'));
         $post->date_to_publish = $publish_date;

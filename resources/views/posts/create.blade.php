@@ -155,6 +155,19 @@
                     <textarea data-md="simplemdeBody" class="save" name="body" id="body">{{old('body', $post->body_markdown)}}</textarea>
                 </div>
 
+                <div class="form-group">
+                    <label for="javascript"><strong>JavaScript</strong></label>
+                    <a data-toggle="popover" title="Title" data-trigger="hover" data-content="Custom JavaScript for this page."
+                        href="#" onclick="return false;">
+                        &nbsp;
+                        <i class="fa fa-info-circle"></i>
+                    </a>
+
+                    <input type="text" class="form-control save" id="javascript" titledby="titleHelp" name="javascript" placeholder="JavaScript"
+                        value="{{old('javascript', $post->javascript)}}">
+                </div>
+                
+
                 <hr>
 
                 <div class="form-group">
