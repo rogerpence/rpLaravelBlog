@@ -82,5 +82,6 @@
 
 @section('main.body-at-bottom')
     <script>
-    </script>
+        {!!$post->javascript!!}
+    </script>    
 @endsection

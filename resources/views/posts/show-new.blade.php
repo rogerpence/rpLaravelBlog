@@ -61,7 +61,7 @@
                 @endif               
                 <br>
                 <div class="comments">
-                    <h4>Add your comment</h4>                                   
+                    <h5 class="no-collapse">Add your comment</h5>
                     <div>
                         <form method="post" action="{{ route('comments.store', [$slug]) }}">
 
@@ -110,4 +110,7 @@
 
 @section('optional-body-bottom')
     <script src="{{ asset('assets/js/show-new.blade.php.js') }}"></script>   
+    <script>
+        {!!$post->javascript!!}
+    </script>    
 @stop
