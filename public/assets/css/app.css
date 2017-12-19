@@ -73,6 +73,11 @@ a[disabled] i.admin-icon {
     color: darkslategrey !important;
 }
 
+div.container  a {
+    /* color: maroon !important; */
+    font-weight: 600;
+}
+
 .admin-nav {
     color: black;
     font-size: 150%;
