@@ -31,7 +31,8 @@ $post->tags->pluck('name');
     public function index()
     {
         if (Auth::user()) {
-            $posts = \App\Post::orderBy('date_to_publish', 'desc')->get();
+            //$posts = \App\Post::orderBy('status', 'desc')->orderBy('date_to_publish', 'desc')->get();
+            $posts = \App\Post::orderBy('updated_at', 'desc')->get();
         }
         else {
             $posts = \App\Post::where('status', 1)->orderBy('date_to_publish', 'desc')->get();            

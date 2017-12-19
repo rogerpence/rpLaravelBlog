@@ -19,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with('pages', \App\Post::select('title','slug')->orderby('title')->where('status', PageStatus::Page)->get()->toArray());                                          
         });
 
-        view()->composer(['posts.list-new', 'posts.show-new'], function($view) {            
+        view()->composer(['posts.list-new', 'posts.list-search','posts.show-new'], function($view) {            
             $view->with('activeTags', \App\Post::activeTags());                                          
         });
     }

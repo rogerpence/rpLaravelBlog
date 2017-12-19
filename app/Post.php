@@ -3,9 +3,29 @@
 namespace App;
 
 //use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Post extends Model
 {
+    use Searchable;
+
+    public function toSearchableArray()
+    {
+        // $array = $this->toArray();
+
+        return [
+            "id" => $this->id,
+            "title" => $this->title,
+            "body" => $this->body_markdown
+        ];         
+              
+
+
+        // Customize array...
+
+        //return $array;
+    }    
+
     public static function getValidationRules($id)
     {
         return $validationRules = [

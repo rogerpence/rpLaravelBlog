@@ -33,6 +33,8 @@ Route::delete('/post/{id}', 'PostsController@destroy');
 Route::post('/posts', 'PostsController@store')->name('posts.store');
 Route::patch('/posts', 'PostsController@store')->name('posts.store');
 
+Route::get('/search','SearchController@show')->name('search.posts');
+
 Route::post('/comments/{slug}', 'CommentsController@store')->name('comments.store');
 
 Route::get('/dashboard', 'DashboardController@home')->name('dashboard.home');

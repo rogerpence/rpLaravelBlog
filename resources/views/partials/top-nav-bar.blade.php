@@ -23,6 +23,17 @@
 
         <ul class="nav">
 
+            <div class="col-lg-8">
+                <form class="form-inline my-2 my-lg-0" method="get"  action="{{ route('search.posts') }}">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="search" placeholder="Search for..." aria-label="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-secondary" type="submit">Go!</button>
+                        </span>
+                </div>
+                </form>
+            </div>
+
             <li class="nav-item dropdown">               
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                     @guest 

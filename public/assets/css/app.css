@@ -125,3 +125,7 @@ pre {
     z-index: 9000 !important;
     height: 55px !important;
 }
+
+#alias-save-button {
+    margin-top: 5px;
+}
