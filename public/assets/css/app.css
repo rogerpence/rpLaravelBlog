@@ -122,6 +122,12 @@ pre {
     line-height: 24px;
 }
 
+code {
+    color: #2b1b17 !important;
+    background-color: whitesmoke;
+}
+
+
 .copy-code-button {
     margin-top: 0; 
 }
