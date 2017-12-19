@@ -17,7 +17,7 @@ class SearchController extends Controller
             $posts = \App\Post::search($search)->where('status',1)->get();        
         }                        
 
-        $view = ['search' => $search];
+        $view = ['search' => $search, 'mode'=> 'search' ];
 
         return view('posts.list-search', compact('posts'))->with('view', $view);
 
