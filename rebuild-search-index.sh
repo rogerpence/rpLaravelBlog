@@ -1,0 +1,1 @@
+php artisan scout:import "\App\Post"
