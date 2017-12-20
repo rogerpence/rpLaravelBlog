@@ -143,3 +143,8 @@ code {
 #alias-save-button {
     margin-top: 5px;
 }
+
+.search-term {
+    color: navy;
+    background-color: yellow;
+}

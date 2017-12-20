@@ -33,6 +33,7 @@
     <div class="container">
         <div class="wrapper">
             <article class="content" id="article">
+                <a id="toggle-highlights" href="#" style="display:none;">toggle highlights</a><br>
                 <h2>{{ $post->title }}</h2>
                 <p class="small">Posted on: {{ $post->created_at->format('l, M d, Y') }}</p>                 
                 <div class="show-full-post">
@@ -111,6 +112,7 @@
 
 
 @section('optional-body-bottom')
+    <script src="{{ asset('assets/js/mark.js') }}"></script>   
     <script src="{{ asset('assets/js/show-new.blade.php.js') }}"></script>   
     <script>
         {!!$post->javascript!!}
