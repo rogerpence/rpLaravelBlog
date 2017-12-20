@@ -78,7 +78,7 @@ div.container  a {
     font-weight: 600;
 }
 
-div.tags-container a {
+div.tags-container a, div.show-full-post li a  {
     font-weight: 400;
 }
 
