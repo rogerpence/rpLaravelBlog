@@ -150,6 +150,12 @@ document.getElementById('toggle-highlights').addEventListener('click', function(
 rp.showPostPage.assignCopyCodeToClipboardEventHandler('.copy-to-clipboard');
 
 var search = rp.general.getParameterByName('s');
+if (search == '[pronouns]') {
+    search = ['I', 'me', 'my', 'mine', "I'm", "I'll"];
+}
+else {
+    (search = [search, search +"'s"]);
+}        
 if (search) {
     document.getElementById('toggle-highlights').style.display = "inline";    
     var instance = new Mark(document.querySelector("div.container"));
@@ -157,6 +163,7 @@ if (search) {
         "exclude": [
             "h2", "div.active-tag-list"
         ],
+        "ignorePunctuation": ["'"],
         "accuracy": "exactly",
         "className": "search-term"
     });
