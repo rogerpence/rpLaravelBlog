@@ -148,3 +148,14 @@ code {
     color: navy;
     background-color: yellow;
 }
+ 
+blockquote {
+    margin: 0 0 12px 25px;
+    /* border-top: 1px solid lightgray;     */
+    border-left: 6px solid lightgray; 
+    /* border-bottom: 1px solid lightgray; */
+    padding-top: 4px;
+    padding-left: 16px;
+    
+}
+

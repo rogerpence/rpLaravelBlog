@@ -158,10 +158,10 @@ else {
 }        
 if (search) {
     document.getElementById('toggle-highlights').style.display = "inline";    
-    var instance = new Mark(document.querySelector("div.container"));
+    var instance = new Mark(document.querySelector("div.show-full-post"));
     instance.mark(search, {
         "exclude": [
-            "h2", "div.active-tag-list"
+            "h2", "div.tags-container"
         ],
         "ignorePunctuation": ["'"],
         "accuracy": "exactly",
