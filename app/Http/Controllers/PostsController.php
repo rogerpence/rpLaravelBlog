@@ -56,6 +56,7 @@ $post->tags->pluck('name');
         $view = ['url' => route('posts.store'),
                  'action' => 'POST',
                  'taglist' => '',
+                 'poststatus' => \App\Constants::$POST_STATUS,
                  'mode' => 'create'];        
         return view('posts.create', compact('post'))->with('view', $view);;
     }
@@ -122,6 +123,7 @@ $post->tags->pluck('name');
         $view = ['url' => route('posts.store'),
                  'action' => 'POST',
                  'spoof_action' => 'PATCH',
+                 'poststatus' => \App\Constants::$POST_STATUS,                 
                  'taglist' => $taglist,  
                  'mode' => 'edit'];        
         return view('posts.create')->with('post', $post)->

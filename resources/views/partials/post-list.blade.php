@@ -8,6 +8,9 @@
             @endisset
 
             <div class="post-date-line">
+                @auth
+                    <a title="Edit post" style="display:inline;" href="/posts/{{ $post->id }}/edit" ><i class="fa fa-pencil"></i></a>&nbsp;
+                @endauth          
                 @switch($post->status)
                     @case(0)
                         <span style="display:inline;" class="badge badge-warning">Draft</span>
@@ -22,9 +25,6 @@
                         @break
                 @endswitch                
 
-                @auth
-                    <a title="Edit post" style="display:inline;" href="/posts/{{ $post->id }}/edit" ><i class="fa fa-pencil"></i></a>&nbsp;
-                @endauth          
                 <span class="small">{{substr($post->date_to_publish,0,10)}} by rp</span>
             </div>
 

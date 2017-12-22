@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Classes\PageStatus;
+use App\Constants\PostStatus;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
     {
         //$pages = ;
         view()->composer(['*'], function($view) {            
-            $view->with('pages', \App\Post::select('title','slug')->orderby('title')->where('status', PageStatus::Page)->get()->toArray());                                          
+            $view->with('pages', \App\Post::select('title','slug')->orderby('title')->where('status', PostStatus::PAGE)->get()->toArray());                                          
         });
 
         view()->composer(['posts.list-new', 'posts.list-search','posts.show-new'], function($view) {            

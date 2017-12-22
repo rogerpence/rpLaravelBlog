@@ -159,3 +159,7 @@ blockquote {
     
 }
 
+h4, h5 {
+    margin-top: 24px;
+    margin-bottom: 12px;
+}

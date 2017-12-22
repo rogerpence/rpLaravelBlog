@@ -203,7 +203,5 @@
     <script src="{{ asset('assets/js/tagchief.js') }}"></script>    
     <script src="{{ asset('assets/js/tagchiefdatalist.js') }}"></script>
     <script src="{{ asset('assets/js/vendor/flatpickr.js') }}"></script>    
-    <script src="{{ asset('assets/js/create.blade.php.js') }}"></script>   
-
-    
+    <script src="{{ asset('assets/js/create.blade.php.js') }}"></script>      
 @endsection
