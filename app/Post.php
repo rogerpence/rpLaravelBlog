@@ -25,16 +25,28 @@ class Post extends Model
 
         //return $array;
     }    
-
-    public static function getValidationRules($id)
+//^[^\/]+$
+    public static function getValidationRules()
     {
+        $letters_puncuation_only = '/^[a-zA-Z0-9!?]+$/';
+        
         return $validationRules = [
-            'title' => 'required|unique:posts,title,' . $id, 
-            'slug' => 'required|unique:posts,slug,' . $id, 
+            'title' => ['required',
+                        'unique:posts,title',
+                        'regex:' . $letters_puncuation_only], 
+            'slug' => ['required',
+                       'unique:posts,slug', 
+                       'regex:' . $letters_puncuation_only],                         
             'body' => 'required',
             'abstract' => 'required',
             'seo_description' => 'required'];        
     }                   
+
+    public static function getCustomErrorMessages() 
+    {
+        return $messages = ['title.regex' => 'The title can\'t have special characters',
+                            'slug.regex' => 'The slug can\'t have special characters'];
+    }
 
     // $model->relation() returns the relationship object
     // $model->relation returns the result of the relationship    

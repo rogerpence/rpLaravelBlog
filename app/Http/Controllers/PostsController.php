@@ -67,7 +67,12 @@ $post->tags->pluck('name');
         //dd(request()->all());           
 
         $id = (request()->has('postid')) ? request('postid') : 0;
-        $this->validate(request(), \App\Post::getValidationRules($id));                
+
+        $messages = ['title.regex' => 'The title must be letters and numbers only',
+                     'slug.regex' => 'The slug must be letters and numbers only'];
+
+        //$this->validate(request(), \App\Post::getValidationRules(), $messages);                
+        $this->validate(request(), \App\Post::getValidationRules(), \App\Post::getCustomErrorMessages());
 
         (new PostsRepository())->storePost(request()->all());
         
