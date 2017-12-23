@@ -72,7 +72,7 @@ $post->tags->pluck('name');
                      'slug.regex' => 'The slug must be letters and numbers only'];
 
         //$this->validate(request(), \App\Post::getValidationRules(), $messages);                
-        $this->validate(request(), \App\Post::getValidationRules(), \App\Post::getCustomErrorMessages());
+        $this->validate(request(), \App\Post::getValidationRules($id), \App\Post::getCustomErrorMessages());
 
         (new PostsRepository())->storePost(request()->all());
         

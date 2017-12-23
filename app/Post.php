@@ -26,16 +26,16 @@ class Post extends Model
         //return $array;
     }    
 //^[^\/]+$
-    public static function getValidationRules()
+    public static function getValidationRules($id)
     {
-        $letters_puncuation_only = '/^[a-zA-Z0-9!?]+$/';
+        $letters_puncuation_only = '/^[a-zA-Z0-9!?\.\- ]+$/';
         
         return $validationRules = [
             'title' => ['required',
-                        'unique:posts,title',
+                        'unique:posts,title,' . $id, 
                         'regex:' . $letters_puncuation_only], 
             'slug' => ['required',
-                       'unique:posts,slug', 
+                       'unique:posts,slug,'  . $id, 
                        'regex:' . $letters_puncuation_only],                         
             'body' => 'required',
             'abstract' => 'required',
