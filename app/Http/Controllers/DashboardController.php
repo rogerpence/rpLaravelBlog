@@ -8,10 +8,10 @@ class DashboardController extends Controller
 {
     public function home() 
     {
-        $view = new \stdClass();
-        $view->subview = 'dashboard.home';
-
-        return view('dashboard.main')->with('view', $view);        ;
+        // $view = new \stdClass();
+        // $view->subview = 'dashboard.main';
+        $view = ['section' => 'dashboard.main'];
+        return view('dashboard.home')->with('view', $view);        ;
     }        
 
     public function posts() 

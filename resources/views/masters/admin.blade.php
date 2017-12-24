@@ -7,12 +7,12 @@
     </head>
 
     <body>
-        @include('partials.admin-bar')
-
-        @yield('content')        
-
+        @yield('content')
+        
         @include('partials.scripts-at-bottom')
-        @yield('main.body-at-bottom')        
+        @yield('main.body-at-bottom')
     </body>
 </html>
+
+
 
