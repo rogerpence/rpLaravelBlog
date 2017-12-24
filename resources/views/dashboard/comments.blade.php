@@ -1,3 +1,11 @@
+comments
+<br>
+
+{{ \App\Classes\MyHelpers::pathActive(url()->current(), 'dashboard/posts') }}
+<br>
+@isCurrent('dashboard/posts')
+
+{{--
 <table>
     <thead>
         <tr>
@@ -18,3 +26,4 @@
         @endforEach
     </tbody>
 </table>
+--}}

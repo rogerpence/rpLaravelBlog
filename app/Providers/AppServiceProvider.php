@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Constants\PostStatus;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Http\Request;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -12,6 +14,9 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
+
+    
+
     public function boot()
     {
         //$pages = ;
@@ -22,6 +27,14 @@ class AppServiceProvider extends ServiceProvider
         view()->composer(['posts.list-new', 'posts.list-search','posts.show-new'], function($view) {            
             $view->with('activeTags', \App\Post::activeTags());                                          
         });
+
+         // php artisan view:clear
+        Blade::directive('isPathActive', function($name) {
+            $name = str_replace("''", "'", $name);
+            $php = "<?php echo \App\Classes\MyHelpers::pathActive({$name}) ?>";                        
+            return $php;
+         });
+
     }
 
     /**

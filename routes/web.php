@@ -37,14 +37,18 @@ Route::get('/search','SearchController@show')->name('search.posts');
 
 Route::post('/comments/{slug}', 'CommentsController@store')->name('comments.store');
 
-Route::get('/dashboard', 'DashboardController@home')->name('dashboard.home');
-Route::get('/dashboard/home', 'DashboardController@home')->name('dashboard.home');
-Route::get('/dashboard/posts', 'DashboardController@posts')->name('dashboard.posts');
-Route::get('/dashboard/comments', 'DashboardController@comments')->name('dashboard.comments');
+// Route::get('/dashboard', 'DashboardController@home')->name('dashboard.home');
+// Route::get('/dashboard/home', 'DashboardController@home')->name('dashboard.home');
+// Route::get('/dashboard/images', 'DashboardController@images')->name('dashboard.images');
+// Route::get('/dashboard/posts', 'DashboardController@posts')->name('dashboard.posts');
+// Route::get('/dashboard/comments', 'DashboardController@comments')->name('dashboard.comments');
 
 Route::get('/test', 'TestsController@auto')->name('test.auto');
 
 Route::get('/posts/tags/{tag}', 'TagsController@index');
+
+Route::get('/dashboard/{slug}', 'DashboardController@show');
+
 
 Route::get('{slug}', 'PageController@show')->name('page.show');
 
