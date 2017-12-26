@@ -13,15 +13,12 @@ class MyHelpers
     }    
 
     public static function pathActive($path, $token = null) {
-        if ($token == null ) {
-            $token = 'active';
-        }
-
-        //$path = str_replace("'", "", $path);    
-
+        $token = ($token == null) ? 'active' : $token; 
         $url = request()->url();
+
+        
+
         if (\App\Classes\MyHelpers::endsWith($url, $path)) {
-//        if (endsWith($url, $path)) {
             return ' ' . $token . ' '; 
         }
         else {

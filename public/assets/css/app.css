@@ -163,3 +163,22 @@ h4, h5 {
     margin-top: 24px;
     margin-bottom: 12px;
 }
+
+.code-header {
+    background-color:lightgrey;
+    padding: 3px 0 3px 6px;
+    font-size: 80%;
+    border-top: 1px solid slategray;
+    border-bottom: 1px solid slategray;
+}
+.code-footer {
+    background-color: lightgrey;
+    padding: 3px 0 3px 6px;
+    font-size: 80%;
+    border-top: 1px solid slategray;
+    border-bottom: 1px solid slategray;
+    margin-top: -1.2em;
+}
+pre {
+    /* margin-bottom: 0; */
+}

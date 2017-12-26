@@ -15,8 +15,6 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
 
-    
-
     public function boot()
     {
         //$pages = ;
@@ -28,12 +26,12 @@ class AppServiceProvider extends ServiceProvider
             $view->with('activeTags', \App\Post::activeTags());                                          
         });
 
-         // php artisan view:clear
-        Blade::directive('isPathActive', function($name) {
-            $name = str_replace("''", "'", $name);
+        // php artisan view:clear
+        Blade::directive('isPathActive', function($name) {                       
+            $name = str_replace("''", "'", $name);                               
             $php = "<?php echo \App\Classes\MyHelpers::pathActive({$name}) ?>";                        
-            return $php;
-         });
+            return $php;                                                         
+         });                                                                     
 
     }
 
