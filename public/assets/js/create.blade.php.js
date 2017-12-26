@@ -66,11 +66,14 @@ rp.bodyMarkdownEditor = (function () {
             'Home': function (cm) {
                 cm.execCommand('goLineLeftSmart');
             },
-            'Ctrl-L': function (cm) {
+            'Alt-L': function (cm) {
                 rp.pureFunctions.insertTextAtCurrentLine(cm, '<!--prettify lang=js linenums=true-->', 'js');
             },
-            'Ctrl-M': function (cm) {
+            'Alt-M': function (cm) {
                 rp.pureFunctions.insertTextAtCurrentLine(cm, '<small>caption</small>', 'caption');
+            },
+            'Alt-C': function (cm) {
+                rp.pureFunctions.insertTextAtCurrentLine(cm, '<div class="code-header">header text</div>', 'header text');
             }
         });
     }                        

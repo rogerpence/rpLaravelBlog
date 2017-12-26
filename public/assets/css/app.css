@@ -168,8 +168,8 @@ h4, h5 {
     background-color:lightgrey;
     padding: 3px 0 3px 6px;
     font-size: 80%;
-    border-top: 1px solid slategray;
-    border-bottom: 1px solid slategray;
+    border-top: 1px solid #a7a09f;
+    border-bottom: 1px solid #a7a09f;
 }
 .code-footer {
     background-color: lightgrey;
