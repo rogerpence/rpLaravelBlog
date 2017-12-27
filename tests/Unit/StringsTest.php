@@ -39,13 +39,31 @@ class StringsTest extends TestCase
 
     public function testEndsWith() {
         $str = 'neil/young/dashboard/images';
-        $this->assertEquals($this->endsWith($str, 'dashboard/images'), 1);
-        $str = 'neil/young/dashboard/images+';
-        $this->assertEquals($this->endsWith($str, 'dashboard/images+'), 1);
-        $str = 'neil/young/dashboard/images(\!$+';
-        $this->assertEquals($this->endsWith($str, 'dashboard/images(\!$+'), 1);
+        $this->assertEquals(\StringHelper::endsWith($str, 'dashboard/images'), 1);
 
-        // $this->assertEquals($this->endsWith($str, 'images'), 1);
-        //$this->assertNotNull(endsWith('neil/young/dashboard/images'));
+        $str = 'neil/young/dashboard/images+';
+        $this->assertEquals(\StringHelper::endsWith($str, 'dashboard/images+'), 1);
+
+        $str = 'neil/young/dashboard/images(\!$+';
+        $this->assertEquals(\StringHelper::endsWith($str, 'dashboard/images(\!$+'), 1);
+
+        $this->assertEquals(\StringHelper::endsWith('neil young', 'oung'), 1);
     }
+
+    public function testStartsWith() {
+        $str = 'neil/young/dashboard/images';
+        $this->assertEquals(\StringHelper::startsWith($str, 'neil/young'), 1);
+
+        $str = 'neil/young/dashboard/images+';
+        $this->assertEquals(\StringHelper::startsWith($str, 'neil'), 1);
+
+        $str = '+()neil/young/dashboard/images+';        
+        $this->assertEquals(\StringHelper::startsWith($str, '+()neil'), 1);
+
+        $str = '(\!$+neil/young/dashboard/images';
+        $this->assertEquals(\StringHelper::startsWith($str, '(\!$+neil/young'), 1);
+
+        $this->assertEquals(\StringHelper::startsWith('neil young', 'neil'), 1);        
+    }
+
 }

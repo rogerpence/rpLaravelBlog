@@ -150,13 +150,12 @@ code {
 }
  
 blockquote {
-    margin: 0 0 12px 25px;
+    margin: 12px 0 12px 25px;
     /* border-top: 1px solid lightgray;     */
     border-left: 6px solid lightgray; 
     /* border-bottom: 1px solid lightgray; */
-    padding-top: 4px;
-    padding-left: 16px;
-    
+    padding-top:16px;
+    padding-left: 24px;
 }
 
 h4, h5 {

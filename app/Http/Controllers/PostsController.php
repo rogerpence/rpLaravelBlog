@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
 use App\Classes\PostsRepository;
 use App\Comment;
 use Illuminate\Support\Facades\Auth;
-
 
 class PostsController extends Controller
 {
@@ -30,6 +28,8 @@ $post->tags->pluck('name');
 
     public function index()
     {
+        $r = \StringHelper::endsWith('roger', 'r');
+
         if (Auth::user()) {
             //$posts = \App\Post::orderBy('status', 'desc')->orderBy('date_to_publish', 'desc')->get();
             $posts = \App\Post::orderBy('updated_at', 'desc')->get();

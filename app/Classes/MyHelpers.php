@@ -16,8 +16,6 @@ class MyHelpers
         $token = ($token == null) ? 'active' : $token; 
         $url = request()->url();
 
-        
-
         if (\App\Classes\MyHelpers::endsWith($url, $path)) {
             return ' ' . $token . ' '; 
         }
