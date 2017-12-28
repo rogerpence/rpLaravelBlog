@@ -35,6 +35,8 @@ Route::patch('/posts', 'PostsController@store')->name('posts.store');
 
 Route::get('/search','SearchController@show')->name('search.posts');
 
+Route::post('/dashboard/uploads', 'UploadsController@store')->name('uploads.store');
+
 Route::post('/comments/{slug}', 'CommentsController@store')->name('comments.store');
 
 // Route::get('/dashboard', 'DashboardController@home')->name('dashboard.home');

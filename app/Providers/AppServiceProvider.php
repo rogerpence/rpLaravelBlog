@@ -27,9 +27,20 @@ class AppServiceProvider extends ServiceProvider
         });
 
         // php artisan view:clear
-        Blade::directive('isPathActive', function($name) {                       
-            $name = str_replace("''", "'", $name);                               
-            $php = "<?php echo \App\Classes\MyHelpers::pathActive({$name}) ?>";                        
+        Blade::directive('isPathActive', function($path) { 
+            // $className = 'active';
+            // $url = request()->url();
+
+            // if (\StringHelper::endsWith($url, $path)) {
+            //     return "<?php echo 'active' QM>";                        
+            // }
+            // else {
+            //     return '';
+            // }            
+            
+            // Swap out two leading quotes for a single leading quote.
+            $path = str_replace("''", "'", $path);                               
+            $php = "<?php echo \App\Classes\MyHelpers::pathActive({$path}) ?>";                        
             return $php;                                                         
          });                                                                     
 

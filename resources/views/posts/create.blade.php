@@ -198,7 +198,7 @@
     <script src="{{ asset('assets/js/simplemde.min.js') }}"></script>
     
     <!-- <script src="{{ asset('assets/js/vendor/jquery.js') }}"></script>     -->
-    <script src="{{ asset('assets/js/vendor/jquery-ui.min.js') }}"></script>    
+    <!-- <script src="{{ asset('assets/js/vendor/jquery-ui.min.js') }}"></script> -->   
     <script src="{{ asset('assets/js/vendor/tingle.js') }}"></script>        
     <script src="{{ asset('assets/js/tagchief.js') }}"></script>    
     <script src="{{ asset('assets/js/tagchiefdatalist.js') }}"></script>

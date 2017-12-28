@@ -4,12 +4,12 @@ namespace App\Classes;
 
 class MyHelpers
 {
-    public static function pathActive($path, $token = null) {
-        $token = ($token == null) ? 'active' : $token; 
+    public static function pathActive($path, $className = null) {
+        $className = ($className == null) ? 'active' : $className; 
         $url = request()->url();
 
         if (\StringHelper::endsWith($url, $path)) {
-            return ' ' . $token . ' '; 
+            return ' ' . $className . ' '; 
         }
         else {
             return '';

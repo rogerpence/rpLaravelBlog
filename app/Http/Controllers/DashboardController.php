@@ -9,7 +9,7 @@ class DashboardController extends Controller
     public function show($slug) 
     {
         // Fetch all slugs for posts with 'page' status.
-        $actions = ['home', 'images', 'posts', 'comments', 'tags'];
+        $actions = ['home', 'uploads', 'posts', 'comments', 'tags'];
 
         if (in_array($slug, $actions)) {        
             $action = 'dashboard.' . $slug;             

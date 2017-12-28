@@ -28,7 +28,7 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="/dashboard/home">Dashboard home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Settings</a>
@@ -56,8 +56,8 @@
                   href="/dashboard/comments">Comments</a>
             </li>
             <li class="nav-item">
-             <a class="nav-link @isPathActive('dashboard/images')"
-                  href="/dashboard/images">Images</a>
+             <a class="nav-link @isPathActive('dashboard/uploads')"
+                  href="/dashboard/uploads">Uploads</a>
             </li>
           </ul>
 {{--
@@ -91,7 +91,6 @@
         </nav>
 
         <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
-          <h1>Dashboard</h1>          
           @include($view['section'])
         </main>
         
