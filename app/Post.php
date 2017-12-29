@@ -18,14 +18,8 @@ class Post extends Model
             "title" => $this->title,
             "body" => $this->body_markdown
         ];         
-              
-
-
-        // Customize array...
-
-        //return $array;
     }    
-//^[^\/]+$
+
     public static function getValidationRules($id)
     {
         $letters_puncuation_only = '/^[a-zA-Z0-9!?\.\- ]+$/';

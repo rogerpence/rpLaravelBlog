@@ -10,16 +10,17 @@ class Upload extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */    
     public function up()
     {
-        $table->increments('id');
-        $table->string('name', 128)->unique();
-        $table->string('description', 200);
-        $table->cachebuster()->unsigned()->default(0);
-        $table->timestamps();
-    }
-
+        Schema::create('uploads', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name', 128)->unique();
+            $table->string('description', 200);
+            $table->integer('cachebuster')->unsigned()->default(0);
+            $table->timestamps();
+        });
+    }        
     /**
      * Reverse the migrations.
      *
