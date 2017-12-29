@@ -12,6 +12,13 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('images', function (Request $request) {
+    $uploads = \App\Upload::orderBy('name')->get();
+
+    return $uploads;
+});
+    
+
 
 Route::get('tags', function (Request $request) {
 //    $tags = \App\Tag::orderBy('name')->pluck('name');

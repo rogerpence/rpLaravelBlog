@@ -1,9 +1,23 @@
 <a href="#" id="show-upload-window">Upload file</a>
+<br>
+<a href="#" id="test-button">Test</a>
+<br>
 
+<div>
+    <table id="datatable" class="table table-sm table-striped">
+        <thead class="thead-dark">
+            <th>Name</th>
+            <th>Description</th>
+            <th>Created</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
 
 <div id="upload-container" style="display:none;">
-
-<h3>Upload a file</h3>
+    <h3>Upload a file</h3>
     <form method="POST" action="/dashboard/uploads" enctype="multipart/form-data">
         {{ csrf_field() }}
 
@@ -30,5 +44,6 @@
 
    @section('main.body-at-bottom')
    <script src="{{ asset('assets/js/vendor/tingle.js') }}"></script>           
-   <script src="{{ asset('assets/js/uploads.blade.php.js') }}"></script>      
+   <script src="{{ asset('assets/js/uploads.blade.php.js') }}"></script>  
+   <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.js"></script>       
    @endsection
