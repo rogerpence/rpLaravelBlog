@@ -6,6 +6,7 @@
    <!-- <link rel="stylesheet" href="{{ asset('assets/js/vendor/jquery-ui.min.css') }}"> -->
    <!-- <link rel="stylesheet" href="{{ asset('assets/js/vendor/jquery-ui.theme.min.css') }}"> -->
    <link rel="stylesheet" href="{{ asset('assets/js/vendor/tingle.css') }}">
+   <link rel="stylesheet" href="{{ asset('assets/js/vendor/notifier.min.css') }}">
    
    <link rel="stylesheet" href="{{ asset('assets/js/vendor/flatpickr.css') }}">
    <link rel="stylesheet" href="{{ asset('assets/css/admin-menu.css') }}">

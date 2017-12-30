@@ -44,11 +44,12 @@ rp.uploads = (function() {
 
         $('#datatable').DataTable().destroy();        
         $('#datatable').DataTable({
+            order: [2, 'desc'],
             data: json,
             columns: [
                 { data: 'name'},
                 { data: 'description'},
-                { data: 'created_at', 
+                { data: 'updated_at', 
                   render: function(data, type, row) {
                       return formatAsDateOnly(data, type);
                   }
@@ -58,12 +59,28 @@ rp.uploads = (function() {
         });        
     }
 
+    var getSingleImage = function(id) {
+        getJSON('/api/images/' + id, getSingleImageCallBack);        
+    }
+
+    var getSingleImageCallBack = function(json) {
+        console.log(json);
+        document.getElementById('file-upload').value = '';
+        document.getElementById('image-id').value = json.id;
+        document.getElementById('image-name').value = json.name;
+        document.getElementById('image-name-saved').value = json.name;
+        document.getElementById("image-name").disabled = true;        
+        document.getElementById('image-description').value = json.description;
+        document.getElementById("submit-button").disabled = false;
+        document.getElementById('upload-file-panel-title').innerHTML = 'Change an uploaded image';
+        rp.uploadImageModal.open();
+    }
+
     var getUploadedImages = function() {
         getJSON('/api/images', getUploadedImagesCallBack);
     }
 
     var getUploadedImagesCallBack = function(json) {
-        console.log(json);
         showImagesList(json);
     }
 
@@ -105,21 +122,21 @@ rp.uploads = (function() {
         getUniqueIdentifier: getUniqueIdentifier,
         getJulianDate: getJulianDate,
         getFileNameParts: getFileNameParts,
-        getUploadedImages: getUploadedImages
+        getUploadedImages: getUploadedImages,
+        getSingleImage: getSingleImage
     };
 })();
 
 rp.uploadImageModal = (function () {
+    let modal;
     function configure() {
-        var modal = new tingle.modal({
+        modal = new tingle.modal({
             footer: true,
             stickyFooter: false,
             closeMethods: ['escape'],
             closeLabel: "Close",
             cssClass: ['custom-class-1', 'custom-class-2'],
             onOpen: function () {
-                document.getElementById('file-upload').value = '';
-                document.getElementById('image-name').value = '';
             },
             onClose: function () {
                 //console.log('modal closed');
@@ -135,6 +152,13 @@ rp.uploadImageModal = (function () {
 
         document.getElementById('show-upload-window').addEventListener('click', (e) => {
             e.preventDefault();
+            document.getElementById('file-upload').value = '';
+            document.getElementById('image-id').value = '0';
+            document.getElementById('image-name').value = '';
+            document.getElementById('image-name').disabled = true;
+            document.getElementById('image-description').value = '';
+            document.getElementById("submit-button").disabled = true;            
+            document.getElementById('upload-file-panel-title').innerHTML = 'Upload a new image';            
             modal.open()
         });
 
@@ -144,8 +168,13 @@ rp.uploadImageModal = (function () {
         });        
     }
 
+    let open = () => {
+        modal.open();
+    }
+
     return {
-        configure: configure
+        configure: configure,
+        open: open
     }
 })();
 
@@ -153,6 +182,7 @@ rp.uploadImageModal = (function () {
 function documentReady() {
 
     rp.uploadImageModal.configure();
+    rp.viewImage.configure();
 
     // Assign button event handlers when datatable is drawn.
     $('#datatable').DataTable().on('draw', function() {
@@ -161,14 +191,23 @@ function documentReady() {
         let assignButtonEvent = function(selector) {
             let buttons = document.querySelectorAll(selector);            
             for (let i=0; i <buttons.length; i++) {
-                buttons[i].addEventListener('click', function(e){
-                    let button = this.className;
+                buttons[i].addEventListener('click', function(e)  {
                     let tr = this.parentElement.parentElement;
                     var data = table.row($(tr)).data();
+                    if (this.className == 'button-preview') {
+                        rp.viewImage.openWindow(data);
+                    }
+                    else if (this.className == 'button-copy') { 
+                        let filename = '/storage/images/' + data.name + '?' + data.cachebuster;
+                        rp.general.copyTextToClipboard(filename);
+                        notifier.show('Copy to clipboard successful', 'Image URL is now available for pasting.', '', '/assets/images/survey-48.png', 4000);
+                    }
+                    else if (this.className == 'button-edit') {
+                        rp.uploads.getSingleImage(data.id);
+                    }
                 });
             }    
         }            
-        
         assignButtonEvent('.button-copy');
         assignButtonEvent('.button-edit');
         assignButtonEvent('.button-preview');
@@ -181,16 +220,22 @@ function documentReady() {
     document.getElementById('file-upload').addEventListener('blur', function (e) {
         let fullFileName = this.value;
         if (fullFileName != '') {
-            fileName = rp.uploads.getFileNameFromPath(fullFileName);
-            let fileNameParts = rp.uploads.getFileNameParts(fileName);
 
-            let newFileName = fileNameParts.name + '.' + 
-                            rp.uploads.getUniqueIdentifier() + '.' + 
-                            fileNameParts.extension;
+            if (document.getElementById('image-name').value == '') {
+                fileName = rp.uploads.getFileNameFromPath(fullFileName);
+                let fileNameParts = rp.uploads.getFileNameParts(fileName);
 
-            //document.getElementById('file-upload-target-name').innerText = 'File will be uploaded as: ' + newFileName;
-            document.getElementById('image-name').value = newFileName;
+                let newFileName = fileNameParts.name + '.' + 
+                                rp.uploads.getUniqueIdentifier() + '.' + 
+                                fileNameParts.extension;
+
+                //document.getElementById('file-upload-target-name').innerText = 'File will be uploaded as: ' + newFileName;
+                document.getElementById('image-name').value = newFileName;
+                document.getElementById('image-name-saved').value = newFileName;
+            }                
+
             document.getElementById("submit-button").disabled = false;
+            document.getElementById('image-description').focus();
         }
         else {
             document.getElementById('image-name').value = '';

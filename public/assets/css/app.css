@@ -178,7 +178,8 @@ h4, h5 {
     border-bottom: 1px solid slategray;
     margin-top: -1.2em;
 }
-pre {
+
+code pre {
     padding-top: 1em !important;
     padding-bottom: 1em !important;
     /* margin-bottom: 0; */

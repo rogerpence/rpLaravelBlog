@@ -4,6 +4,7 @@
     <head>
         @include('partials.head')
         @yield('main.head')
+        
     </head>
 
     <body>

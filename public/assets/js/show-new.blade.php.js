@@ -129,22 +129,25 @@ rp.showPostPage = (function () {
 
 var highlightsStatus = true;
 
-document.getElementById('toggle-highlights').addEventListener('click', function(e) {
-    e.preventDefault();
-    if (highlightsStatus) {
-        var highlights = document.querySelectorAll('mark.search-term');
-        for (var i=0; i< highlights.length; i++){
-            highlights[i].className ="search-term-off";
+let toggleHighlights = document.getElementById('toggle-highlights');
+if (toggleHighlights) {
+    document.getElementById('toggle-highlights').addEventListener('click', function(e) {
+        e.preventDefault();
+        if (highlightsStatus) {
+            var highlights = document.querySelectorAll('mark.search-term');
+            for (var i=0; i< highlights.length; i++){
+                highlights[i].className ="search-term-off";
+            }
         }
-    }
-    else {        
-        var highlights = document.querySelectorAll('mark.search-term-off');
-        for (var i = 0; i < highlights.length; i++) {
-            highlights[i].className = "search-term";
-        }
-    }        
-    highlightsStatus = ! highlightsStatus;
-});
+        else {        
+            var highlights = document.querySelectorAll('mark.search-term-off');
+            for (var i = 0; i < highlights.length; i++) {
+                highlights[i].className = "search-term";
+            }
+        }        
+        highlightsStatus = ! highlightsStatus;
+    });
+}
 
 
 rp.showPostPage.assignCopyCodeToClipboardEventHandler('.copy-to-clipboard');
