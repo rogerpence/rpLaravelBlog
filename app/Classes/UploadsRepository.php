@@ -6,6 +6,8 @@ class UploadsRepository {
 
     public function store($request)
     {
+        dd($request->all());
+
         if (null !== $request->file('file-upload')) {
             $request->file('file-upload')->storeAs('images', $request['image-name'], 'public');
         }                
