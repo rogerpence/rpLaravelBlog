@@ -12,10 +12,17 @@
         @if (isset($view) && ($view['mode'] == 'edit' || $view['mode'] == 'create'))
         <li>   
             <button id="alias-save-button" 
-                    class="btn btn-primary btn-sm" 
+                    class="btn btn-primary btn-sm admin-bar-button" 
                     onclick="document.getElementById('post-content-form').submit();"
                     type="button">
                         Save
+            </button>
+        </li>
+        <li>   
+            <button id="admin-bar-upload-image" 
+                    class="btn btn-primary btn-sm  admin-bar-button" 
+                    type="button">
+                        Upload image
             </button>
         </li>
         @endif

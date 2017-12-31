@@ -74,6 +74,10 @@ rp.bodyMarkdownEditor = (function () {
             },
             'Alt-C': function (cm) {
                 rp.pureFunctions.insertTextAtCurrentLine(cm, '<div class="code-header">header text</div>', 'header text');
+            },
+            'Alt-Y': function (cm) {
+                let image = document.getElementById('image-name').value;                
+                rp.pureFunctions.insertTextAtCurrentLine(cm, `![](/storage/images/${image})`, image);
             }
         });
     }                        
@@ -362,10 +366,19 @@ let documentReady = () => {
     rp.eventHandlers.add();
     rp.tags.configure();
     rp.deletePostModal.configure();
+
+    let editImageOptions = {
+        "elementIdTriggerAddNewImage" : "admin-bar-upload-image",
+        "elementIdWindowContents" : "upload-container",
+        "ajax" : true
+    };
+    rp.editImage.configureModalDialog(editImageOptions);
     
     rp.globals.valuesOriginal = rp.pureFunctions.collectInputs();
 
     var x = rp.globals.valuesOriginal;
+
+
 };
 
 rp.core.documentReady(documentReady);

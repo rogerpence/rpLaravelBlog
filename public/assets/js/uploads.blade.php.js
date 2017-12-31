@@ -93,11 +93,10 @@ rp.core.documentReady( function() {
     rp.viewImage.configureModalDialog();        
     let editImageOptions = {
         "elementIdTriggerAddNewImage" : "show-upload-window",
-        "elementIdWindowContents" : "upload-container"
+        "elementIdWindowContents" : "upload-container",
+        "ajax" : false
     };
     rp.editImage.configureModalDialog(editImageOptions);
-
-  
 
     $('#datatable').DataTable().on('draw', function() {
         rp.uploads.assignImageListButtonHandlers();

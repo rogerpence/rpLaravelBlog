@@ -7,6 +7,10 @@ rp.editImage = (function () {
             return;
         }
 
+        if (editImageOptions.ajax) {
+            document.getElementById('submit-button').type="button";
+        }
+
         modal = new tingle.modal({
             footer: true,
             stickyFooter: false,
@@ -22,7 +26,6 @@ rp.editImage = (function () {
                 }                    
             },
             onClose: function () {
-                notifier.show('Copy to clipboard successful', 'Image URL is now available for pasting.', '', '/assets/images/survey-48.png', 4000);                
             },
             beforeClose: function () {
                 return true; // close the modal
@@ -37,6 +40,15 @@ rp.editImage = (function () {
             e.preventDefault();
             showDialogForNewImage();
         });
+
+        if (editImageOptions.ajax) {        
+            document.getElementById('submit-button').addEventListener('click', (e) => {
+                e.preventDefault();
+                rp.lib.copyTextToClipboard('/storage/images/' + document.getElementById('image-name').value);                        
+                rp.lib.postJSONFileUpload('/api/imageupload', rp.editImage.fileUploadCallback);
+                modal.close()
+            });        
+        }
 
         document.getElementById('cancel-button').addEventListener('click', (e) => {
             e.preventDefault();
@@ -113,10 +125,18 @@ rp.editImage = (function () {
         modal.open();
     }
 
+    var fileUploadCallback = function(json) {
+        let j = json;
+        if (json == 'ok') {
+            notifier.show('Image uploaded.', 'Image URL is now available for pasting (or use Alt/Y in editor).', '', '/assets/images/ok-48.png', 4000);                        
+        }            
+    }
+
     return {
         configureModalDialog: configureModalDialog,
         showModalDialog: showModalDialog,
-        getSingleImage: getSingleImage
+        getSingleImage: getSingleImage,
+        fileUploadCallback: fileUploadCallback
     }
 })();
 

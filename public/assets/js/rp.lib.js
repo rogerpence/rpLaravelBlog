@@ -1,6 +1,28 @@
 var rp = rp || {};
 
 rp.lib = (function() {
+    var postJSONFileUpload = function(url, callback) {
+        var form = document.getElementById('form-upload-image');
+        var formData = new FormData(form);
+
+        var xhr = new XMLHttpRequest();
+        // Add any event handlers here...
+        xhr.open('POST', url, true);
+
+        xhr.onload = function() {        
+            var status = xhr.status;
+            
+            if (status == 200) {
+                callback(xhr.response);
+            } else {
+                callback(status);
+            }
+        };
+
+        xhr.send(formData);        
+    }
+
+
     var getJSON = function(url, callback) {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', url, true);
@@ -52,12 +74,58 @@ rp.lib = (function() {
 
         return getJulianDate(now) + '.' + seconds;
     }
+ 
+    function copyTextToClipboard(text) {
+        var textArea = document.createElement("textarea");
+
+        textArea.style.position = 'fixed';
+        textArea.style.top = 0;
+        textArea.style.left = 0;
+        textArea.style.width = '2em';
+        textArea.style.height = '2em';
+        textArea.style.padding = 0;
+        textArea.style.border = 'none';
+        textArea.style.outline = 'none';
+        textArea.style.boxShadow = 'none';
+        textArea.style.background = 'transparent';
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+            var successful = document.execCommand('copy');
+            var msg = successful ? 'successful' : 'unsuccessful';
+            console.log('Copying text command was ' + msg);
+        } catch (err) {
+            console.log('Oops, unable to copy');
+        }
+        document.body.removeChild(textArea);
+    }
+
+    function fadeOutHtmlElement(element) {
+        var op = 1; // initial opacity
+        var timer = setInterval(function () {
+            if (op <= 0.1) {
+                clearInterval(timer);
+            }
+            element.style.opacity = op;
+            op -= 0.1;
+        }, 200);
+
+        setTimeout(function () {
+            element.parentNode.removeChild(element)
+        }, 2500);
+    }
+
+
 
     return {
         getFileNameParts: getFileNameParts,
         getFileNameFromPath: getFileNameFromPath,
         getJulianDate: getJulianDate,
         getUniqueIdentifier: getUniqueIdentifier,
-        getJSON: getJSON
+        getJSON: getJSON,
+        postJSONFileUpload: postJSONFileUpload,
+        copyTextToClipboard: copyTextToClipboard,
+        fadeOutHtmlElement: fadeOutHtmlElement
     }
 })();

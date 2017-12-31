@@ -140,8 +140,9 @@ code {
     height: 55px !important;
 }
 
-#alias-save-button {
+.admin-bar-button {
     margin-top: 5px;
+    margin-left: 3px;
 }
 
 .search-term {

@@ -9,6 +9,8 @@
    
    <link rel="stylesheet" href="{{ asset('assets/js/vendor/flatpickr.css') }}">
    <link rel="stylesheet" href="{{ asset('assets/css/tagchief.css') }}">
+   <link rel="stylesheet" href="{{ asset('assets/js/vendor/notifier.min.css') }}">
+
    <style>
     #abstract-container .CodeMirror, #abstract-container  .CodeMirror-scroll 
     {
@@ -189,6 +191,8 @@
     </form>
 </div>
 
+@include('partials.modal-image-upload-window')
+
 @endsection 
 
 @section('main.body-at-bottom')
@@ -199,9 +203,14 @@
     
     <!-- <script src="{{ asset('assets/js/vendor/jquery.js') }}"></script>     -->
     <!-- <script src="{{ asset('assets/js/vendor/jquery-ui.min.js') }}"></script> -->   
+   <script src="{{ asset('assets/js/vendor/notifier.min.js')}}"></script>
+    
     <script src="{{ asset('assets/js/vendor/tingle.js') }}"></script>        
     <script src="{{ asset('assets/js/tagchief.js') }}"></script>    
     <script src="{{ asset('assets/js/tagchiefdatalist.js') }}"></script>
     <script src="{{ asset('assets/js/vendor/flatpickr.js') }}"></script>    
+    <script src="{{ asset('assets/js/rp.lib.js') }}"></script>  
+    <script src="{{ asset('assets/js/edit-image-modal.ajax.js') }}"></script>      
     <script src="{{ asset('assets/js/create.blade.php.js') }}"></script>      
+    
 @endsection

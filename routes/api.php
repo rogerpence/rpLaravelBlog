@@ -21,6 +21,12 @@ Route::get('images', function (Request $request) {
     return $uploads;
 });
 
+Route::post('imageupload', 'UploadsController@storeajax');
+
+// Route::post('imageupload', function (Request $request) {
+//     $r = $request->all();
+
+// });
 
 
 Route::post('uploads', 'UploadsController@store');
