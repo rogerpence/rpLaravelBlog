@@ -19,7 +19,7 @@ class UploadsRepository {
             $upload = new \App\Upload();
         }
 
-        $upload->name = trim($request['image-name-saved']);
+        $upload->name = trim($request['image-name']);
         $upload->description = trim($request['image-description']);
         $upload->cachebuster += 1;
         $upload->save();

@@ -1,7 +1,10 @@
 rp.viewImage = (function () {
     var modal;
 
-    function configure() {
+    function configureModalDialog() {
+        if ( typeof modal != 'undefined') {
+            return;
+        }
         modal = new tingle.modal({
             footer: true,
             stickyFooter: false,
@@ -43,7 +46,7 @@ rp.viewImage = (function () {
         // });        
     }
 
-    function openWindow(data) {
+    function showModalWindow(data) {
         let imgTag = document.getElementById('image-preview-url');
         imgTag.src = '/storage/images/' + data.name;
         document.getElementById('image-preview-url-text').innerHTML = imgTag.src;
@@ -51,7 +54,7 @@ rp.viewImage = (function () {
     };
 
     return {
-        configure: configure,
-        openWindow: openWindow
+        configureModalDialog: configureModalDialog,
+        showModalWindow: showModalWindow
     }
 })();

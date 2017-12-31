@@ -16,6 +16,8 @@ class UploadsController extends Controller
 
     public function store(Request $request)
     {       
+        // dd($request->all());
+
         $r = $request;
         $r = $request['name'];
 
