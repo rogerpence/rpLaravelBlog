@@ -185,3 +185,7 @@ code pre {
     padding-bottom: 1em !important;
     /* margin-bottom: 0; */
 }
+/* Set spacing above Tags list in sidebar. */
+div.active-tag-list h4 {
+    margin-top: 7px;
+}    
