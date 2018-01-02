@@ -159,10 +159,6 @@ blockquote {
     padding-left: 24px;
 }
 
-h4, h5 {
-    margin-top: 24px;
-    margin-bottom: 12px;
-}
 
 .code-header {
     background-color:lightgrey;
@@ -189,3 +185,12 @@ code pre {
 div.active-tag-list h4 {
     margin-top: 7px;
 }    
+
+.post h4 {
+    margin-top: 0px;
+}
+
+h4, h5 {
+    margin-top: 24px;
+    margin-bottom: 12px;
+}
