@@ -10,37 +10,22 @@ class SearchController extends Controller
 {
      public function show() 
     {
-        $special = [];
-
         $search = request('search');
         if (Auth::user()) {
             $posts = \App\Post::search($search)->get();        
-
-            // foreach ($posts as $post) {
-            //     $p = $post;
-            //     $status = $post->status;
-            //     if ($status == PostStatus::PUBLISHED Or $status == PostStatus::PAGE ) {
-            //         array_push($special, $post);
-            //     }
-            // }                
-
-            // $posts =(object) $special;
-            // $p = compact($posts);
-
         }
         else {
-            $posts = \App\Post::search($search)->where('status',PostStatus::PUBLISHED)->get();
-            
-            //)->where('status',PostStatus::PUBLISHED)->get();
+            // $posts = \App\Post::search($search)->where('status',PostStatus::PUBLISHED)->get();
 
-                    //orWhere('status',PostStatus::PAGE)->get();        
-
-
-
+            // Laravel Scout doesn't allow orWhere, so after getting _all_ posts 
+            // that match the query, filter to include only Published or Page posts. 
+            $posts = \App\Post::search($search)->get();     
+            $posts = $posts->filter(function($value, $key) {
+                return  ($value->status == PostStatus::PUBLISHED or  
+                         $value->status == PostStatus::PAGE);  
+            });           
         }                        
-
         $view = ['search' => $search, 'mode'=> 'search' ];
-
         return view('posts.list-search', compact('posts'))->with('view', $view);
     }        
 }
