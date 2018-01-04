@@ -23,8 +23,15 @@ class AppServiceProvider extends ServiceProvider
         });
 
         view()->composer(['posts.list-new', 'posts.list-search','posts.show-new'], function($view) {            
-            $view->with('activeTags', \App\Post::activeTags());                                          
+            $view->with('activeTags', \App\Post::activeTags());                                 
         });
+
+Blade::directive('hello', function($expression) {
+    if ("'roger'" == $expression) {
+        $expression = 'pence';                    
+    }
+    return "<?php echo 'Hello, ' . '{$expression}'; ?>";
+});
 
         // php artisan view:clear
         Blade::directive('isPathActive', function($path) { 
