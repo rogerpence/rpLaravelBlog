@@ -192,6 +192,7 @@
 </div>
 
 @include('partials.modal-image-upload-window')
+@include('partials.post-help-panel')
 
 @endsection 
 

@@ -78,6 +78,9 @@ rp.bodyMarkdownEditor = (function () {
             'Alt-Y': function (cm) {
                 let image = document.getElementById('image-name').value;                
                 rp.pureFunctions.insertTextAtCurrentLine(cm, `![](/storage/images/${image})`, image);
+            },
+            'Alt-H': function (cm) {
+                rp.postHelpPanel.open();
             }
         });
     }                        
@@ -359,12 +362,56 @@ rp.deletePostModal = (function() {
     }
 })();
 
+rp.postHelpPanel = (function() {
+    let modal;
+    function configure() {        
+        modal = new tingle.modal({
+            footer: true,
+            stickyFooter: false,
+            closeMethods: ['escape'],
+            closeLabel: "Close",
+            cssClass: ['custom-class-1', 'custom-class-2'],
+            onOpen: function () {
+                //console.log('modal open');
+            },
+            onClose: function () {
+                //console.log('modal closed');
+            },
+            beforeClose: function () {
+                // here's goes some logic
+                // e.g. save content before closing the modal
+                return true; // close the modal
+                //return false; // nothing happens
+            }
+        });
+
+        // Load modal content from innerHTML of a given element id.            
+        modal.setContent(document.getElementById('post-help-panel').innerHTML);
+
+        modal.addFooterBtn('No', 'tingle-btn tingle-btn--primary', function () {
+            modal.close();
+        });
+    }        
+
+    function open() {
+        modal.open();
+    }
+
+    return {
+        configure: configure,
+        open: open
+    }
+})();
+
+
+
 let documentReady = () => {
     rp.bodyMarkdownEditor.instance('body');
     rp.abstractMarkdownEditor.instance('abstract');
     rp.simpleControls.configure();
     rp.eventHandlers.add();
     rp.tags.configure();
+    rp.postHelpPanel.configure();
     rp.deletePostModal.configure();
 
     let editImageOptions = {
