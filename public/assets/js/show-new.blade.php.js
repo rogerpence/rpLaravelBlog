@@ -39,7 +39,7 @@ rp.general = (function () {
 
     function fadeOutHtmlElement(element) {
         var op = 1; // initial opacity
-        var timer = setInterval(function () {
+        var timer = setInterval(function() {
             if (op <= 0.1) {
                 clearInterval(timer);
             }
@@ -149,22 +149,106 @@ if (toggleHighlights) {
     });
 }
 
-
-rp.showPostPage.assignCopyCodeToClipboardEventHandler('.copy-to-clipboard');
-
-var search = rp.general.getParameterByName('s');
-if (search) {
-    if (search == '[pronouns]') {
-        search = ['I', 'me', 'my', 'mine', "I'm", "I'll"];
+rp.codehighlight = (function(){
+    function ProgramException(message) {
+        this.message = message;
+        this.name = 'ProgramException';
+     }
+    
+    const getRange = (str) => {
+        const basePattern = '\\s*(\\d{1,3})\\s*-\\s*(\\d{1,3})\\s*';
+        const regex = new RegExp(basePattern, 'g');
+        const rangePattern = new RegExp('^' + basePattern + '$');
+    
+        let m;
+        let result = [];
+    
+        if (! str.match(rangePattern)) {
+            throw new ProgramException('A range doesn\'t match the correct n - m pattern.');    
+        }        
+    
+        m = regex.exec(str);
+        if ((!m) || (m.length !== 3)) {
+            throw new ProgramException('A range doesn\'t match the correct n - m pattern.');
+        }
+    
+        let start = parseInt(m[1],10);
+        let stop = parseInt(m[2],10);
+        if (stop < start) {
+            throw new ProgramException('A range\'s second argument must be greater than the first argument.');
+        }
+    
+        for (var i = start; i <= stop; i++) {
+            result.push(i);
+        }
+    
+        return result;
+    };    
+    
+    const parseLines = (str) => {
+        let lineNumbers = [];
+        let isDigit = /^\s*\d{1,3}\s*$/;
+    
+        let lines = str.split(',');
+        for (var i = 0; i < lines.length; i++) {
+            let token = lines[i];
+            if (lines[i].match(isDigit)) {
+                lineNumbers.push(parseInt(lines[i],10));
+            }
+            else if (lines[i].includes('-')) {
+                    var range = getRange(lines[i]);    
+                    for (var j = 0; j < range.length; j++) {
+                        lineNumbers.push(range[j]);                
+                    }                
+                 }
+            else {
+                throw new ProgramException('A token isn\'t numeric or a range.');            
+            }            
+        }
+    
+        return lineNumbers;
+    }    
+    
+    let assign = () => {
+        let divTags = document.querySelectorAll('div');
+        for (let i =0; i <divTags.length; i++) {
+            let lineNumbersString = divTags[i].getAttribute('data-lines');
+            if (lineNumbersString) {
+                // This assumes there is an array of linei numbers. 
+                let lineNumbers = parseLines(lineNumbersString);
+                let olTag = divTags[i].nextElementSibling.firstElementChild;
+                let liTags = olTag.children;
+                for (let j = 0; j < lineNumbers.length; j++) {
+                    liTags[lineNumbers[j]].className = 'highlight-code';
+                }
+            }                
+        }       
     }
-    else {
-        search = [search, search +"'s", "." + search];
-    }        
-    document.getElementById('toggle-highlights').style.display = "inline";    
-    var instance = new Mark(document.querySelector("div.show-full-post"));
-    instance.mark(search, {
-        "ignorePunctuation": ["'","."],
-        "accuracy": "exactly",
-        "className": "search-term"
-    });
-}
+    return {
+        assign: assign
+    }
+
+})();
+
+rp.core.documentReady(function() {  
+    rp.showPostPage.assignCopyCodeToClipboardEventHandler('.copy-to-clipboard');
+    
+    var search = rp.general.getParameterByName('s');
+    if (search) {
+        if (search == '[pronouns]') {
+            search = ['I', 'me', 'my', 'mine', "I'm", "I'll"];
+        }
+        else {
+            search = [search, search +"'s", "." + search];
+        }        
+        document.getElementById('toggle-highlights').style.display = "inline";    
+        var instance = new Mark(document.querySelector("div.show-full-post"));
+        instance.mark(search, {
+            "ignorePunctuation": ["'","."],
+            "accuracy": "exactly",
+            "className": "search-term"
+        });
+    }
+
+    rp.codehighlight.assign();
+});
