@@ -23,6 +23,9 @@ Route::get('images', function (Request $request) {
 
 Route::post('imageupload', 'UploadsController@storeajax');
 
+Route::delete('/images/{id}', 'DashboardController@destroy');
+
+
 // Route::post('imageupload', function (Request $request) {
 //     $r = $request->all();
 

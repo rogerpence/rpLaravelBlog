@@ -18,6 +18,7 @@ rp.uploads = (function() {
                 buttons[i].addEventListener('click', function(e)  {
                     let tr = this.parentElement.parentElement;
                     var data = table.row($(tr)).data();
+
                     if (this.className == 'button-preview') {
                         rp.viewImage.showModalWindow(data);
                     }
@@ -25,6 +26,11 @@ rp.uploads = (function() {
                         let filename = '/storage/images/' + data.name + '?' + data.cachebuster;
                         rp.general.copyTextToClipboard(filename);
                         notifier.show('Copy to clipboard successful', 'Image URL is now available for pasting.', '', '/assets/images/survey-48.png', 4000);
+                    }
+                    else if (this.className == 'button-delete') {
+                        let postData  = data;
+                        let url = `/api/images/${data.id}`;
+                        rp.lib.postJSON(url, postData, rp.uploads.imageDeleted);
                     }
                     else if (this.className == 'button-edit') {
                         rp.editImage.getSingleImage(data.id);
@@ -35,7 +41,15 @@ rp.uploads = (function() {
         assignButtonEvent('.button-copy');
         assignButtonEvent('.button-edit');
         assignButtonEvent('.button-preview');
+        assignButtonEvent('.button-delete');
+
     }        
+
+    var imageDeleted = (json)  => {
+        rp.uploads.getUploadedImages();        
+        let msg = `Associated image file [${json.name}] still available.`;
+        notifier.show('Imaged deleted successfully from database', msg, '', '/assets/images/ok-48.png', 4000);
+    }
 
     var getImageListButtons =  () => {
         let template = '<button title="{title}" class="button-{action}"><i class="fa fa-{icon}"></i></button>';
@@ -49,6 +63,9 @@ rp.uploads = (function() {
         buttons.push(template.replace('{action}','preview').
                 replace('{icon}','picture-o').
                 replace('{title}', 'Preview image'));
+        buttons.push(template.replace('{action}','delete').
+                replace('{icon}','trash-o').
+                replace('{title}', 'Delete image'));                
 
         return buttons.join('');                
     };        
@@ -69,20 +86,21 @@ rp.uploads = (function() {
             data: json,
             columns: [
                 { data: 'name'},
-                { data: 'description'},
-                { data: 'updated_at', 
+                { data: 'description', width: "25%"},
+                { data: 'updated_at', width: "15%", 
                   render: function(data, type, row) {
                       return formatAsDateOnly(data, type);
                   }
                 },
-                { data: null, defaultContent: getImageListButtons() }
+                { data: null, defaultContent: getImageListButtons(), width: "14%" }
             ]                
         });        
     }
 
     return {
         getUploadedImages: getUploadedImages,
-        assignImageListButtonHandlers: assignImageListButtonHandlers
+        assignImageListButtonHandlers: assignImageListButtonHandlers,
+        imageDeleted: imageDeleted
     };
 })();
 

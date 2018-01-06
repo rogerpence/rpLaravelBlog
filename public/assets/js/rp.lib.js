@@ -1,12 +1,13 @@
 var rp = rp || {};
 
 rp.lib = (function() {
+
+
     var postJSONFileUpload = function(url, callback) {
         var form = document.getElementById('form-upload-image');
         var formData = new FormData(form);
 
         var xhr = new XMLHttpRequest();
-        // Add any event handlers here...
         xhr.open('POST', url, true);
 
         xhr.onload = function() {        
@@ -21,7 +22,6 @@ rp.lib = (function() {
 
         xhr.send(formData);        
     }
-
 
     var getJSON = function(url, callback) {
         var xhr = new XMLHttpRequest();
@@ -41,7 +41,21 @@ rp.lib = (function() {
         xhr.send();
     };
 
-    var getFileNameParts = function(filename) {
+    var postJSON = function(url, data, callback) {
+        xhr = new XMLHttpRequest();
+        xhr.open("DELETE", url, true);
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.onreadystatechange = function () { 
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                    var t = xhr.responseText;
+                    var json = JSON.parse(xhr.responseText);
+                    callback(json);
+                }
+            }
+        xhr.send(JSON.stringify(data));
+   }
+
+   var getFileNameParts = function(filename) {
         let result = {"name" : null, "extension" : null};
         let m;
         let dot = /(\.)/g;
@@ -124,6 +138,7 @@ rp.lib = (function() {
         getJulianDate: getJulianDate,
         getUniqueIdentifier: getUniqueIdentifier,
         getJSON: getJSON,
+        postJSON: postJSON,
         postJSONFileUpload: postJSONFileUpload,
         copyTextToClipboard: copyTextToClipboard,
         fadeOutHtmlElement: fadeOutHtmlElement

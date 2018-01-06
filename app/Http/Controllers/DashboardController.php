@@ -6,6 +6,16 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+    public function destroy($id) {
+        $t = request()->all();    
+        $upload = \App\Upload::find($id);
+        $name = request('name');
+        $result = ["status" => "ok", "name" => $name];        
+        $json = json_encode($result); 
+        $upload->delete();        
+        return $json;
+    }
+
     public function show($slug) 
     {
         // Fetch all slugs for posts with 'page' status.

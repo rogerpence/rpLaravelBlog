@@ -51,7 +51,6 @@ Route::get('/posts/tags/{tag}', 'TagsController@index');
 
 Route::get('/dashboard/{slug}', 'DashboardController@show');
 
-
 Route::get('{slug}', 'PageController@show')->name('page.show');
 
 
