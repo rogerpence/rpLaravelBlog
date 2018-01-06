@@ -8,8 +8,10 @@
         <input type="hidden" class="form-control" id="image-name" name="image-name">
 
         <div class="form-group">
-            <label for="file-upload"></label>
-            <input type="file" class="form-control-file" id="file-upload" name="file-upload">
+            <label for="file-upload" class="btn btn-primary">
+                <input type="file" class="form-control-file" id="file-upload" name="file-upload" hidden>
+                Select file...
+            </label>
         </div>
 
         <div class="form-group">        
@@ -19,9 +21,15 @@
         </div>
 
         <div class="form-group">
+            <img src="" id="image-preview"/>
+            <div><small id="image-size"></small></div>
+        </div>
+
+        <div class="form-group">
             <label for="image-description">Image description</label>
             <input type="text" class="form-control" id="image-description" name="image-description" aria-describedby="image-name-help" placeholder="Enter image description">
         </div>
+
 
         <button id="submit-button" disabled type="submit" class="btn btn-success">Upload</button>
         <button id="cancel-button" type="button" class="btn btn-danger">Cancel</button>

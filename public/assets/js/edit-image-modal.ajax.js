@@ -37,6 +37,12 @@ rp.editImage = (function () {
         modal.setContent(document.getElementById(editImageOptions.elementIdWindowContents).innerHTML);
     
         document.getElementById(editImageOptions.elementIdTriggerAddNewImage).addEventListener('click', (e) => {
+            let targetImageId = document.getElementById('image-preview')
+            targetImageId.src = '';
+            targetImageId.width = 1;
+            targetImageId.height = 1;            
+            targetImageId =  document.getElementById("image-size");
+            targetImageId.textContent = '';
             e.preventDefault();
             showDialogForNewImage();
         });
@@ -66,6 +72,43 @@ rp.editImage = (function () {
         };
 
         document.getElementById('file-upload').addEventListener('change', function(e) {
+            let file;
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                file = this.files[0];
+            
+                reader.onload = function(e) {
+                    let _URL = window.URL || window.webkitURL;
+                    let img = new Image();
+                    let reducedMsg = '';
+                    let originalWidth;
+                    let originalHeight;
+
+                    img.onload = function () {
+                        originalWidth = this.width;
+                        originalHeight = this.height;
+                        if (this.width > 400) {
+                            let width =  this.width / 2;
+                            let height = (width * this.height) / this.width;
+
+                            this.width = width;
+                            this.height = height;
+                            reducedMsg = " (reduced by 50%)";
+                        }
+                        let targetImageId = document.getElementById('image-preview')
+                        targetImageId.src = e.target.result;
+                        targetImageId.width = this.width;
+                        targetImageId.height = this.height;
+                        targetImageId.style = "border: dashed 1px lightgray;";
+                        targetImageId =  document.getElementById("image-size");
+                        targetImageId.innerHTML = `Actual width ${originalWidth}px and height ${originalHeight}px` + reducedMsg;
+                    };                    
+                    
+                    img.src = _URL.createObjectURL(file);                            
+                }           
+                reader.readAsDataURL(this.files[0]);
+            }            
+
             let fullFileName = this.value;
             if (fullFileName != '') {
                 if (isAddingImage()) {                    
