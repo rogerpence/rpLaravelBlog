@@ -25,13 +25,6 @@ Route::post('imageupload', 'UploadsController@storeajax');
 
 Route::delete('/images/{id}', 'DashboardController@destroy');
 
-
-// Route::post('imageupload', function (Request $request) {
-//     $r = $request->all();
-
-// });
-
-
 Route::post('uploads', 'UploadsController@store');
 
 Route::get('tags', function (Request $request) {

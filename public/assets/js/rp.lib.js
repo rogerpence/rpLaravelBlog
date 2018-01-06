@@ -41,18 +41,19 @@ rp.lib = (function() {
         xhr.send();
     };
 
-    var postJSON = function(url, data, callback) {
+    var submitJSON = function(options) {
+        let method = options.method || 'POST';
         xhr = new XMLHttpRequest();
-        xhr.open("DELETE", url, true);
+        xhr.open(method, options.url, true);
         xhr.setRequestHeader("Content-type", "application/json");
         xhr.onreadystatechange = function () { 
             if (xhr.readyState == 4 && xhr.status == 200) {
                     var t = xhr.responseText;
                     var json = JSON.parse(xhr.responseText);
-                    callback(json);
+                    options.callback(json);
                 }
             }
-        xhr.send(JSON.stringify(data));
+        xhr.send(JSON.stringify(options.data));        
    }
 
    var getFileNameParts = function(filename) {
@@ -138,7 +139,7 @@ rp.lib = (function() {
         getJulianDate: getJulianDate,
         getUniqueIdentifier: getUniqueIdentifier,
         getJSON: getJSON,
-        postJSON: postJSON,
+        submitJSON: submitJSON,
         postJSONFileUpload: postJSONFileUpload,
         copyTextToClipboard: copyTextToClipboard,
         fadeOutHtmlElement: fadeOutHtmlElement

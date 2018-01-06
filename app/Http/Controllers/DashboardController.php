@@ -7,12 +7,19 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     public function destroy($id) {
-        $t = request()->all();    
         $upload = \App\Upload::find($id);
+        $upload->delete();        
+
+        // $t is an associative array of the stringified Json submitted. 
+        // Fetch any value out with request(key). 
+        $t = request()->all();
+
+        // Create and associative array and then convert it to Json
+        // as the response. 
         $name = request('name');
         $result = ["status" => "ok", "name" => $name];        
         $json = json_encode($result); 
-        $upload->delete();        
+        
         return $json;
     }
 

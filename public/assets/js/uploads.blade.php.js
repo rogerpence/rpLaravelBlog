@@ -28,9 +28,13 @@ rp.uploads = (function() {
                         notifier.show('Copy to clipboard successful', 'Image URL is now available for pasting.', '', '/assets/images/survey-48.png', 4000);
                     }
                     else if (this.className == 'button-delete') {
-                        let postData  = data;
-                        let url = `/api/images/${data.id}`;
-                        rp.lib.postJSON(url, postData, rp.uploads.imageDeleted);
+                        let options = {
+                            "url": `/api/images/${data.id}`,                        
+                            "data": data,
+                            "callback": rp.uploads.imageDeleted,
+                            "method": 'DELETE'
+                        };
+                        rp.lib.submitJSON(options);
                     }
                     else if (this.className == 'button-edit') {
                         rp.editImage.getSingleImage(data.id);
