@@ -9,6 +9,10 @@ class Post extends Model
 {
     use Searchable;
 
+    public function isPublicPost() {
+        return ($this->status == 1 ||$this->status == 2);
+    }
+
     public function toSearchableArray()
     {
         // $array = $this->toArray();
