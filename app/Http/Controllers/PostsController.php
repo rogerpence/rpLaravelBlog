@@ -94,6 +94,10 @@ $post->tags->pluck('name');
         // dd($id);
 
         $post = \App\Post::where('slug', '=', $slug )->first();
+        if (! Auth::user() && ! $post->isPublicPost() ) {
+           abort(404);    
+        }
+
         $comments = $post->hasMany(Comment::class)->where('comment_id',0)->where('approved', true)->get();
         $tag_array = $post->tags->pluck('name')->toArray();
         $taglist = implode(",", $tag_array);
