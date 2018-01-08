@@ -90,16 +90,12 @@ $post->tags->pluck('name');
     // public function show(\App\Post $post) 
     public function show($slug) 
     {
-        // dd(request()->all());
-        // dd($id);
-
         $post = \App\Post::where('slug', '=', $slug )->first();
-        if (! Auth::user() && ! $post->isPublicPost() ) {
+        // If use isn't authorized and the the post isn't public,
+        // redirect user away from that content.
+        if (! Auth::user() && ! $post->isPublicPost()) {
            abort(404);    
         }
-        // if (! Auth::user() && ! $post->isPublicPost() ) {
-        //     abort(404);    
-        // }
 
         $comments = $post->hasMany(Comment::class)->where('comment_id',0)->where('approved', true)->get();
         $tag_array = $post->tags->pluck('name')->toArray();

@@ -1,9 +1,115 @@
 var rp = rp || {};
 
-rp.uploads = (function() {
-    var getUploadedImages = function() {
-        rp.lib.getJSON('/api/images', getUploadedImagesCallBack);
+rp.ajax = (function() {
+    var checkHTTPStatus = (response) => {
+        if (response.ok) {
+            return response;
+        }
+        let error = new Error(response.statusText);
+        error.response = response;
+        return Promise.reject(error);
     }
+
+    var submitRequest = (options) => {        
+        fetch(options.url, {
+            method: options.method,
+            headers: options.headers,
+            body: options.body
+        })    
+        .then(checkHTTPStatus)
+        .then((response) => response.json())
+        .then(json => options.action(json))
+        
+        .catch((error) => {
+            console.log('There was an HTTP fetch error', error);
+        });        
+    }
+
+    var submitDeleteRequest = (options) => {
+        options.method = 'DELETE';
+        if (options.hasOwnProperty('json')) {
+            options.body = JSON.stringify(options.json);
+            delete options.json;
+        }
+        if (!options.hasOwnProperty('headers')) {
+            options.headers = {};
+        }                    
+        options.headers['content-type'] = 'application/json';
+        submitRequest(options);
+    }        
+
+    return {
+        submitRequest: submitRequest,
+        submitDeleteRequest: submitDeleteRequest
+    }
+})(); 
+
+
+rp.uploads = (function() {
+    // https://www.youtube.com/watch?time_continue=30&v=Ncs6QI4Z5BE
+
+    var checkHTTPStatus = (response) => {
+        if (response.ok) {
+            return response;
+        }
+        let error = new Error(response.statusText);
+        error.response = response;
+        return Promise.reject(error);
+    }
+
+    var submitRequest = (options) => {        
+        fetch(options.url, {
+            method: options.method,
+            headers: options.headers,
+            body: options.body
+        })    
+        .then(checkHTTPStatus)
+        .then((response) => response.json())
+        .then(json => options.action(json))
+        
+        .catch((error) => {
+            console.log('There was an Ajax error', error);
+        });        
+    }
+
+    var getUploadedImages = function() {
+        let options = {
+            url: '/api/images',
+            method: 'GET',
+            headers: {},
+            body: {},
+            action: showImagesList
+        }
+
+        rp.ajax.submitRequest(options);
+        console.log('got json');
+        
+        //showImagesList(json);
+        return;
+
+        // Fetch. This is it! 
+        // https://davidwalsh.name/fetch
+        fetch('/api/images')    
+        .then((response) => response.json())
+        .then(json => showImagesList(json))
+        .catch((error) => {
+
+        });
+        console.log('got json');
+    }
+
+        // Async and await.            
+        // Save as below.
+        // rp.lib.getJson2('/api/images')
+        //     .then(function(data) {
+        //         showImagesList(data);
+        //     });
+
+        // rp.lib.getJson2('/api/images')
+        //     .then(json => showImagesList(json));
+
+        // As originally written with old-school callback.            
+        //rp.lib.getJSON('/api/images', getUploadedImagesCallBack);            
 
     var getUploadedImagesCallBack = function(json) {
         showImagesList(json);
@@ -28,13 +134,35 @@ rp.uploads = (function() {
                         notifier.show('Copy to clipboard successful', 'Image URL is now available for pasting.', '', '/assets/images/survey-48.png', 4000);
                     }
                     else if (this.className == 'button-delete') {
+                        // let options = {
+                        //     "url": `/api/images/${data.id}`,                        
+                        //     "data": data,
+                        //     "callback": rp.uploads.imageDeleted,
+                        //     "method": 'DELETE'
+                        // };
+                        // rp.lib.submitJSON(options);
+
+                        // let options = {
+                        //     url: `/api/images/${data.id}`,                        
+                        //     method: 'DELETE',
+                        //     headers: {
+                        //         "content-type": "application/json"
+                        //     },
+                        //     body: JSON.stringify(data),        
+                        //     action: rp.uploads.imageDeleted
+                        // }
+                        // rp.ajax.submitRequest(options);                
+
                         let options = {
-                            "url": `/api/images/${data.id}`,                        
-                            "data": data,
-                            "callback": rp.uploads.imageDeleted,
-                            "method": 'DELETE'
-                        };
-                        rp.lib.submitJSON(options);
+                            url: `/api/images/${data.id}`,                        
+                            json: data,
+                            action: rp.uploads.imageDeleted,
+                        }
+                        rp.ajax.submitDeleteRequest(options);                
+
+
+
+
                     }
                     else if (this.className == 'button-edit') {
                         rp.editImage.getSingleImage(data.id);
@@ -46,7 +174,6 @@ rp.uploads = (function() {
         assignButtonEvent('.button-edit');
         assignButtonEvent('.button-preview');
         assignButtonEvent('.button-delete');
-
     }        
 
     var imageDeleted = (json)  => {

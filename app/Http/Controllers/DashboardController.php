@@ -8,7 +8,7 @@ class DashboardController extends Controller
 {
     public function destroy($id) {
         $upload = \App\Upload::find($id);
-        $upload->delete();        
+        //$upload->delete();        
 
         // $t is an associative array of the stringified Json submitted. 
         // Fetch any value out with request(key). 

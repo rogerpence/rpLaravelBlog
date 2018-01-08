@@ -23,6 +23,23 @@ rp.lib = (function() {
         xhr.send(formData);        
     }
 
+    // Same declaration as below.
+    //async function getJson2(url) {
+
+    const getJson2 = async (url) => {
+        let response = await fetch(url, {
+            method: "GET"                
+        });
+        return await response.json();
+    }
+
+    // Also works. GET seems to be the default. 
+    // const getJson2 = async (url) => {
+    //     let response = await fetch(url);
+    //     return await response.json();
+    // }
+    
+
     var getJSON = function(url, callback) {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', url, true);
@@ -139,6 +156,7 @@ rp.lib = (function() {
         getJulianDate: getJulianDate,
         getUniqueIdentifier: getUniqueIdentifier,
         getJSON: getJSON,
+        getJson2: getJson2,
         submitJSON: submitJSON,
         postJSONFileUpload: postJSONFileUpload,
         copyTextToClipboard: copyTextToClipboard,
