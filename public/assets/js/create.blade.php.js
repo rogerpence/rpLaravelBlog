@@ -1,19 +1,6 @@
 var rp = rp || {};
 
-// rp.globals = (function() {
-//     let valuesOriginal;
-//     let valuesCurrent;
-
-//     return {
-//         valuesOriginal: valuesOriginal,
-//         valuesCurrent: valuesCurrent
-//     };
-// })();
-
-rp.globals = {
-    valuesOriginal: null,
-    valuesCurrent: null
-}
+let beforeFormHash;
 
 rp.abstractMarkdownEditor = (function () {
     function instance(id) {
@@ -136,21 +123,21 @@ rp.simpleControls = (function () {
 // })();
 
 rp.pureFunctions = (function () {
-    function collectInputs() {
-        inputs = document.querySelectorAll('.save');
+    // function collectInputs() {
+    //     inputs = document.querySelectorAll('.save');
 
-        let values = [];
-        for (var i = 0; i < inputs.length; i++) {
-            values.push({
-                'id': inputs[i].id,
-                'value': inputs[i].value,
-                'newValue': '',
-                'name': inputs[i].name,
-                'changed': false
-            });
-        }
-        return values;
-    }
+    //     let values = [];
+    //     for (var i = 0; i < inputs.length; i++) {
+    //         values.push({
+    //             'id': inputs[i].id,
+    //             'value': inputs[i].value,
+    //             'newValue': '',
+    //             'name': inputs[i].name,
+    //             'changed': false
+    //         });
+    //     }
+    //     return values;
+    // }
 
     function insertTextAtCurrentLine(cm, text, selectText) {
         let cursorInfo = cm.getCursor('from');
@@ -197,7 +184,6 @@ rp.pureFunctions = (function () {
     }
 
     return {
-        collectInputs: collectInputs,
         insertTextAtCurrentLine: insertTextAtCurrentLine,
         post: post
     };
@@ -224,24 +210,15 @@ rp.eventHandlers = (function () {
             }
         }, true);
 
-        window.onbeforeunload = function (e) {
-            //     var message = 'Are you sure you want abandon unsaved changes on this page?';
-            //     valuesCurrent = collectInputs();
-            //     let cancelUnload = false;
-            //     for (let i = 0; i < valuesCurrent.length; i++) {
-            //         if (valuesOriginal[i].value !== valuesCurrent[i].value) {
-            //             valuesOriginal[i].changed = true;
-            //             valuesOriginal[i].newValue = valuesCurrent[i].value;
-            //             cancelUnload = true;
-            //         }
-            //     }
-            //     if (cancelUnload) {
-            //         var e = e || window.event;
-            //         if (e) {
-            //             e.returnValue = message;
-            //         }
-            //         return message;
-            //     }                
+        window.onbeforeunload = function (e) {     
+            // rp.pureFunctions.collectInputs();       
+            let activeElement = document.activeElement;
+            if (! activeElement.className.includes('bypass-dirty')) {  
+                const dataChanged = (beforeFormHash !== rp.lib.getFormHash('post-content-form'));
+                if (dataChanged) {
+                    return dataChanged;
+                }                
+            }
         };
     }        
 
@@ -420,12 +397,10 @@ let documentReady = () => {
         "ajax" : true
     };
     rp.editImage.configureModalDialog(editImageOptions);
-    
-    rp.globals.valuesOriginal = rp.pureFunctions.collectInputs();
 
-    var x = rp.globals.valuesOriginal;
+    beforeFormHash = rp.lib.getFormHash('post-content-form');
 
-
+    console.log(beforeFormHash);
 };
 
 rp.core.documentReady(documentReady);

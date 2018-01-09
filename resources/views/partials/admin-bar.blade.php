@@ -12,7 +12,7 @@
         @if (isset($view) && ($view['mode'] == 'edit' || $view['mode'] == 'create'))
         <li>   
             <button id="alias-save-button" 
-                    class="btn btn-primary btn-sm admin-bar-button" 
+                    class="btn btn-primary btn-sm admin-bar-button bypass-dirty" 
                     onclick="document.getElementById('post-content-form').submit();"
                     type="button">
                         Save

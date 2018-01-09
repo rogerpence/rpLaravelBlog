@@ -218,9 +218,11 @@ rp.codehighlight = (function(){
                 let lineNumbers = parseLines(lineNumbersString);
                 let olTag = divTags[i].nextElementSibling.firstElementChild;
                 let liTags = olTag.children;
-                for (let j = 0; j < lineNumbers.length; j++) {
-                    liTags[lineNumbers[j]].className = 'highlight-code';
-                }
+                if (liTags && liTags.length > 0) {
+                    for (let j = 0; j < lineNumbers.length; j++) {
+                        liTags[lineNumbers[j]].className = 'highlight-code';
+                    }
+                }                    
             }                
         }       
     }

@@ -2,6 +2,26 @@ var rp = rp || {};
 
 rp.lib = (function() {
 
+    const getFormHash = (targetId) => {
+        let form = document.getElementById(targetId);
+        let formData = new FormData(form);
+        let e = FormData.entries;
+
+        // let json = {};
+        // for(const [key, value] of formData.entries()) {
+        //     json[key] = value;
+        //  }
+
+         let inputsValues = [];
+         for(const [key, value] of formData.entries()) {
+            inputsValues.push(value.replace(/\r\n/g,''));
+         }
+         
+         const shaObj = new jsSHA("SHA-256", "TEXT");
+         shaObj.update(inputsValues.join(''))
+         const hash = shaObj.getHash("HEX");     
+         return hash
+    }         
 
     var postJSONFileUpload = function(url, callback) {
         var form = document.getElementById('form-upload-image');
@@ -160,6 +180,7 @@ rp.lib = (function() {
         submitJSON: submitJSON,
         postJSONFileUpload: postJSONFileUpload,
         copyTextToClipboard: copyTextToClipboard,
-        fadeOutHtmlElement: fadeOutHtmlElement
+        fadeOutHtmlElement: fadeOutHtmlElement,
+        getFormHash: getFormHash
     }
 })();

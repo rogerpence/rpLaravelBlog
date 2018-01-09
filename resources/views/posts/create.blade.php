@@ -43,7 +43,7 @@
                     <div class="form-row">
                         <div class="col col-sm-2">
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-sm" title="Save post (Ctrl+S)">Save</button>
+                                <button type="submit" class="btn btn-primary btn-sm bypass-dirty" title="Save post (Ctrl+S)">Save</button>
                             </div>                                
                         </div>
                     </div>
@@ -173,7 +173,7 @@
                 <hr>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-sm" title="Save post (Ctrl+S)">Save</button>
+                    <button type="submit" class="btn btn-primary btn-sm bypass-dirty" title="Save post (Ctrl+S)">Save</button>
 
                     @if( $view['mode'] == 'edit')
                         <a id="delete-post" class="btn btn-danger pull-right btn-sm" href="#" role="button">Delete post</a>
@@ -206,6 +206,7 @@
     <!-- <script src="{{ asset('assets/js/vendor/jquery-ui.min.js') }}"></script> -->   
    <script src="{{ asset('assets/js/vendor/notifier.min.js')}}"></script>
     
+    <script src="{{ asset('assets/js/sha256.js') }}"></script>            
     <script src="{{ asset('assets/js/vendor/tingle.js') }}"></script>        
     <script src="{{ asset('assets/js/tagchief.js') }}"></script>    
     <script src="{{ asset('assets/js/tagchiefdatalist.js') }}"></script>

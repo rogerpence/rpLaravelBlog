@@ -160,9 +160,6 @@ rp.uploads = (function() {
                         }
                         rp.ajax.submitDeleteRequest(options);                
 
-
-
-
                     }
                     else if (this.className == 'button-edit') {
                         rp.editImage.getSingleImage(data.id);
