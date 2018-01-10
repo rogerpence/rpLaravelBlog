@@ -1,26 +1,27 @@
 var rp = rp || {};
 
 rp.lib = (function() {
-
     const getFormHash = (targetId) => {
         let form = document.getElementById(targetId);
         let formData = new FormData(form);
-        let e = FormData.entries;
 
-        // let json = {};
-        // for(const [key, value] of formData.entries()) {
-        //     json[key] = value;
-        //  }
+        // Update formData with most recent 'abstract' and 'body' buffers
+        // before they are collected.
+        formData.set('abstract', rp.abstractMarkdownEditor.getCurrentAbstract());
+        formData.set('body', rp.bodyMarkdownEditor.getCurrentBody());
 
-         let inputsValues = [];
-         for(const [key, value] of formData.entries()) {
-            inputsValues.push(value.replace(/\r\n/g,''));
+        // Collect all of formData's values.
+        let inputsValues = [];
+        for(let [key, value] of formData.entries()) {
+            inputsValues.push(value);
          }
-         
-         const shaObj = new jsSHA("SHA-256", "TEXT");
-         shaObj.update(inputsValues.join(''))
-         const hash = shaObj.getHash("HEX");     
-         return hash
+        //  Do this if you'd rather store a hash than the full value
+        //  of form data. 
+        //  const shaObj = new jsSHA("SHA-256", "TEXT");
+        //  shaObj.update(inputsValues.join(''))
+        //  return = shaObj.getHash("HEX");     
+
+         return inputsValues.join('');         
     }         
 
     var postJSONFileUpload = function(url, callback) {

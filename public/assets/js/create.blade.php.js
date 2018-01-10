@@ -3,8 +3,9 @@ var rp = rp || {};
 let beforeFormHash;
 
 rp.abstractMarkdownEditor = (function () {
+    let editor;
     function instance(id) {
-        var editor = new SimpleMDE({
+        editor = new SimpleMDE({
             element: document.getElementById(id),
             autofocus: false,
             indentWithTabs: true,
@@ -17,14 +18,21 @@ rp.abstractMarkdownEditor = (function () {
 
         return editor;
     }
+
+    function getCurrentAbstract() {
+        return editor.codemirror.getValue();
+    }
+
     return {
-        instance: instance
+        instance: instance,
+        getCurrentAbstract: getCurrentAbstract
     };       
 })();            
 
 rp.bodyMarkdownEditor = (function () {
+    let editor;
     function instance(id) {
-        var editor = new SimpleMDE({
+        editor = new SimpleMDE({
             element: document.getElementById(id),
             autosave: {
                 enabled: false,
@@ -40,7 +48,11 @@ rp.bodyMarkdownEditor = (function () {
         });
 
         setCustomKeys(editor);
-    }        
+    }   
+    
+    function getCurrentBody() {
+        return editor.codemirror.getValue();
+    }
 
     function setCustomKeys(editor) {
         editor.codemirror.setOption("extraKeys", {
@@ -83,7 +95,8 @@ rp.bodyMarkdownEditor = (function () {
     // }        
 
     return {
-        instance: instance
+        instance: instance,
+        getCurrentBody: getCurrentBody
     };       
 })();    
 
