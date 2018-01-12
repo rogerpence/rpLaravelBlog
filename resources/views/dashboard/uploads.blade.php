@@ -2,7 +2,8 @@
 
 <a href="#" id="show-upload-window" class="btn btn-primary btn-sm">Upload file</a>
 <br>
-<a href="#" id="test-button" style="display:none;">Test</a>
+
+<a href="#" id="test-button" style="display:block;">Test</a>
 <br>
 
 <div>
@@ -19,6 +20,7 @@
 </div>
 
 @include('partials.modal-image-upload-window')
+@include('partials.modal-confirm')
 
 <div id="view-image-container" style="display:none;">
     <h4>Image Preview</h4>
@@ -35,6 +37,7 @@
    <script src="{{ asset('assets/js/vendor/tingle.js') }}"></script>           
    <script src="{{ asset('assets/js/rp.lib.js') }}"></script>  
    <script src="{{ asset('assets/js/view-image-modal.js') }}"></script>  
+   <script src="{{ asset('assets/js/modal.confirm.blade.php.js') }}"></script>  
    <script src="{{ asset('assets/js/edit-image-modal.ajax.js') }}"></script>  
    <script src="{{ asset('assets/js/uploads.blade.php.js') }}"></script>  
    <script src="{{ asset('assets/js/show-new.blade.php.js')}}"></script>

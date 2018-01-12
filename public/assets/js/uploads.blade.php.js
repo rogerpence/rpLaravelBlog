@@ -243,12 +243,18 @@ rp.core.documentReady( function() {
     };
     rp.editImage.configureModalDialog(editImageOptions);
 
+    let modalOptions = {
+        "title": "This is the title",
+        "text":  "This is a description of the title"
+    };
+    rp.modalConfirm.configureModalDialog(modalOptions);
+
     $('#datatable').DataTable().on('draw', function() {
         rp.uploads.assignImageListButtonHandlers();
     });
 
     document.getElementById('test-button').addEventListener('click', function(e) {
-        rp.uploads.getUploadedImages();
+        rp.modalConfirm.showModalWindow();
     })
 
     rp.uploads.getUploadedImages();

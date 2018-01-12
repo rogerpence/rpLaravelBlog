@@ -210,4 +210,8 @@ li code span:first-child {
     padding-left: 6px;    
 }
 
-
+.dialog-button {
+    margin-left: 10px;
+    text-align: center;
+    width: 124px;
+}
