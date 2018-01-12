@@ -10,7 +10,7 @@
     </head>
     <body>
         @yield('content')
-   </body>
+    </body>
 
     @include('partials.scripts-at-bottom')
     @yield('optional-body-bottom')       

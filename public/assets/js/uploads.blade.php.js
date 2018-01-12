@@ -247,14 +247,21 @@ rp.core.documentReady( function() {
         "title": "This is the title",
         "text":  "This is a description of the title"
     };
-    rp.modalConfirm.configureModalDialog(modalOptions);
+    //rp.modalConfirm.configureModalDialog(modalOptions);
 
     $('#datatable').DataTable().on('draw', function() {
         rp.uploads.assignImageListButtonHandlers();
     });
 
+    let tester = () => {
+        alert('yes');
+    }
+
     document.getElementById('test-button').addEventListener('click', function(e) {
-        rp.modalConfirm.showModalWindow();
+        let confirm = new rp.dialogs.modalConfirmation();
+        confirm.setContent(document.getElementById('modal-confirm-container').innerHTML);    
+        confirm.open(tester);
+        
     })
 
     rp.uploads.getUploadedImages();

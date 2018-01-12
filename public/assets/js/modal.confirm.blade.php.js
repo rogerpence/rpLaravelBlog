@@ -1,63 +1,74 @@
 var rp = rp || {};
 
-rp.modalConfirm = (function () {
-    var modal;
-
-    var configureModalDialog = (function(options) {
-        if ( typeof modal != 'undefined') {
-            return;
-        }
-        modal = new tingle.modal({
-            footer: true,
-            stickyFooter: true,
+rp.dialogs = (function() {
+    modalConfirmation = function() {
+        // instanciate new modal
+        this.modal = new tingle.modal({
+            footer: false,
+            stickyFooter: false,
             closeMethods: ['escape'],
             closeLabel: "Close",
-            //cssClass: ['custom-class-1', 'custom-class-2'],
-            onOpen: function () {
+            cssClass: ['custom-class-1', 'custom-class-2'],
+            onOpen: function() {
+                console.log('modal open');
             },
-            onClose: function () {
-                //console.log('modal closed');
+            onClose: function() {
+                console.log('modal closed');
             },
-            beforeClose: function () {
+            beforeClose: function() {
+                // here's goes some logic
+                // e.g. save content before closing the modal
                 return true; // close the modal
-                //return false; // nothing happens
+                return false; // nothing happens
             }
-        });
-
-        document.getElementById('modal-title').innerHTML = options.title;
-        document.getElementById('modal-text').innerHTML = options.text;
-
-        // Load modal content from innerHTML of a given element id.            
-        modal.setContent(document.getElementById('modal-confirm-container').innerHTML);
-        
-        modal.addFooterBtn('Yes', 'btn btn-success dialog-button', function() {
-            // here goes some logic
-            modal.close();
-        });
-
+        });    
+    
         // add a button
-        modal.addFooterBtn('No', 'btn btn-danger dialog-button', function() {
-            // here goes some logic
-            modal.close();
-        });
-
-        // document.getElementById('show-preview-window').addEventListener('click', (e) => {
-        //     e.preventDefault();
-        //     modal.open()
+        // this.modal.addFooterBtn('Button label', 'tingle-btn tingle-btn--primary', function() {
+        //     // here goes some logic
+        //     this.modal.close();
         // });
+    
+        // this.modal.addFooterBtn('Dangerous action !', 'tingle-btn tingle-btn--danger', function() {
+        //     // here goes some logic
+        //     this.modal.close();
+        // });   
+    }  
+    
+    modalConfirmation.prototype.setContent = function(content) {
+        this.modal.setContent(content);    
+    }
+    
+    modalConfirmation.prototype.open = function(fn) {
+        let config = (modal) => {
+            var app = new Vue({            
+                el: "#vue-view",
+                data: {
+                    "title" : "this is a title",                
+                    "subtitle" : "this is subtitle",
+                    "text": "this is some text"
+                },
+                methods: {
+                    "submitAction" : function(e) {
+                        modal.close();
+                        fn();
+                    },
+                    "cancelAction" : function(e) {
+                        modal.close();
+                    }                    
+                }            
+            });
+        }
 
-        // document.getElementById('cancel-button').addEventListener('click', (e) => {
-        //     e.preventDefault();
-        //     modal.close()
-        // });        
-    });
+        config(this.modal, fn);
+        this.modal.open();
+    }
 
-    function showModalWindow() {
-        modal.open();
-    };
+
 
     return {
-        configureModalDialog: configureModalDialog,
-        showModalWindow: showModalWindow
-    }
+        modalConfirmation: modalConfirmation
+    };
 })();
+
+
