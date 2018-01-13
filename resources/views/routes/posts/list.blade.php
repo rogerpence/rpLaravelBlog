@@ -15,7 +15,7 @@
     <div class="container">   
         <div class="wrapper">        
             <article class="content" id="article">
-                @include('partials.post-list')
+                @include('partials.posts.list')
             </article>
             
             <aside class="sidebar" id="sidebar">

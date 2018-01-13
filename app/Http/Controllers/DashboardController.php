@@ -26,12 +26,12 @@ class DashboardController extends Controller
     public function show($slug) 
     {
         // Fetch all slugs for posts with 'page' status.
-        $actions = ['home', 'uploads', 'posts', 'comments', 'tags'];
+        $actions = ['home', 'images', 'posts', 'comments', 'tags'];
 
         if (in_array($slug, $actions)) {        
-            $action = 'dashboard.' . $slug;             
+            $action = 'routes.dashboard.' . $slug;             
             $view = ['section' => $action];            
-            return view('dashboard.main')->with('view', $view);            
+            return view('routes.dashboard.main')->with('view', $view);            
         }
         else {
             abort(404);                    

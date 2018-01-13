@@ -44,7 +44,7 @@ $post->tags->pluck('name');
         $pages = \App\Post::select('title','slug')->where('status', 2)->get()->toArray();
 
         // return view('posts.list')->with(compact('posts')); /// ->with('view', $data);
-        return view('posts.list-new')->with(compact('posts')); //->with('pages', $pages); /// ->with('view', $data);        
+        return view('routes.posts.list')->with(compact('posts')); //->with('pages', $pages); /// ->with('view', $data);        
     } 
 
     public function create()
@@ -58,7 +58,7 @@ $post->tags->pluck('name');
                  'taglist' => '',
                  'poststatus' => \App\Constants::$POST_STATUS,
                  'mode' => 'create'];        
-        return view('posts.create', compact('post'))->with('view', $view);;
+        return view('routes.posts.create', compact('post'))->with('view', $view);;
     }
 
     public function store()
@@ -107,7 +107,7 @@ $post->tags->pluck('name');
         // dump(compact('post'));
         // die();
         // return view('posts.show', compact('post'));
-        return view('posts.show-new')->with('post', $post)->
+        return view('routes.posts.show')->with('post', $post)->
                                    with('comments', $comments)->
                                    with('slug', $slug)->
                                    with('post_id', $post->id);
@@ -134,7 +134,7 @@ $post->tags->pluck('name');
                  'poststatus' => \App\Constants::$POST_STATUS,                 
                  'taglist' => $taglist,  
                  'mode' => 'edit'];        
-        return view('posts.create')->with('post', $post)->
+        return view('routes.posts.create')->with('post', $post)->
                                      with('view', $view);
     }        
 }

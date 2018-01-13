@@ -213,6 +213,6 @@
     <script src="{{ asset('assets/js/vendor/flatpickr.js') }}"></script>    
     <script src="{{ asset('assets/js/rp.lib.js') }}"></script>  
     <script src="{{ asset('assets/js/edit-image-modal.ajax.js') }}"></script>      
-    <script src="{{ asset('assets/js/create.blade.php.js') }}"></script>      
+    <script src="{{ asset('assets/js/routes.posts.create.js') }}"></script>      
     
 @endsection

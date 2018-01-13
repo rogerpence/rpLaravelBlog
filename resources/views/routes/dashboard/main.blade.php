@@ -60,8 +60,8 @@
                   href="/dashboard/comments">Comments</a>
             </li>
             <li class="nav-item">
-             <a class="nav-link @isPathActive('dashboard/uploads')"
-                  href="/dashboard/uploads">Uploads</a>
+             <a class="nav-link @isPathActive('dashboard/images')"
+                  href="/dashboard/images">Images</a>
             </li>
           </ul>
 {{--

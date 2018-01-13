@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class PageController extends Controller
+class PagesController extends Controller
 {
     public function show($slug) 
     {
@@ -13,7 +13,7 @@ class PageController extends Controller
 
         if (in_array($slug, $pages)) {        
             $post = \App\Post::where('slug', '=', $slug )->first();
-            return view('posts.show-page')->with('post', $post)->with('post_id', $post->id);
+            return view('routes.pages.show')->with('post', $post)->with('post_id', $post->id);
         }
         else {
             abort(404);                    

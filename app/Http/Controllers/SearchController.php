@@ -26,6 +26,6 @@ class SearchController extends Controller
             });           
         }                        
         $view = ['search' => $search, 'mode'=> 'search' ];
-        return view('posts.list-search', compact('posts'))->with('view', $view);
+        return view('routes.search.list', compact('posts'))->with('view', $view);
     }        
 }

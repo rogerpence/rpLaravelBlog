@@ -23,7 +23,7 @@ class UploadsController extends Controller
 
         (new UploadsRepository())->store($request);
         //return back();
-        return redirect('dashboard/uploads');
+        return redirect('dashboard/images');
     }
 
     public function storeajax(Request $request)

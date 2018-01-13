@@ -22,16 +22,16 @@ class AppServiceProvider extends ServiceProvider
             $view->with('pages', \App\Post::select('title','slug')->orderby('title')->where('status', PostStatus::PAGE)->get()->toArray());                                          
         });
 
-        view()->composer(['posts.list-new', 'posts.list-search','posts.show-new'], function($view) {            
+        view()->composer(['routes.posts.list', 'routes.search.list','routes.posts.show'], function($view) {            
             $view->with('activeTags', \App\Post::activeTags());                                 
         });
 
-Blade::directive('hello', function($expression) {
-    if ("'roger'" == $expression) {
-        $expression = 'pence';                    
-    }
-    return "<?php echo 'Hello, ' . '{$expression}'; ?>";
-});
+        Blade::directive('hello', function($expression) {
+            if ("'roger'" == $expression) {
+                $expression = 'pence';                    
+            }
+            return "<?php echo 'Hello, ' . '{$expression}'; ?>";
+        });
 
         // php artisan view:clear
         Blade::directive('isPathActive', function($path) { 

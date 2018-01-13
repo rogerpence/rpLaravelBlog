@@ -1,7 +1,5 @@
     @foreach ($posts as $post)            
         <div class="post">
-
-
             <a class="headline" href="/posts/{{ $post->slug }}"><h3>{{ $post->title }}</h3></a>
             @isset($post->subtitle)
                 <h4 class="subtitle">{{$post->subtitle}}</h4>
