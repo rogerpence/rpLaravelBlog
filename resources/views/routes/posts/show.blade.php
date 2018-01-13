@@ -23,7 +23,7 @@
 
     <header>
         @include('partials.top-nav-bar')
-        @include('partials.blog-header')        
+        @include('partials.jumbotron')        
     </header>
 
     <div class="print-header">

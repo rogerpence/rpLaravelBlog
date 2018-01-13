@@ -5,3 +5,5 @@
 <script src="{{ asset('assets/js/app.js') }}"></script>
 <script src="{{ asset('assets/js/rpjs.js') }}"></script>
 <script src="{{ asset('assets/js/rp.library.js') }}"></script>
+<script src="{{ asset('assets/js/rp.stringLib.js') }}"></script>
+

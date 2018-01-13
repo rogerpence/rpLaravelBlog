@@ -14,7 +14,6 @@
                     <a title="Edit post" style="display:inline;" href="/posts/{{ $post->id }}/edit" ><i class="fa fa-pencil"></i></a>&nbsp;
                 @endauth          
 
-
                 @switch($post->status)
                     @case(0)
                         <span style="display:inline;" class="badge badge-warning">Draft</span>

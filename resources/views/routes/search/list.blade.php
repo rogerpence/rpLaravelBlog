@@ -10,12 +10,12 @@
 @section('content')
     <header>
         @include('partials.top-nav-bar')
-        @include('partials.blog-header')        
+        @include('partials.jumbotron')        
     </header>
     <div class="container">   
         <div class="wrapper">        
             <article class="content" id="article">
-                @include('partials.search-list')
+                @include('partials.search.list')
             </article>
             
             <aside class="sidebar" id="sidebar">

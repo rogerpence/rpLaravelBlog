@@ -14,14 +14,14 @@ rp.lib = (function() {
         let inputsValues = [];
         for(let [key, value] of formData.entries()) {
             inputsValues.push(value);
-         }
+        }
         //  Do this if you'd rather store a hash than the full value
         //  of form data. 
         //  const shaObj = new jsSHA("SHA-256", "TEXT");
         //  shaObj.update(inputsValues.join(''))
         //  return = shaObj.getHash("HEX");     
 
-         return inputsValues.join('');         
+        return inputsValues.join('');         
     }         
 
     var postJSONFileUpload = function(url, callback) {

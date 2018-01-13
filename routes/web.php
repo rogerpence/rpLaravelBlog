@@ -26,7 +26,7 @@ Route::get('/posts/tags/{tag}', 'TagsController@index');
 
 Route::get('/search','SearchController@show')->name('search.posts');
 
-Route::post('/dashboard/uploads', 'UploadsController@store')->name('uploads.store');
+Route::post('/dashboard/uploads', 'ImagesController@store')->name('uploads.store');
 
 Route::get('/dashboard/{slug}', 'DashboardController@show');
 

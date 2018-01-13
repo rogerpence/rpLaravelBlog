@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Classes\UploadsRepository;
 
-class UploadsController extends Controller
+class ImagesController extends Controller
 {
-
     public function show($id) 
     {
         $image = \App\Upload::where('id', '=', $id )->first();
@@ -22,17 +21,29 @@ class UploadsController extends Controller
         $r = $request['name'];
 
         (new UploadsRepository())->store($request);
-        //return back();
         return redirect('dashboard/images');
+    }
+
+    public function destroy($id) {
+        $upload = \App\Upload::find($id);
+        $upload->delete();        
+
+        // $t is an associative array of the stringified Json submitted. 
+        // Fetch any value out with request(key). 
+        $t = request()->all();
+
+        // Create and associative array and then convert it to Json
+        // as the response. 
+        $name = request('name');
+        $result = ["status" => "ok", "name" => $name];        
+        $json = json_encode($result); 
+        
+        return $json;
     }
 
     public function storeajax(Request $request)
     {       
-        // dd($request->all());
         (new UploadsRepository())->store($request);
-        //return back();
-        //return redirect('dashboard/uploads');
-
         return 'ok';
     }
     

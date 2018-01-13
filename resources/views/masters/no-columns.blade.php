@@ -8,7 +8,7 @@
 
     <body>
         @include('partials.top-nav-bar')
-        @include('partials.blog-header')
+        @include('partials.jumbotron')
 
         @yield('content')
         

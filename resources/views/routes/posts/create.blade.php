@@ -191,8 +191,8 @@
     </form>
 </div>
 
-@include('partials.modal-image-upload-window')
-@include('partials.post-help-panel')
+@include('partials.modals.image-upload')
+@include('partials.modals.post-help-panel')
 
 @endsection 
 

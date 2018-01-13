@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('/images/{id}',    'UploadsController@show')->name('uploads.show');
+Route::get('/images/{id}',    'ImagesController@show')->name('uploads.show');
 
 
 Route::get('images', function (Request $request) {
@@ -21,11 +21,11 @@ Route::get('images', function (Request $request) {
     return $uploads;
 });
 
-Route::post('imageupload', 'UploadsController@storeajax');
+Route::post('imageupload', 'ImagesController@storeajax');
 
-Route::delete('/images/{id}', 'DashboardController@destroy');
+Route::delete('/images/{id}', 'ImagesController@destroy');
 
-Route::post('uploads', 'UploadsController@store');
+Route::post('uploads', 'ImagesController@store');
 
 Route::get('tags', function (Request $request) {
 //    $tags = \App\Tag::orderBy('name')->pluck('name');

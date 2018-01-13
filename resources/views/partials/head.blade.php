@@ -1,13 +1,12 @@
-<!-- Global site tag (gtag.js) - Google Analytics -->
+    {{--  Analytics  --}}
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111469302-1"></script>
     <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'UA-111469302-1');
     </script>
-        
+
     
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

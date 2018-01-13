@@ -74,6 +74,14 @@ rp.bodyMarkdownEditor = (function () {
             'Alt-C': function (cm) {
                 rp.pureFunctions.insertTextAtCurrentLine(cm, '<div class="code-header">header text</div>', 'header text');
             },
+            'Alt-V': function (cm) {
+                let sb = new rp.stringBuilder();
+                sb.add('<small>copy-from-server-db Bash script to copy database ');
+                sb.add('from host server.</small> ');
+                sb.add('<a title="Copy to clipboard" href="#" class="copy-to-clipboard">');
+                sb.add('<i class="fa fa-clipboard"></i></a>');
+                rp.pureFunctions.insertTextAtCurrentLine(cm, sb.toString());
+            },                
             'Alt-Y': function (cm) {
                 let image = document.getElementById('image-name').value;                
                 rp.pureFunctions.insertTextAtCurrentLine(cm, `![](/storage/images/${image})`, image);
@@ -92,8 +100,8 @@ rp.bodyMarkdownEditor = (function () {
     //     simplemdeBody.codemirror.on('blur', () => {
     //         currentMDEditor = '';
     //     });
-    // }        
-
+    // }      
+        
     return {
         instance: instance,
         getCurrentBody: getCurrentBody
@@ -128,30 +136,7 @@ rp.simpleControls = (function () {
     };
 })();
 
-// rp.simpleControls = (function () {
-
-//     return {
-
-//     };        
-// })();
-
 rp.pureFunctions = (function () {
-    // function collectInputs() {
-    //     inputs = document.querySelectorAll('.save');
-
-    //     let values = [];
-    //     for (var i = 0; i < inputs.length; i++) {
-    //         values.push({
-    //             'id': inputs[i].id,
-    //             'value': inputs[i].value,
-    //             'newValue': '',
-    //             'name': inputs[i].name,
-    //             'changed': false
-    //         });
-    //     }
-    //     return values;
-    // }
-
     function insertTextAtCurrentLine(cm, text, selectText) {
         let cursorInfo = cm.getCursor('from');
         cursorInfo.ch = 0;
@@ -378,7 +363,7 @@ rp.postHelpPanel = (function() {
         // Load modal content from innerHTML of a given element id.            
         modal.setContent(document.getElementById('post-help-panel').innerHTML);
 
-        modal.addFooterBtn('No', 'tingle-btn tingle-btn--primary', function () {
+        modal.addFooterBtn('OK', 'tingle-btn tingle-btn--primary', function () {
             modal.close();
         });
     }        
@@ -392,8 +377,6 @@ rp.postHelpPanel = (function() {
         open: open
     }
 })();
-
-
 
 let documentReady = () => {
     rp.bodyMarkdownEditor.instance('body');

@@ -24,11 +24,13 @@
         <td>Insert figure caption</td>
     </tr>
     <tr>
+        <td>Alt-V</td>
+        <td>Insert clipboard copy directive</td>
+    </tr>
+    <tr>
         <td>Alt-Y</td>
         <td>Insert image (immediately after upload)</td>
     </tr>
 </table>
-
-
 
 </div>
