@@ -1,5 +1,3 @@
-
-
 rp.viewImage = (function () {
     var modal;
 

@@ -115,7 +115,7 @@
 
 
 @section('optional-body-bottom')
-    <script src="{{ asset('assets/js/mark.js') }}"></script>   
+    <script src="{{ asset('assets/js/vendor/mark.js') }}"></script>   
     <script src="{{ asset('assets/js/routes.posts.show.js') }}"></script>   
     <script>
         {!!$post->javascript!!}

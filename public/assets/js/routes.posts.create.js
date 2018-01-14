@@ -399,4 +399,4 @@ let documentReady = () => {
     //console.log(beforeFormHash);
 };
 
-rp.core.documentReady(documentReady);
+rp.lib.documentReady(documentReady);

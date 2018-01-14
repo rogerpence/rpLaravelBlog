@@ -2,7 +2,7 @@
 
 @section('main.head')
    <!-- CSS or other HTML at end of head tag. -->
-   <link rel="stylesheet" href="{{ asset('assets/css/simplemde.min.css') }}">
+   <link rel="stylesheet" href="{{ asset('assets/js/vendor/simplemde.min.css') }}">
    <!-- <link rel="stylesheet" href="{{ asset('assets/js/vendor/jquery-ui.min.css') }}"> -->
    <!-- <link rel="stylesheet" href="{{ asset('assets/js/vendor/jquery-ui.theme.min.css') }}"> -->
    <link rel="stylesheet" href="{{ asset('assets/js/vendor/tingle.css') }}">
@@ -200,16 +200,16 @@
     <script>
         var tags_list = "{!!$view['taglist']!!}";
     </script>
-    <script src="{{ asset('assets/js/simplemde.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/simplemde.min.js') }}"></script>
     
     <!-- <script src="{{ asset('assets/js/vendor/jquery.js') }}"></script>     -->
     <!-- <script src="{{ asset('assets/js/vendor/jquery-ui.min.js') }}"></script> -->   
    <script src="{{ asset('assets/js/vendor/notifier.min.js')}}"></script>
     
-    <script src="{{ asset('assets/js/sha256.js') }}"></script>            
+    <script src="{{ asset('assets/js/vendor/sha256.js') }}"></script>            
     <script src="{{ asset('assets/js/vendor/tingle.js') }}"></script>        
-    <script src="{{ asset('assets/js/tagchief.js') }}"></script>    
-    <script src="{{ asset('assets/js/tagchiefdatalist.js') }}"></script>
+    <script src="{{ asset('assets/js/rp.tagchief.js') }}"></script>    
+    <script src="{{ asset('assets/js/rp.tagchiefdataListprovider.js') }}"></script>
     <script src="{{ asset('assets/js/vendor/flatpickr.js') }}"></script>    
     <script src="{{ asset('assets/js/rp.lib.js') }}"></script>  
     <script src="{{ asset('assets/js/edit-image-modal.ajax.js') }}"></script>      

@@ -2,7 +2,7 @@
 
 @section('main.head')
    <!-- CSS or other HTML at end of head tag. -->
-   <link rel="stylesheet" href="{{ asset('assets/css/simplemde.min.css') }}">
+   <!-- <link rel="stylesheet" href="{{ asset('assets/js/vendor/simplemde.min.css') }}"> -->
    <!-- <link rel="stylesheet" href="{{ asset('assets/js/vendor/jquery-ui.min.css') }}"> -->
    <!-- <link rel="stylesheet" href="{{ asset('assets/js/vendor/jquery-ui.theme.min.css') }}"> -->
    <link rel="stylesheet" href="{{ asset('assets/js/vendor/tingle.css') }}">

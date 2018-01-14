@@ -232,7 +232,7 @@ rp.codehighlight = (function(){
 
 })();
 
-rp.core.documentReady(function() {  
+rp.lib.documentReady(function() {  
     rp.showPostPage.assignCopyCodeToClipboardEventHandler('.copy-to-clipboard');
     
     var search = rp.general.getParameterByName('s');

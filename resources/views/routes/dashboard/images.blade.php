@@ -27,10 +27,9 @@
    <script src="{{ asset('assets/js/vendor/tingle.js') }}"></script>           
    <script src="{{ asset('assets/js/rp.lib.js') }}"></script>  
    <script src="{{ asset('assets/js/view-image-modal.js') }}"></script>  
-   <script src="{{ asset('assets/js/modal.confirm.blade.php.js') }}"></script>  
+   <script src="{{ asset('assets/js/rp.modaldialogs.js') }}"></script>  
    <script src="{{ asset('assets/js/edit-image-modal.ajax.js') }}"></script>  
-   <script src="{{ asset('assets/js/uploads.blade.php.js') }}"></script>  
-   <script src="{{ asset('assets/js/show-new.blade.php.js')}}"></script>
+   <script src="{{ asset('assets/js/routes.images.js') }}"></script>  
    <script src="{{ asset('assets/js/vendor/notifier.min.js')}}"></script>
    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.js"></script>       
    @endsection
