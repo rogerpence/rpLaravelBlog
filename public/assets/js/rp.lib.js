@@ -169,8 +169,6 @@ rp.lib = (function() {
         }, 2500);
     }
 
-
-
     return {
         getFileNameParts: getFileNameParts,
         getFileNameFromPath: getFileNameFromPath,

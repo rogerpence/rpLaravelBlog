@@ -1,6 +1,6 @@
 var rp = rp || {};
 
-rp.library = (function() {
+rp.collapsize = (function() {
     var collapsedTag;
     
     function changeDisplay(display) {

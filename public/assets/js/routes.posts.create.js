@@ -117,8 +117,8 @@ rp.simpleControls = (function () {
     function addTypingTracker() {
         const MAX_SEO_TITLE_LENGTH = 70;
         const MAX_SEO_DESC_LENGTH = 300;
-        new rp.core.TypingTracker('title', MAX_SEO_TITLE_LENGTH)
-        new rp.core.TypingTracker('seo_description', MAX_SEO_DESC_LENGTH)
+        new rp.typingTracker.typingTracker('title', MAX_SEO_TITLE_LENGTH)
+        new rp.typingTracker.typingTracker('seo_description', MAX_SEO_DESC_LENGTH)
     }
     
     function initializeBootStrapComponents() {
@@ -396,7 +396,7 @@ let documentReady = () => {
 
     beforeFormHash = rp.lib.getFormHash('post-content-form');
 
-    console.log(beforeFormHash);
+    //console.log(beforeFormHash);
 };
 
 rp.core.documentReady(documentReady);
