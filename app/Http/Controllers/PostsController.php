@@ -61,9 +61,26 @@ $post->tags->pluck('name');
         return view('routes.posts.create', compact('post'))->with('view', $view);;
     }
 
+    public function storeajax()
+    {
+        $id = (request()->has('postid')) ? request('postid') : 0;
+
+        $messages = ['title.regex' => 'The title must be letters and numbers only',
+                     'slug.regex' => 'The slug must be letters and numbers only'];
+
+        $validator = \Validator::make(request()->all(), \App\Post::getValidationRules($id), \App\Post::getCustomErrorMessages());        
+        if ($validator->fails()) {    
+            $e = $validator->errors();
+            return response()->json(["errors"=>$validator->errors()]);           
+        }
+
+        (new PostsRepository())->storePost(request()->all());
+        
+        return response()->json(['success'=>'Added a new post.']);
+    }
+
     public function store()
     {       
-
         //dd(request()->all());           
 
         $id = (request()->has('postid')) ? request('postid') : 0;

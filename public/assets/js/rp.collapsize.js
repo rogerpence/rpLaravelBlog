@@ -12,6 +12,11 @@ rp.collapsize = (function() {
         }           
     }
 
+    /*
+     |
+     | Add the expand/collapse all buttons at the top of the page.
+     |
+     */
     function addCollapseExpandIcons(firstListHeading) {
         let collapseExpandLinks = '<a id="collapse-all" style="font-size: 125%;" href="#" title="Collapse all"><i class="fa fa-minus-circle"</i></a>';
         firstListHeading.insertAdjacentHTML('beforebegin', collapseExpandLinks);

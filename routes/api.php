@@ -27,6 +27,8 @@ Route::delete('/images/{id}', 'ImagesController@destroy');
 
 Route::post('uploads', 'ImagesController@store');
 
+Route::post('/posts', 'PostsController@storeajax');
+
 Route::get('tags', function (Request $request) {
 //    $tags = \App\Tag::orderBy('name')->pluck('name');
 

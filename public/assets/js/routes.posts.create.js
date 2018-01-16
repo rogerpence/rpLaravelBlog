@@ -2,6 +2,48 @@ var rp = rp || {};
 
 let beforeFormHash;
 
+rp.autosave = (function() {
+    let postSaved = (json) => {
+        let j = json;
+    };
+
+    let convertFormDataToJson = (formData) => {
+        // Collect all of formData's values.
+        let jsonObject = {};
+
+        for (const [key, value]  of formData.entries()) {
+            jsonObject[key] = value;
+        }        
+        
+        //return JSON.stringify(jsonObject);           
+        return jsonObject;
+    };
+
+    let save = () => {
+        var form = document.getElementById('post-content-form');
+        var formData = new FormData(form);
+        
+        // I am not converting this to a string!
+        let json = convertFormDataToJson(formData);
+
+        let options = {
+            url: '/api/posts',
+            method: 'POST',
+            headers: {"content-type" : "application/json"},
+            body: json,
+            action: rp.autosave.postSaved
+        };
+
+        rp.ajax.submitRequest(options);
+        //rp.ajax2(options);
+    };
+
+    return {
+        save: save,
+        postSaved: postSaved
+    };
+})();
+
 rp.abstractMarkdownEditor = (function () {
     let editor;
     function instance(id) {
@@ -395,6 +437,12 @@ let documentReady = () => {
     rp.editImage.configureModalDialog(editImageOptions);
 
     beforeFormHash = rp.lib.getFormHash('post-content-form');
+
+    document.getElementById('test-button').addEventListener('click', function(e){
+        e.preventDefault();
+        rp.autosave.save();        
+        return false;
+    });
 
     //console.log(beforeFormHash);
 };

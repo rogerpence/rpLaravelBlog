@@ -11,4 +11,4 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.minify('public/assets/js/rp.lib.js', 'public/all-rp.js');
+mix.scripts(['public/assets/js/rp.*.js'], 'public/all-rp.js');

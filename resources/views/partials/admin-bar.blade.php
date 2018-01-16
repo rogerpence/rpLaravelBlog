@@ -25,6 +25,16 @@
                         Upload image
             </button>
         </li>
+        <li>
+            <div class="dropdown">
+            <button class="admin-bar-button btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Save
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Save and exit</a>
+            </div>
+            </div>        
+        </li>
         @endif
         {{--
         @if ( ! empty($slug) ) 

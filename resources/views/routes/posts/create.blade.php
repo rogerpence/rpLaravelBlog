@@ -45,6 +45,9 @@
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-sm bypass-dirty" title="Save post (Ctrl+S)">Save</button>
                             </div>                                
+                            <div class="form-group">
+                                <a href="" id="test-button" class="btn btn-danger btn-sm bypass-dirty">click here</a>
+                            </div>                                                            
                         </div>
                     </div>
                 </div>
@@ -209,10 +212,11 @@
     <script src="{{ asset('assets/js/vendor/sha256.js') }}"></script>            
     <script src="{{ asset('assets/js/vendor/tingle.js') }}"></script>        
     <script src="{{ asset('assets/js/rp.tagchief.js') }}"></script>    
-    <script src="{{ asset('assets/js/rp.tagchiefdataListprovider.js') }}"></script>
+    <script src="{{ asset('assets/js/rp.tagchiefdatalistprovider.js') }}"></script>
     <script src="{{ asset('assets/js/vendor/flatpickr.js') }}"></script>    
     <script src="{{ asset('assets/js/rp.lib.js') }}"></script>  
     <script src="{{ asset('assets/js/edit-image-modal.ajax.js') }}"></script>      
     <script src="{{ asset('assets/js/routes.posts.create.js') }}"></script>      
+    <script src="{{ asset('assets/js/rp.ajax.js') }}"></script>      
     
 @endsection

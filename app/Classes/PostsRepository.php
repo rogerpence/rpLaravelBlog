@@ -70,5 +70,7 @@ class PostsRepository {
             $posttag->post_id = $post->id;
             $posttag->save();   
         }      
+
+        //return $post->id;
     }    
 }

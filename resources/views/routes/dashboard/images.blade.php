@@ -27,6 +27,7 @@
    <script src="{{ asset('assets/js/vendor/tingle.js') }}"></script>           
    <script src="{{ asset('assets/js/rp.lib.js') }}"></script>  
    <script src="{{ asset('assets/js/view-image-modal.js') }}"></script>  
+   <script src="{{ asset('assets/js/rp.ajax.js') }}"></script>      
    <script src="{{ asset('assets/js/rp.modaldialogs.js') }}"></script>  
    <script src="{{ asset('assets/js/edit-image-modal.ajax.js') }}"></script>  
    <script src="{{ asset('assets/js/routes.images.js') }}"></script>  
