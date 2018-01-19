@@ -35,6 +35,8 @@ class PostsRepository {
         $post->slug = trim(request('slug'));
         $post->body_html = trim($html);
         $post->body_markdown = trim(trim(request('body')));
+        
+        $x = trim(request('abstract'));
 
         $post->abstract = trim(request('abstract'));
         $post->abstract_html = trim($parse_down->text(request('abstract')));
@@ -51,7 +53,7 @@ class PostsRepository {
         \App\PostTag::where('post_id', $post->id)->delete();
 
         if (trim(request('tag-list-for-server')) == '') {
-            return;
+            return $post->id;
         }
 
         $tags = explode(',', request('tag-list-for-server'));    
@@ -71,6 +73,6 @@ class PostsRepository {
             $posttag->save();   
         }      
 
-        //return $post->id;
+        return $post->id;
     }    
 }

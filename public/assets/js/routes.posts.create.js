@@ -3,8 +3,10 @@ var rp = rp || {};
 let beforeFormHash;
 
 rp.autosave = (function() {
-    let postSaved = (json) => {
+    function postSaved(json) {
         let j = json;
+        // Reset new beforeFormHash.
+        beforeFormHash = rp.lib.getFormHash('post-content-form');
     };
 
     let convertFormDataToJson = (formData) => {
@@ -22,20 +24,27 @@ rp.autosave = (function() {
     let save = () => {
         var form = document.getElementById('post-content-form');
         var formData = new FormData(form);
+
+        formData.set('abstract', rp.abstractMarkdownEditor.getCurrentAbstract());
+        formData.set('body', rp.bodyMarkdownEditor.getCurrentBody());
         
         // I am not converting this to a string!
         let json = convertFormDataToJson(formData);
 
+        delete json['_method'];
+
         let options = {
             url: '/api/posts',
             method: 'POST',
-            headers: {"content-type" : "application/json"},
-            body: json,
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            body: JSON.stringify(json),
+            json: JSON.stringify(json),
             action: rp.autosave.postSaved
         };
 
-        rp.ajax.submitRequest(options);
-        //rp.ajax2(options);
+        //rp.ajax.submitRequest(options);
+        rp.ajax2(options);
     };
 
     return {
@@ -133,17 +142,7 @@ rp.bodyMarkdownEditor = (function () {
             }
         });
     }                        
-
-    // function setEventHandlers(editor) {
-    //     simplemdeBody.codemirror.on('focus', () => {
-    //         currentMDEditor = 'body';
-    //     });
-
-    //     simplemdeBody.codemirror.on('blur', () => {
-    //         currentMDEditor = '';
-    //     });
-    // }      
-        
+       
     return {
         instance: instance,
         getCurrentBody: getCurrentBody
@@ -231,6 +230,19 @@ rp.pureFunctions = (function () {
 
 rp.eventHandlers = (function () {
     function add() {
+
+        setInterval(function(){
+            if (beforeFormHash !== rp.lib.getFormHash('post-content-form')) {
+                //document.getElementById('alias-save-button').classList.remove('disabled-color');
+                document.getElementById('alias-save-button').disabled = false;
+                document.getElementById('instant-save-button').disabled = false;
+            }
+            else {
+                document.getElementById('alias-save-button').disabled = true;
+                document.getElementById('instant-save-button').disabled = true;
+            }
+        },2000);
+
         document.getElementById('title').addEventListener('input', function () {
             var slug = document.getElementById('slug');
             var slugText = this.value.replace(/(\s+)/g, '-').toLowerCase();
@@ -245,7 +257,10 @@ rp.eventHandlers = (function () {
             if (e.ctrlKey && e.keyCode == S_Key) {
                 e.stopPropagation();
                 e.preventDefault();
-                document.getElementById('post-content-form').submit();
+
+                rp.autosave.save();        
+        
+                // document.getElementById('post-content-form').submit();
                 return false;
             }
         }, true);
@@ -438,13 +453,11 @@ let documentReady = () => {
 
     beforeFormHash = rp.lib.getFormHash('post-content-form');
 
-    document.getElementById('test-button').addEventListener('click', function(e){
+    document.getElementById('instant-save-button').addEventListener('click', function(e){
         e.preventDefault();
         rp.autosave.save();        
         return false;
     });
-
-    //console.log(beforeFormHash);
 };
 
 rp.lib.documentReady(documentReady);

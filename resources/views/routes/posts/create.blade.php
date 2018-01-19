@@ -3,8 +3,6 @@
 @section('main.head')
    <!-- CSS or other HTML at end of head tag. -->
    <link rel="stylesheet" href="{{ asset('assets/js/vendor/simplemde.min.css') }}">
-   <!-- <link rel="stylesheet" href="{{ asset('assets/js/vendor/jquery-ui.min.css') }}"> -->
-   <!-- <link rel="stylesheet" href="{{ asset('assets/js/vendor/jquery-ui.theme.min.css') }}"> -->
    <link rel="stylesheet" href="{{ asset('assets/js/vendor/tingle.css') }}">
    
    <link rel="stylesheet" href="{{ asset('assets/js/vendor/flatpickr.css') }}">
@@ -44,10 +42,12 @@
                         <div class="col col-sm-2">
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-sm bypass-dirty" title="Save post (Ctrl+S)">Save</button>
-                            </div>                                
+                            </div>                
+<!--
                             <div class="form-group">
-                                <a href="" id="test-button" class="btn btn-danger btn-sm bypass-dirty">click here</a>
+                                <button id="test-button" class="save-button btn btn-danger btn-sm bypass-dirty">click here</button>
                             </div>                                                            
+-->
                         </div>
                     </div>
                 </div>
@@ -90,7 +90,7 @@
                             &nbsp;
                             <i class="fa fa-info-circle"></i>                        
                         </a>
-                        <input type="text" class="form-control save" id="date-to-publish" titledby="titleHelp" name="date-to-publish" placeholder="Publication date"
+                        <input type="text" class="monitor form-control save" id="date-to-publish" titledby="titleHelp" name="date-to-publish" placeholder="Publication date"
                             value="{{old('date_to_publish', $post->date_to_publish)}}">
                     </div>
                     <div class="form-group col-md-4">
@@ -100,7 +100,7 @@
                             &nbsp;
                             <i class="fa fa-info-circle"></i>                        
                         </a>
-                        <select class="form-control save" name="status" id="status" class="mb-select">
+                        <select class="monitor form-control save" name="status" id="status" class="mb-select">
                             <option class="option-element" value="0" {!! $post->status == 0 ? 'selected="selected"' : ''!!}>Draft</option>
                             <option class="option-element" value="1" {!! $post->status == 1 ? 'selected="selected"' : ''!!}>Published</option>
                             <option class="option-element" value="2" {!! $post->status == 2 ? 'selected="selected"' : ''!!}>Page</option>
@@ -129,7 +129,7 @@
                         </datalist>  
 
                         <br>
-                        <input name="tag-list-for-server" class="save" id="tag-list-for-server" type="hidden"  
+                        <input name="tag-list-for-server" class="monitor save" id="tag-list-for-server" type="hidden"  
                                value="{{old('tag-list-for-server', $view['taglist'])}}"></input>
                     </div>                    
                 </div>
@@ -203,13 +203,8 @@
     <script>
         var tags_list = "{!!$view['taglist']!!}";
     </script>
-    <script src="{{ asset('assets/js/vendor/simplemde.min.js') }}"></script>
-    
-    <!-- <script src="{{ asset('assets/js/vendor/jquery.js') }}"></script>     -->
-    <!-- <script src="{{ asset('assets/js/vendor/jquery-ui.min.js') }}"></script> -->   
-   <script src="{{ asset('assets/js/vendor/notifier.min.js')}}"></script>
-    
-    <script src="{{ asset('assets/js/vendor/sha256.js') }}"></script>            
+    <script src="{{ asset('assets/js/vendor/simplemde.min.js') }}"></script>   
+    <script src="{{ asset('assets/js/vendor/notifier.min.js')}}"></script>    
     <script src="{{ asset('assets/js/vendor/tingle.js') }}"></script>        
     <script src="{{ asset('assets/js/rp.tagchief.js') }}"></script>    
     <script src="{{ asset('assets/js/rp.tagchiefdatalistprovider.js') }}"></script>
@@ -217,6 +212,5 @@
     <script src="{{ asset('assets/js/rp.lib.js') }}"></script>  
     <script src="{{ asset('assets/js/edit-image-modal.ajax.js') }}"></script>      
     <script src="{{ asset('assets/js/routes.posts.create.js') }}"></script>      
-    <script src="{{ asset('assets/js/rp.ajax.js') }}"></script>      
-    
+    <script src="{{ asset('assets/js/rp.ajax.js') }}"></script>          
 @endsection

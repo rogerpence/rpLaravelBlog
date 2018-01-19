@@ -63,6 +63,13 @@ $post->tags->pluck('name');
 
     public function storeajax()
     {
+        //$uri = request()->path();
+        //$url = request()->url();
+        $id = request()->json()->all();
+
+        //$id = $id.
+        //$id = request()->input('title');
+
         $id = (request()->has('postid')) ? request('postid') : 0;
 
         $messages = ['title.regex' => 'The title must be letters and numbers only',
@@ -74,9 +81,10 @@ $post->tags->pluck('name');
             return response()->json(["errors"=>$validator->errors()]);           
         }
 
-        (new PostsRepository())->storePost(request()->all());
+        $id = (new PostsRepository())->storePost(request()->all());
+
         
-        return response()->json(['success'=>'Added a new post.']);
+        return response()->json(['success'=>'Post written to disk', 'post_id' => $id]);
     }
 
     public function store()
@@ -91,7 +99,7 @@ $post->tags->pluck('name');
         //$this->validate(request(), \App\Post::getValidationRules(), $messages);                
         $this->validate(request(), \App\Post::getValidationRules($id), \App\Post::getCustomErrorMessages());
 
-        (new PostsRepository())->storePost(request()->all());
+        $postId = (new PostsRepository())->storePost(request()->all());
         
         // The above is shorthand for this:
         // $repo = new PostsRepository(); 

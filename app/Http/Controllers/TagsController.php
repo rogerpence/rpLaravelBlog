@@ -9,6 +9,6 @@ class TagsController extends Controller
 {
     public function index(Tag $tag) {
         $posts = $tag->posts;
-        return view('posts.list-new')->with(compact('posts')); /// ->with('view', $data);        
+        return view('routes.posts.list')->with(compact('posts')); /// ->with('view', $data);        
     }
 }
