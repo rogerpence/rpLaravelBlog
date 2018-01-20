@@ -22,7 +22,21 @@ rp.autosave = (function() {
     };
 
     let save = () => {
-        //onclick="document.getElementById('post-content-form').submit();"
+        /*
+         | If instant save was requested for a new post, the post 
+         | needs to be added and then control needs to return to 
+         | the edit page. 
+         */
+        let mode = (document.getElementById('postid')) == null ? 'add' : 'update';
+        if (mode === 'add') {
+            // Submit the form to add the item but request a return
+            // back to this edit page. 
+            let formTag = document.getElementById('post-content-form');
+            let action = formTag.getAttribute('action') + '?return-to=edit';
+            formTag.setAttribute('action', action);
+            formTag.submit();
+            return;
+        }
 
         var form = document.getElementById('post-content-form');
         var formData = new FormData(form);

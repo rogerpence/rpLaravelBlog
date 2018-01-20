@@ -91,6 +91,8 @@ $post->tags->pluck('name');
     {       
         //dd(request()->all());           
 
+        $returnTo = request()->query('return-to', 'list');
+
         $id = (request()->has('postid')) ? request('postid') : 0;
 
         $messages = ['title.regex' => 'The title must be letters and numbers only',
@@ -104,8 +106,12 @@ $post->tags->pluck('name');
         // The above is shorthand for this:
         // $repo = new PostsRepository(); 
         // $repo->addPost(request()->all());
-        
-        return redirect()->route('posts.list');
+        if (returnTo == 'list') {
+            return redirect()->route('posts.list');
+        }
+        else {
+            // return to edit page for this $postId;
+        }            
         // or use
         //    return redirect('/');
         // or use where [] is a list of parms
