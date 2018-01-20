@@ -22,6 +22,8 @@ rp.autosave = (function() {
     };
 
     let save = () => {
+        //onclick="document.getElementById('post-content-form').submit();"
+
         var form = document.getElementById('post-content-form');
         var formData = new FormData(form);
 
