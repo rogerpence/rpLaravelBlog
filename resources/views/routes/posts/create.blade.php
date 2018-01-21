@@ -34,8 +34,9 @@
 
         <div class="row">
             <div class="col-8">
-                
+                <div id="validator-error-list">
                 @include('partials.error-list')
+                </div>
 
                 <div class="form-group">
                     <div class="form-row">
@@ -59,12 +60,12 @@
                         &nbsp;
                         <i class="fa fa-info-circle"></i>
                     </a>
-                    <small class="text-danger">{{ $errors->first('title') }}</small>
+                    <small data-field="title" class="text-danger">{{ $errors->first('title') }}</small>
 
                     <input maxlength="70" type="text" class="form-control save" id="title" titledby="titleHelp" name="title" placeholder="Post title"
                         value="{{old('title', $post->title)}}">
 
-                    <small class="text-danger">{{ $errors->first('slug') }}</small>
+                    <small data-field="slug" class="text-danger">{{ $errors->first('slug') }}</small>
                     <input maxlength="70" type="text" class="form-control save" id="slug" titledby="titleHelp" name="slug" placeholder="Post slug"
                         value="{{old('slug', $post->slug)}}">
                 </div>
@@ -136,7 +137,7 @@
 
                 <div class="form-group" id="abstract-container">
                     <label for="abstract"><strong>Abstract</strong></label>
-                    <small class="text-danger">{{ $errors->first('abstract') }}</small>
+                    <small data-field="abstract" class="text-danger">{{ $errors->first('abstract') }}</small>
 
                     <textarea data-md="simplemdeAbstract" class="save" name="abstract" id="abstract">{{old('abstract', $post->abstract)}}</textarea>
                 </div>
@@ -149,14 +150,14 @@
                         &nbsp;
                         <i class="fa fa-info-circle"></i>
                     </a>
-                    <small class="text-danger">{{ $errors->first('seo_description', $post->seo_description) }}</small>
+                    <small data-field="seo_description" class="text-danger">{{ $errors->first('seo_description', $post->seo_description) }}</small>
                     <textarea class="form-control save" id="seo_description" titledby="titleHelp" name="seo_description" 
                               placeholder="SEO description">{{old('seo_description', $post->seo_description)}}</textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="body"><strong>Body</strong></label>
-                    <small class="text-danger">{{ $errors->first('body') }}</small>
+                    <small data-field="body" class="text-danger">{{ $errors->first('body') }}</small>
                     <textarea data-md="simplemdeBody" class="save" name="body" id="body">{{old('body', $post->body_markdown)}}</textarea>
                 </div>
 

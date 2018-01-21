@@ -12,6 +12,11 @@ rp.stringBuilder.prototype.add = function(str)
     this.buffer.push(str);
 }
 
+rp.stringBuilder.prototype.append = function(str) 
+{
+    this.buffer.push(str);
+}
+
 rp.stringBuilder.prototype.toString = function(delimiter) 
 {
     delimiter = delimiter || '';

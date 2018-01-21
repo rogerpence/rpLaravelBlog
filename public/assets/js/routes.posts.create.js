@@ -2,10 +2,51 @@ var rp = rp || {};
 
 let beforeFormHash;
 
+rp.addErrors = (json) => {
+    /*
+     | This page uses the following HTML to show all 
+     | error messages.
+     */                    
+    let sb = new rp.stringBuilder();    
+    sb.append('<div class="form-group">');
+    sb.append('  <div class="card">');
+    sb.append('    <div class="card-body">');
+    sb.append('      <h4>Input errors</h4>');
+    sb.append('      <div class="alert alert-danger">');
+    sb.append('       <ul id="error-list">');
+    sb.append('       </ul>');
+    sb.append('      </div>');
+    sb.append('    </div>');
+    sb.append('  </div>');
+    sb.append('</div>');
+    
+    let errorRoot = document.getElementById('validator-error-list');
+    errorRoot.innerText = '';
+    errorRoot.insertAdjacentHTML('afterbegin', sb.toString());
+
+    sb = new rp.stringBuilder();       
+    for (var key in json) {
+        if (json.hasOwnProperty(key)) {
+            /*
+             | This page is showing individual field error messages.                 
+             | <small data-field="title" class="text-danger">{{ $errors->first('title') }}</small>
+             */                
+            let errorDetailElement = document.querySelector(`small[data-field="${key}"]`); 
+            errorDetailElement.innerText = json[key][0];                
+            json[key].forEach(function(error) {
+                sb.append(`<li>${error}</li>`);
+            });
+        }
+    }
+
+    errorRoot = document.getElementById('error-list');
+    errorRoot.insertAdjacentHTML('afterbegin', sb.toString());
+}
+
 rp.autosave = (function() {
     function postSaved(json) {
-        let j = json;
-        // Reset new beforeFormHash.
+        rp.addErrors(json);
+        // Reset form fields snapshot.
         beforeFormHash = rp.lib.getFormHash('post-content-form');
     };
 
@@ -59,8 +100,8 @@ rp.autosave = (function() {
             action: rp.autosave.postSaved
         };
 
-        //rp.ajax.submitRequest(options);
-        rp.ajax2(options);
+        rp.ajax.submitRequest(options);
+        //rp.ajax2(options);
     };
 
     return {
@@ -273,10 +314,7 @@ rp.eventHandlers = (function () {
             if (e.ctrlKey && e.keyCode == S_Key) {
                 e.stopPropagation();
                 e.preventDefault();
-
                 rp.autosave.save();        
-        
-                // document.getElementById('post-content-form').submit();
                 return false;
             }
         }, true);

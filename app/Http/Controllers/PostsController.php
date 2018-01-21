@@ -37,13 +37,9 @@ $post->tags->pluck('name');
         else {
             $posts = \App\Post::where('status', 1)->orderBy('date_to_publish', 'desc')->get();            
         }
-        // // return view('posts.create', compact('post'));
-        // $data = ['url' => action('PostsController@index'),
-        //          'action' => 'POST'];  
 
         $pages = \App\Post::select('title','slug')->where('status', 2)->get()->toArray();
 
-        // return view('posts.list')->with(compact('posts')); /// ->with('view', $data);
         return view('routes.posts.list')->with(compact('posts')); //->with('pages', $pages); /// ->with('view', $data);        
     } 
 
@@ -63,26 +59,33 @@ $post->tags->pluck('name');
 
     public function storeajax()
     {
-        //$uri = request()->path();
-        //$url = request()->url();
         $id = request()->json()->all();
 
-        //$id = $id.
-        //$id = request()->input('title');
+        $title = request()->json('title');
+        $slug = request()->json('slug');
+        $abstract = request()->json('abstract');
+        $seo_description = request()->json('seo_description');        
+        $body = request()->json('body');
+
+        $data = ['title'=> $title, 
+                 'slug' => $slug, 
+                 'abstract' => $abstract, 
+                 'seo_description'=> $seo_description,
+                 'body' => $body];
 
         $id = (request()->has('postid')) ? request('postid') : 0;
 
         $messages = ['title.regex' => 'The title must be letters and numbers only',
                      'slug.regex' => 'The slug must be letters and numbers only'];
 
-        $validator = \Validator::make(request()->all(), \App\Post::getValidationRules($id), \App\Post::getCustomErrorMessages());        
+        //$validator = \Validator::make(request()->json()->all(), \App\Post::getValidationRules($id), \App\Post::getCustomErrorMessages());        
+        $validator = \Validator::make($data, \App\Post::getValidationRules($id), \App\Post::getCustomErrorMessages());        
         if ($validator->fails()) {    
             $e = $validator->errors();
             return response()->json(["errors"=>$validator->errors()]);           
         }
 
         $id = (new PostsRepository())->storePost(request()->all());
-
         
         return response()->json(['success'=>'Post written to disk', 'post_id' => $id]);
     }
@@ -98,7 +101,6 @@ $post->tags->pluck('name');
         $messages = ['title.regex' => 'The title must be letters and numbers only',
                      'slug.regex' => 'The slug must be letters and numbers only'];
 
-        //$this->validate(request(), \App\Post::getValidationRules(), $messages);                
         $this->validate(request(), \App\Post::getValidationRules($id), \App\Post::getCustomErrorMessages());
 
         $postId = (new PostsRepository())->storePost(request()->all());
@@ -106,11 +108,11 @@ $post->tags->pluck('name');
         // The above is shorthand for this:
         // $repo = new PostsRepository(); 
         // $repo->addPost(request()->all());
-        if (returnTo == 'list') {
+        if ($returnTo == 'list') {
             return redirect()->route('posts.list');
         }
         else {
-            // return to edit page for this $postId;
+            return redirect()->route('posts.edit', ['id' => $postId]);                
         }            
         // or use
         //    return redirect('/');
@@ -118,7 +120,6 @@ $post->tags->pluck('name');
         //    return redirect()->route('posts.list', []);
     }
 
-    // public function show(\App\Post $post) 
     public function show($slug) 
     {
         $post = \App\Post::where('slug', '=', $slug )->first();
@@ -169,7 +170,6 @@ $post->tags->pluck('name');
                                      with('view', $view);
     }        
 }
-
 
 // CREATE
 // ------
