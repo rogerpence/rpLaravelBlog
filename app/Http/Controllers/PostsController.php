@@ -59,33 +59,21 @@ $post->tags->pluck('name');
 
     public function storeajax()
     {
+        
         $id = request()->json()->all();
 
-        $title = request()->json('title');
-        $slug = request()->json('slug');
-        $abstract = request()->json('abstract');
-        $seo_description = request()->json('seo_description');        
-        $body = request()->json('body');
-
-        $data = ['title'=> $title, 
-                 'slug' => $slug, 
-                 'abstract' => $abstract, 
-                 'seo_description'=> $seo_description,
-                 'body' => $body];
-
-        $id = (request()->has('postid')) ? request('postid') : 0;
+        $id = (request()->json()->has('postid')) ? request()->json('postid') : 0;
 
         $messages = ['title.regex' => 'The title must be letters and numbers only',
                      'slug.regex' => 'The slug must be letters and numbers only'];
 
-        //$validator = \Validator::make(request()->json()->all(), \App\Post::getValidationRules($id), \App\Post::getCustomErrorMessages());        
-        $validator = \Validator::make($data, \App\Post::getValidationRules($id), \App\Post::getCustomErrorMessages());        
+        $validator = \Validator::make(request()->json()->all(), \App\Post::getValidationRules($id), \App\Post::getCustomErrorMessages());        
         if ($validator->fails()) {    
             $e = $validator->errors();
             return response()->json(["errors"=>$validator->errors()]);           
         }
 
-        $id = (new PostsRepository())->storePost(request()->all());
+        $id = (new PostsRepository())->storePost(request()->json()->all());
         
         return response()->json(['success'=>'Post written to disk', 'post_id' => $id]);
     }
@@ -93,6 +81,8 @@ $post->tags->pluck('name');
     public function store()
     {       
         //dd(request()->all());           
+
+        $a = request()->all();
 
         $returnTo = request()->query('return-to', 'list');
 

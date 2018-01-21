@@ -45,7 +45,12 @@ rp.addErrors = (json) => {
 
 rp.autosave = (function() {
     function postSaved(json) {
-        rp.addErrors(json);
+        if (json.hasOwnProperty('errors')) {        
+            rp.addErrors(json.errors);
+        }
+        else {
+            notifier.show('Save successful', 'Your post has been updated.', '', '/assets/images/OK-48.png', 4000);            
+        }            
         // Reset form fields snapshot.
         beforeFormHash = rp.lib.getFormHash('post-content-form');
     };

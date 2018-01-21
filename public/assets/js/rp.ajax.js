@@ -40,7 +40,7 @@ rp.ajax = (function() {
         })    
         .then(checkHTTPStatus)
         .then((response) => response.json())
-        .then(json => options.action(json.errors))        
+        .then(json => options.action(json))        
         .catch((error) => {
             console.log('There was an HTTP fetch error', error);
         });        
