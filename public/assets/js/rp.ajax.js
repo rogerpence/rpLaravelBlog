@@ -1,26 +1,26 @@
 var rp = rp || {};
 
-rp.ajax2 = (options) => {
-    $.ajax({
-        url: options.url,
-        type: options.method,
-        data: options.json,
-        contentType: options.contentType,
-        success: function(data) {
-            if ($.isEmptyObject(data.errors)) {
-                options.action(data);
-            }
-            else{
-                options.action(data.errors);
-            }
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            let errorText = jqXHR.responseJSON;
-            let j = errorThrown;
-            j = testStatus;
-        }
-    });
-}
+// rp.ajax2 = (options) => {
+//     $.ajax({
+//         url: options.url,
+//         type: options.method,
+//         data: options.json,
+//         contentType: options.contentType,
+//         success: function(data) {
+//             if ($.isEmptyObject(data.errors)) {
+//                 options.action(data);
+//             }
+//             else{
+//                 options.action(data.errors);
+//             }
+//         },
+//         error: function(jqXHR, textStatus, errorThrown) {
+//             let errorText = jqXHR.responseJSON;
+//             let j = errorThrown;
+//             j = testStatus;
+//         }
+//     });
+// }
 
 rp.ajax = (function() {
     var checkHTTPStatus = (response) => {
@@ -45,19 +45,6 @@ rp.ajax = (function() {
             console.log('There was an HTTP fetch error', error);
         });        
     }
-
-    var submitDeleteRequest = (options) => {
-        options.method = 'DELETE';
-        if (options.hasOwnProperty('json')) {
-            options.body = JSON.stringify(options.json);
-            delete options.json;
-        }
-        if (!options.hasOwnProperty('headers')) {
-            options.headers = {};
-        }                    
-        options.headers['content-type'] = 'application/json';
-        submitRequest(options);
-    }       
 
     return {
         submitRequest: submitRequest,

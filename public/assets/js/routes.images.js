@@ -88,32 +88,17 @@ rp.uploads = (function() {
                         notifier.show('Copy to clipboard successful', 'Image URL is now available for pasting.', '', '/assets/images/survey-48.png', 4000);
                     }
                     else if (this.className == 'button-delete') {
-                        // let options = {
-                        //     "url": `/api/images/${data.id}`,                        
-                        //     "data": data,
-                        //     "callback": rp.uploads.imageDeleted,
-                        //     "method": 'DELETE'
-                        // };
-                        // rp.lib.submitJSON(options);
-
-                        // let options = {
-                        //     url: `/api/images/${data.id}`,                        
-                        //     method: 'DELETE',
-                        //     headers: {
-                        //         "content-type": "application/json"
-                        //     },
-                        //     body: JSON.stringify(data),        
-                        //     action: rp.uploads.imageDeleted
-                        // }
-                        // rp.ajax.submitRequest(options);                
-
                         let options = {
-                            url: `/api/images/${data.id}`,                        
-                            json: data,
-                            action: rp.uploads.imageDeleted,
-                        }
-                        rp.ajax.submitDeleteRequest(options);                
+                            url: `/api/images/${data.id}`,                                                    
+                            method: 'DELETE',
+                            body: JSON.stringify(data),
+                            headers: new Headers({
+                                'Content-Type': 'application/json'                    
+                            }),
+                            action: rp.autosave.postSaved
+                        };                        
 
+                        rp.ajax.submitRequest(options);
                     }
                     else if (this.className == 'button-edit') {
                         rp.editImage.getSingleImage(data.id);
