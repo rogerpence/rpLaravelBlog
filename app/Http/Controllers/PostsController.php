@@ -61,6 +61,7 @@ $post->tags->pluck('name');
     {
         
         $id = request()->json()->all();
+        $id = request()->all();
 
         $id = (request()->json()->has('postid')) ? request()->json('postid') : 0;
 
@@ -102,7 +103,8 @@ $post->tags->pluck('name');
             return redirect()->route('posts.list');
         }
         else {
-            return redirect()->route('posts.edit', ['id' => $postId]);                
+            request()->session()->flash('instantsave', 'true');
+            return redirect()->route('posts.edit', ['id' => $postId]);
         }            
         // or use
         //    return redirect('/');

@@ -1,6 +1,56 @@
 var rp = rp || {};
 
-let beforeFormHash;
+rp.beforeFormHash = '';
+
+rp.disasterProtection = (function() {   
+    let enableRestoreButton = () => {
+        let restoreButton = document.getElementById('restore-content-button');
+        let sessionKey = document.getElementById('slug').value + '-time';
+        let timeSaved = localStorage.getItem(sessionKey);
+        if (timeSaved) {
+            let buttonText = timeSaved.substr(0,10) + ' @ ' + timeSaved.substr(11, 5);
+            restoreButton.innerHTML = buttonText;
+            restoreButton.classList.remove('visible-no');
+        }            
+    };
+
+    let restore = () => {
+        let sessionKey = document.getElementById('slug').value;
+
+        rp.bodyMarkdownEditor.setCurrentBody(localStorage.getItem(sessionKey + '-body'));
+        rp.abstractMarkdownEditor.setCurrentAbstract(localStorage.getItem(sessionKey + '-abstract'));
+        document.getElementById('seo_description').value = localStorage.getItem(sessionKey + '-seo-description');
+        
+        document.getElementById('restore-content-button').classList.add('visible-no');
+
+        notifier.show('Restore successful', 'The abstract, body, and seo description have been restored.', '', '/assets/images/ok-48.png', 6000);            
+    };
+
+    let save = () => {
+        let sessionKey = document.getElementById('slug').value + '-time';
+        let value = new Date().toISOString();
+        localStorage.setItem(sessionKey, value);
+
+        sessionKey = document.getElementById('slug').value + '-body';
+        value = rp.bodyMarkdownEditor.getCurrentBody(); 
+        localStorage.setItem(sessionKey, value);
+
+        sessionKey = document.getElementById('slug').value + '-abstract';
+        value = rp.abstractMarkdownEditor.getCurrentAbstract()
+        localStorage.setItem(sessionKey, value);
+
+        sessionKey = document.getElementById('slug').value + '-seo-description';
+        value = document.getElementById('seo_description').value;
+        localStorage.setItem(sessionKey, value);
+        // 300000 ms = 5 minutes.
+    };
+
+    return {
+        save: save,
+        restore: restore,
+        enableRestoreButton: enableRestoreButton
+    };
+})();
 
 rp.addErrors = (json) => {
     /*
@@ -49,10 +99,10 @@ rp.autosave = (function() {
             rp.addErrors(json.errors);
         }
         else {
-            notifier.show('Save successful', 'Your post has been updated.', '', '/assets/images/OK-48.png', 4000);            
+            notifier.show('Save successful', 'Your post has been updated.', '', '/assets/images/ok-48.png', 4000);            
         }            
         // Reset form fields snapshot.
-        beforeFormHash = rp.lib.getFormHash('post-content-form');
+        rp.beforeFormHash = rp.lib.getFormHash('post-content-form');
     };
 
     let convertFormDataToJson = (formData) => {
@@ -79,18 +129,18 @@ rp.autosave = (function() {
             // back to this edit page. 
             let formTag = document.getElementById('post-content-form');
             let action = formTag.getAttribute('action') + '?return-to=edit';
-            formTag.setAttribute('action', action);
+            formTag.setAttribute('action', action);            
             formTag.submit();
             return;
         }
 
         var form = document.getElementById('post-content-form');
+        // Get all form data. 
         var formData = new FormData(form);
-
+        // Refresh abstract and body from simpleMDE.
         formData.set('abstract', rp.abstractMarkdownEditor.getCurrentAbstract());
         formData.set('body', rp.bodyMarkdownEditor.getCurrentBody());
         
-        // I am not converting this to a string!
         let json = convertFormDataToJson(formData);
 
         delete json['_method'];
@@ -98,7 +148,9 @@ rp.autosave = (function() {
         let options = {
             url: '/api/posts',
             method: 'POST',
-            contentType: "application/json; charset=utf-8",
+            headers: new Headers({
+                'Content-Type': 'application/json'                    
+            }),
             dataType: 'json',
             body: JSON.stringify(json),
             json: JSON.stringify(json),
@@ -136,9 +188,15 @@ rp.abstractMarkdownEditor = (function () {
         return editor.codemirror.getValue();
     }
 
+    function setCurrentAbstract(contents) {
+        return editor.codemirror.setValue(contents);
+    }    
+
+
     return {
         instance: instance,
-        getCurrentAbstract: getCurrentAbstract
+        getCurrentAbstract: getCurrentAbstract,
+        setCurrentAbstract: setCurrentAbstract
     };       
 })();            
 
@@ -166,6 +224,10 @@ rp.bodyMarkdownEditor = (function () {
     function getCurrentBody() {
         return editor.codemirror.getValue();
     }
+
+    function setCurrentBody(contents) {
+        return editor.codemirror.setValue(contents);
+    }    
 
     function setCustomKeys(editor) {
         editor.codemirror.setOption("extraKeys", {
@@ -207,7 +269,8 @@ rp.bodyMarkdownEditor = (function () {
        
     return {
         instance: instance,
-        getCurrentBody: getCurrentBody
+        getCurrentBody: getCurrentBody,
+        setCurrentBody: setCurrentBody
     };       
 })();    
 
@@ -292,10 +355,9 @@ rp.pureFunctions = (function () {
 
 rp.eventHandlers = (function () {
     function add() {
-
-        setInterval(function(){
-            if (beforeFormHash !== rp.lib.getFormHash('post-content-form')) {
-                //document.getElementById('alias-save-button').classList.remove('disabled-color');
+        setInterval(function() {
+            // Check every two seconds to see if save buttons should be enabled.
+            if (rp.beforeFormHash !== rp.lib.getFormHash('post-content-form')) {
                 document.getElementById('alias-save-button').disabled = false;
                 document.getElementById('instant-save-button').disabled = false;
             }
@@ -304,6 +366,18 @@ rp.eventHandlers = (function () {
                 document.getElementById('instant-save-button').disabled = true;
             }
         },2000);
+
+        setInterval(function() {
+            // Save current state every three minutes.
+            rp.disasterProtection.save()
+            document.getElementById('restore-content-button').classList.add('visible-no');            
+        },180000);            
+
+        document.getElementById('restore-content-button').addEventListener('click', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            rp.disasterProtection.restore()            
+        });            
 
         document.getElementById('title').addEventListener('input', function () {
             var slug = document.getElementById('slug');
@@ -328,7 +402,7 @@ rp.eventHandlers = (function () {
             // rp.pureFunctions.collectInputs();       
             let activeElement = document.activeElement;
             if (! activeElement.className.includes('bypass-dirty')) {  
-                const dataChanged = (beforeFormHash !== rp.lib.getFormHash('post-content-form'));
+                const dataChanged = (rp.beforeFormHash !== rp.lib.getFormHash('post-content-form'));
                 if (dataChanged) {
                     return dataChanged;
                 }                
@@ -510,13 +584,15 @@ let documentReady = () => {
     };
     rp.editImage.configureModalDialog(editImageOptions);
 
-    beforeFormHash = rp.lib.getFormHash('post-content-form');
+    rp.beforeFormHash = rp.lib.getFormHash('post-content-form');
 
     document.getElementById('instant-save-button').addEventListener('click', function(e){
         e.preventDefault();
         rp.autosave.save();        
         return false;
     });
+
+    rp.disasterProtection.enableRestoreButton();
 };
 
 rp.lib.documentReady(documentReady);

@@ -10,10 +10,10 @@ class PostsRepository {
         return 'Hello, ' . $name;
     }
 
-    public function storePost($request)
+    public function storePost($data)
     {
-        if (isset($request['postid'])) {
-            $id = $request['postid']; 
+        if (isset($data['postid'])) {
+            $id = $data['postid']; 
             $post = \App\Post::find($id);
         }
         else {
@@ -23,41 +23,35 @@ class PostsRepository {
         // <!--prettify lang=js linenums=true-->
         // {{prettify=bash:linenums}}
 
-        $body = request('body');
-        //$tth = new TextTokenHelper();      
-        //$body = $tth->swapTokens($body);
+        $body = $data['body'];
 
         $parse_down = new \ParsedownExtra();
         $html = $parse_down->text($body);
         
-        $post->title = trim(request('title'));
-        $post->subtitle = trim(request('subtitle'));
-        $post->slug = trim(request('slug'));
+        $post->title = trim($data['title']);
+        $post->subtitle = trim($data['subtitle']);
+        $post->slug = trim($data['slug']);
         $post->body_html = trim($html);
-        $post->body_markdown = trim(trim(request('body')));
-        
-        $x = trim(request('abstract'));
-
-        $post->abstract = trim(request('abstract'));
-        $post->abstract_html = trim($parse_down->text(request('abstract')));
-        $post->seo_description = trim(request('seo_description'));
+        $post->body_markdown = trim(trim($data['body']));
+        $post->abstract = trim($data['abstract']);
+        $post->abstract_html = trim($parse_down->text($data['abstract']));
+        $post->seo_description = trim($data['seo_description']);
         $post->seo_keywords = ''; 
-        $post->javascript = trim(request('javascript'));
-        $post->status = request('status');
-        $publish_date = \Carbon\Carbon::createFromFormat('Y-m-d', request('date-to-publish'));
+        $post->javascript = trim($data['javascript']);
+        $post->status = $data['status'];
+        $publish_date = \Carbon\Carbon::createFromFormat('Y-m-d', $data['date-to-publish']);
         $post->date_to_publish = $publish_date;
         $post->save();
         
-//        \DB::table('post_tag')->where('post_id','=', $post->id)->delete();
-
         \App\PostTag::where('post_id', $post->id)->delete();
 
-        if (trim(request('tag-list-for-server')) == '') {
+        if (trim($data['tag-list-for-server']) == '') {
             return $post->id;
         }
 
-        $tags = explode(',', request('tag-list-for-server'));    
-        
+        $tags = explode(',', $data['tag-list-for-server']);    
+
+        // This should be moved to a tags repository! 
         foreach ($tags as $tag_name) {
             $tag_id = \App\Tag::where('name', $tag_name)->pluck('id')->first();
             if ( $tag_id == null) {

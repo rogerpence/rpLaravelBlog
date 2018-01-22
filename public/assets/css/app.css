@@ -220,3 +220,11 @@ li code span:first-child {
 /* .disabled-color {
     color: #a7a09f; 
 } */
+
+.visible-no {
+    display: none;
+}
+.visible-yes {
+    display: block;
+}
+

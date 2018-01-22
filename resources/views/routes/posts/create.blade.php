@@ -38,18 +38,12 @@
                 @include('partials.error-list')
                 </div>
 
-                <div class="form-group">
-                    <div class="form-row">
-                        <div class="col col-sm-2">
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-sm bypass-dirty" title="Save post (Ctrl+S)">Save</button>
-                            </div>                
-<!--
-                            <div class="form-group">
-                                <button id="test-button" class="save-button btn btn-danger btn-sm bypass-dirty">click here</button>
-                            </div>                                                            
--->
-                        </div>
+                <div class="form-row">
+                    <div class="form-group col-sm-2">
+                        <button type="submit" class="form-control btn btn-primary btn-sm bypass-dirty" title="Save post (Ctrl+S)">Save</button>
+                    </div>                            
+                    <div class="form-group col-sm-2">                    
+                        <button  style="width: 150px;"id="restore-content-button" class="visible-no form-control save-button btn btn-danger btn-sm">click here</button>
                     </div>
                 </div>
 
@@ -191,6 +185,7 @@
         </div> <!-- End class="row" -->
 
         <br>
+
         
     </form>
 </div>
@@ -214,4 +209,11 @@
     <script src="{{ asset('assets/js/edit-image-modal.ajax.js') }}"></script>      
     <script src="{{ asset('assets/js/routes.posts.create.js') }}"></script>      
     <script src="{{ asset('assets/js/rp.ajax.js') }}"></script>          
+    
+    @if (Session::has('instantsave'))
+    <script>
+        notifier.show('Save successful', 'Your new post has been added.', '', '/assets/images/ok-48.png', 4000);            
+    </script>        
+   @endif
+
 @endsection

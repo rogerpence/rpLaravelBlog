@@ -7,19 +7,26 @@
 
             <div class="post-date-line">
                 @auth
+{{--
                     <a title="Edit post" style="display:inline;" href="/posts/{{ $post->id }}/edit" ><i class="fa fa-pencil"></i></a>&nbsp;
+--}}
+                <span class="badge badge-info">
+                   <a style="color: white;" title="Edit post" href="/posts/{{ $post->id }}/edit"><i class="fa fa-pencil"></i> <span>Edit</span></a>
+                </span>
+                        
+
                 @endauth          
                 @switch($post->status)
                     @case(0)
-                        <span style="display:inline;" class="badge badge-warning">Draft</span>
+                        <span class="badge badge-primary">Draft</span>
                         @break
 
                     @case(2)
-                        <span style="display:inline;" class="badge badge-success">Page</span>
+                        <span class="badge badge-success">Page</span>
                         @break
 
                     @case(3)
-                        <span style="display:inline;" class="badge badge-danger">Private</span>
+                        <span class="badge badge-danger">Private</span>
                         @break
                 @endswitch                
 
