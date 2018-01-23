@@ -6,7 +6,6 @@ rp.uploads = (function() {
             url: '/api/images',
             method: 'GET',
             headers: {},
-            body: {},
             action: showImagesList
         }
 
