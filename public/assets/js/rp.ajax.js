@@ -18,7 +18,7 @@ rp.ajax.HTTPRequest = class HTTPRequest {
         })    
         .then(this.checkHTTPStatus)
         .then((response) => response.json())
-        .then(json => fn(json))        
+        .then(json => options.action(json))        
         .catch((error) => {
             console.log('There was an HTTP fetch error', error);
         });        
