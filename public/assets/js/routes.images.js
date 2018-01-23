@@ -5,7 +5,6 @@ rp.uploads = (function() {
         let options = {
             url: '/api/images',
             method: 'GET',
-            headers: {},
             action: showImagesList
         }
 

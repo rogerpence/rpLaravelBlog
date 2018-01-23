@@ -6,6 +6,11 @@ rp.ajax.HTTPRequest = class HTTPRequest {
     }
 
     submit(options) {
+        var fn; 
+        if (options.hasOwnProperty('action')) {
+            fn = options.action;
+            delete options.action;
+        }
         fetch(options.url, {
             method: options.method,
             headers: options.headers,
@@ -13,7 +18,7 @@ rp.ajax.HTTPRequest = class HTTPRequest {
         })    
         .then(this.checkHTTPStatus)
         .then((response) => response.json())
-        .then(json => options.action(json))        
+        .then(json => fn(json))        
         .catch((error) => {
             console.log('There was an HTTP fetch error', error);
         });        
