@@ -157,8 +157,8 @@ rp.autosave = (function() {
             action: rp.autosave.postSaved
         };
 
-        rp.ajax.submitRequest(options);
-        //rp.ajax2(options);
+        let httpReq = new rp.ajax.HTTPRequest();
+        httpReq.submit(options);
     };
 
     return {

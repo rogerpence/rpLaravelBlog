@@ -50,8 +50,24 @@ rp.editImage = (function () {
         if (editImageOptions.ajax) {        
             document.getElementById('submit-button').addEventListener('click', (e) => {
                 e.preventDefault();
-                rp.lib.copyTextToClipboard('/storage/images/' + document.getElementById('image-name').value);                        
-                rp.lib.postJSONFileUpload('/api/imageupload', rp.editImage.fileUploadCallback);
+                rp.lib.copyTextToClipboard('/storage/images/' + document.getElementById('image-name').value);  
+
+                var form = document.getElementById('form-upload-image');
+                var formData = new FormData(form);
+
+                let options = {
+                    url: '/api/imageupload',                                                    
+                    method: 'POST',
+                    body: formData,
+                    action: rp.editImage.fileUploadCallback
+                };                        
+
+                let httpReq = new rp.ajax.HTTPRequest();
+                httpReq.submit(options);
+
+                
+
+                //rp.lib.postJSONFileUpload('/api/imageupload', rp.editImage.fileUploadCallback);
                 modal.close()
             });        
         }

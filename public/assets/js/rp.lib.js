@@ -50,35 +50,35 @@ rp.lib = (function() {
         return inputsValues.join('');         
     }         
 
-    var postJSONFileUpload = function(url, callback) {
-        var form = document.getElementById('form-upload-image');
-        var formData = new FormData(form);
+    // var postJSONFileUpload = function(url, callback) {
+    //     var form = document.getElementById('form-upload-image');
+    //     var formData = new FormData(form);
 
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', url, true);
+    //     var xhr = new XMLHttpRequest();
+    //     xhr.open('POST', url, true);
 
-        xhr.onload = function() {        
-            var status = xhr.status;
+    //     xhr.onload = function() {        
+    //         var status = xhr.status;
             
-            if (status == 200) {
-                callback(xhr.response);
-            } else {
-                callback(status);
-            }
-        };
+    //         if (status == 200) {
+    //             callback(xhr.response);
+    //         } else {
+    //             callback(status);
+    //         }
+    //     };
 
-        xhr.send(formData);        
-    }
+    //     xhr.send(formData);        
+    // }
 
     // Same declaration as below.
     //async function getJson2(url) {
 
-    const getJson2 = async (url) => {
-        let response = await fetch(url, {
-            method: "GET"                
-        });
-        return await response.json();
-    }
+    // const getJson2 = async (url) => {
+    //     let response = await fetch(url, {
+    //         method: "GET"                
+    //     });
+    //     return await response.json();
+    // }
 
     // Also works. GET seems to be the default. 
     // const getJson2 = async (url) => {

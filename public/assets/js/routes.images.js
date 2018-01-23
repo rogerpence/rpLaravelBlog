@@ -1,32 +1,6 @@
 var rp = rp || {};
 
 rp.uploads = (function() {
-    // https://www.youtube.com/watch?time_continue=30&v=Ncs6QI4Z5BE
-
-    var checkHTTPStatus = (response) => {
-        if (response.ok) {
-            return response;
-        }
-        let error = new Error(response.statusText);
-        error.response = response;
-        return Promise.reject(error);
-    }
-
-    var submitRequest = (options) => {        
-        fetch(options.url, {
-            method: options.method,
-            headers: options.headers,
-            body: options.body
-        })    
-        .then(checkHTTPStatus)
-        .then((response) => response.json())
-        .then(json => options.action(json))
-        
-        .catch((error) => {
-            console.log('There was an Ajax error', error);
-        });        
-    }
-
     var getUploadedImages = function() {
         let options = {
             url: '/api/images',
@@ -36,35 +10,11 @@ rp.uploads = (function() {
             action: showImagesList
         }
 
-        rp.ajax.submitRequest(options);
-        console.log('got json');
-        
-        //showImagesList(json);
+        let httpReq = new rp.ajax.HTTPRequest();
+        httpReq.submit(options);
+
         return;
-
-        // Fetch. This is it! 
-        // https://davidwalsh.name/fetch
-        fetch('/api/images')    
-        .then((response) => response.json())
-        .then(json => showImagesList(json))
-        .catch((error) => {
-
-        });
-        console.log('got json');
     }
-
-        // Async and await.            
-        // Save as below.
-        // rp.lib.getJson2('/api/images')
-        //     .then(function(data) {
-        //         showImagesList(data);
-        //     });
-
-        // rp.lib.getJson2('/api/images')
-        //     .then(json => showImagesList(json));
-
-        // As originally written with old-school callback.            
-        //rp.lib.getJSON('/api/images', getUploadedImagesCallBack);            
 
     var getUploadedImagesCallBack = function(json) {
         showImagesList(json);
@@ -95,10 +45,11 @@ rp.uploads = (function() {
                             headers: new Headers({
                                 'Content-Type': 'application/json'                    
                             }),
-                            action: rp.autosave.postSaved
+                            action: rp.uploads.imageDeleted
                         };                        
 
-                        rp.ajax.submitRequest(options);
+                        let httpReq = new rp.ajax.HTTPRequest();
+                        httpReq.submit(options);
                     }
                     else if (this.className == 'button-edit') {
                         rp.editImage.getSingleImage(data.id);
