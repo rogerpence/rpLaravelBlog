@@ -1,128 +1,20 @@
 var rp = rp || {};
 
-rp.lib = (function() {
-    function documentReady(fn) {
-        /*
-           This "document ready" function is from youmightnotneedjquery.com. 
+rp.core = {}
 
-           The typical pattern for this routine is shown below; where this 
-           code is at the bottom of the page just before the closing </body>
-           tag.     
-
-           <script>        
-                let afterDocumentLoaded = () => {
-                    // Put JavaScript here that's supposed to execute after
-                    // the document is loaded and ready. 
-                };                    
-
-                rp.lib.documentReady(afterDocumentLoaded);
-            </script>        
-
-        */
-
+rp.Core = class Core {
+    static documentReady(fn) {
         if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
             fn();
         } else {
             document.addEventListener('DOMContentLoaded', fn);
-        }
-    };
+        }        
+    }    
 
-    const getFormHash = (targetId) => {
-        let form = document.getElementById(targetId);
-        let formData = new FormData(form);
-
-        // Update formData with most recent 'abstract' and 'body' buffers
-        // before they are collected.
-        formData.set('abstract', rp.abstractMarkdownEditor.getCurrentAbstract());
-        formData.set('body', rp.bodyMarkdownEditor.getCurrentBody());
-
-        // Collect all of formData's values.
-        let inputsValues = [];
-        for(let [key, value] of formData.entries()) {
-            inputsValues.push(value);
-        }
-        //  Do this if you'd rather store a hash than the full value
-        //  of form data. 
-        //  const shaObj = new jsSHA("SHA-256", "TEXT");
-        //  shaObj.update(inputsValues.join(''))
-        //  return = shaObj.getHash("HEX");     
-
-        return inputsValues.join('');         
-    }         
-
-    // var postJSONFileUpload = function(url, callback) {
-    //     var form = document.getElementById('form-upload-image');
-    //     var formData = new FormData(form);
-
-    //     var xhr = new XMLHttpRequest();
-    //     xhr.open('POST', url, true);
-
-    //     xhr.onload = function() {        
-    //         var status = xhr.status;
-            
-    //         if (status == 200) {
-    //             callback(xhr.response);
-    //         } else {
-    //             callback(status);
-    //         }
-    //     };
-
-    //     xhr.send(formData);        
-    // }
-
-    // Same declaration as below.
-    //async function getJson2(url) {
-
-    // const getJson2 = async (url) => {
-    //     let response = await fetch(url, {
-    //         method: "GET"                
-    //     });
-    //     return await response.json();
-    // }
-
-    // Also works. GET seems to be the default. 
-    // const getJson2 = async (url) => {
-    //     let response = await fetch(url);
-    //     return await response.json();
-    // }
-    
-
-    var getJSON = function(url, callback) {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', url, true);
-        xhr.responseType = 'json';
-        
-        xhr.onload = function() {        
-            var status = xhr.status;
-            
-            if (status == 200) {
-                callback(xhr.response);
-            } else {
-                callback(status);
-            }
-        };
-        
-        xhr.send();
-    };
-
-    var submitJSON = function(options) {
-        let method = options.method || 'POST';
-        xhr = new XMLHttpRequest();
-        xhr.open(method, options.url, true);
-        xhr.setRequestHeader("Content-type", "application/json");
-        xhr.onreadystatechange = function () { 
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                    var t = xhr.responseText;
-                    var json = JSON.parse(xhr.responseText);
-                    options.callback(json);
-                }
-            }
-        xhr.send(JSON.stringify(options.data));        
-   }
-
-   var getFileNameParts = function(filename) {
+    static getFileNameParts(filename) {
         let result = {"name" : null, "extension" : null};
         let m;
+        let match;
         let dot = /(\.)/g;
         while ((match = dot.exec(filename)) != null) {
             m = match;
@@ -136,6 +28,34 @@ rp.lib = (function() {
         }
         return result;
     }
+    
+}
+
+rp.lib = (function() {
+    // function documentReady(fn) {
+    //     if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+    //         fn();
+    //     } else {
+    //         document.addEventListener('DOMContentLoaded', fn);
+    //     }
+    // };
+
+//    var getFileNameParts = function(filename) {
+//         let result = {"name" : null, "extension" : null};
+//         let m;
+//         let dot = /(\.)/g;
+//         while ((match = dot.exec(filename)) != null) {
+//             m = match;
+//         }
+//         if (typeof m == 'undefined') {
+//             result.name = filename;
+//         }
+//         else {
+//             result.name = filename.substr(0, m.index);
+//             result.extension = filename.substr(m.index + 1);
+//         }
+//         return result;
+//     }
     
     var getFileNameFromPath = function(path) {
         filename = path.replace(/^.*\\/, '');
@@ -196,17 +116,10 @@ rp.lib = (function() {
     }
 
     return {
-        getFileNameParts: getFileNameParts,
         getFileNameFromPath: getFileNameFromPath,
         getJulianDate: getJulianDate,
         getUniqueIdentifier: getUniqueIdentifier,
-        getJSON: getJSON,
-        getJson2: getJson2,
-        submitJSON: submitJSON,
-        postJSONFileUpload: postJSONFileUpload,
         copyTextToClipboard: copyTextToClipboard,
-        fadeOutHtmlElement: fadeOutHtmlElement,
-        getFormHash: getFormHash,
-        documentReady: documentReady
+        fadeOutHtmlElement: fadeOutHtmlElement
     }
 })();

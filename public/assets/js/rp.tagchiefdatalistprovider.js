@@ -1,7 +1,6 @@
 var rp = rp || {};
 
 rp.tagChiefDataListProvider = (function () {
-
     let datalistId;
     let tagTextInputId;
     let tagList = [];
@@ -24,42 +23,18 @@ rp.tagChiefDataListProvider = (function () {
         };                
 
         if (options.hasOwnProperty('url')) {
-            let promise = performGetJsonRequest(options.url)
-            .then(
-                function(data) {
-                    fn(data);
-                },
-                function(error) {
-                    console.error('Ajax get Json call failed: ', error)   
-                }
-            );
-        }
+            let httpReq = new rp.ajax.HTTPRequest();
+            httpReq.submit({url: options.url,
+                            method: 'GET',
+                            headers: new Headers({
+                                'Content-Type': 'application/json'
+                            }),
+                            action: fn});
+        }            
         else if (options.hasOwnProperty('list')) {
             fn(options.list);
         }
     };
-
-    const performGetJsonRequest = (url) => {
-        return new Promise((resolve, reject) => {
-            const xhr = new XMLHttpRequest();
-            xhr.open("GET", url);
-
-            xhr.onload = () => {
-                if (xhr.status == 200) {
-                    resolve(JSON.parse(xhr.response));
-                }
-                else {
-                    reject(Error(xhr.statusText));
-                }
-            }
-
-            xhr.onerror = () => {
-                reject(Error('Network error'));
-            }
-
-            xhr.send();
-        });
-    }
 
     const clearAndFocusTagInputElement = () => {
         let el = document.getElementById(tagTextInputId);

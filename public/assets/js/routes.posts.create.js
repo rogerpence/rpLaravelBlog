@@ -102,7 +102,7 @@ rp.autosave = (function() {
             notifier.show('Save successful', 'Your post has been updated.', '', '/assets/images/ok-48.png', 4000);            
         }            
         // Reset form fields snapshot.
-        rp.beforeFormHash = rp.lib.getFormHash('post-content-form');
+        rp.beforeFormHash = rp.pureFunctions.getFormHash('post-content-form');
     };
 
     let convertFormDataToJson = (formData) => {
@@ -191,7 +191,6 @@ rp.abstractMarkdownEditor = (function () {
     function setCurrentAbstract(contents) {
         return editor.codemirror.setValue(contents);
     }    
-
 
     return {
         instance: instance,
@@ -347,9 +346,33 @@ rp.pureFunctions = (function () {
         form.submit();
     }
 
+    const getFormHash = (targetId) => {
+        let form = document.getElementById(targetId);
+        let formData = new FormData(form);
+
+        // Update formData with most recent 'abstract' and 'body' buffers
+        // before they are collected.
+        formData.set('abstract', rp.abstractMarkdownEditor.getCurrentAbstract());
+        formData.set('body', rp.bodyMarkdownEditor.getCurrentBody());
+
+        // Collect all of formData's values.
+        let inputsValues = [];
+        for(let [key, value] of formData.entries()) {
+            inputsValues.push(value);
+        }
+        //  Do this if you'd rather store a hash than the full value
+        //  of form data. 
+        //  const shaObj = new jsSHA("SHA-256", "TEXT");
+        //  shaObj.update(inputsValues.join(''))
+        //  return = shaObj.getHash("HEX");     
+
+        return inputsValues.join('');         
+    }         
+    
     return {
         insertTextAtCurrentLine: insertTextAtCurrentLine,
-        post: post
+        post: post,
+        getFormHash: getFormHash
     };
 })();
 
@@ -357,7 +380,7 @@ rp.eventHandlers = (function () {
     function add() {
         setInterval(function() {
             // Check every two seconds to see if save buttons should be enabled.
-            if (rp.beforeFormHash !== rp.lib.getFormHash('post-content-form')) {
+            if (rp.beforeFormHash !== rp.pureFunctions.getFormHash('post-content-form')) {
                 document.getElementById('alias-save-button').disabled = false;
                 document.getElementById('instant-save-button').disabled = false;
             }
@@ -402,7 +425,7 @@ rp.eventHandlers = (function () {
             // rp.pureFunctions.collectInputs();       
             let activeElement = document.activeElement;
             if (! activeElement.className.includes('bypass-dirty')) {  
-                const dataChanged = (rp.beforeFormHash !== rp.lib.getFormHash('post-content-form'));
+                const dataChanged = (rp.beforeFormHash !== rp.pureFunctions.getFormHash('post-content-form'));
                 if (dataChanged) {
                     return dataChanged;
                 }                
@@ -584,7 +607,7 @@ let documentReady = () => {
     };
     rp.editImage.configureModalDialog(editImageOptions);
 
-    rp.beforeFormHash = rp.lib.getFormHash('post-content-form');
+    rp.beforeFormHash = rp.pureFunctions.getFormHash('post-content-form');
 
     document.getElementById('instant-save-button').addEventListener('click', function(e){
         e.preventDefault();
@@ -595,4 +618,4 @@ let documentReady = () => {
     rp.disasterProtection.enableRestoreButton();
 };
 
-rp.lib.documentReady(documentReady);
+rp.Core.documentReady(documentReady);

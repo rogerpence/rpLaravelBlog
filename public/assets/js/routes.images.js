@@ -123,7 +123,7 @@ rp.uploads = (function() {
 })();
 
 
-rp.lib.documentReady( function() {
+rp.Core.documentReady( function() {
     // Assign button event handlers when datatable is drawn.
 
     rp.viewImage.configureModalDialog();        
