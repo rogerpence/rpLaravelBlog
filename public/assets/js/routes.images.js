@@ -34,7 +34,7 @@ rp.uploads = (function() {
                     }
                     else if (this.className == 'button-copy') { 
                         let filename = `![${data.description}]()/storage/images/${data.name}?${data.cachebuster}`;
-                        rp.general.copyTextToClipboard(filename);
+                        rp.lib.copyTextToClipboard(filename);
                         notifier.show('Copy to clipboard successful', 'Image URL is now available for pasting.', '', '/assets/images/survey-48.png', 4000);
                     }
                     else if (this.className == 'button-delete') {

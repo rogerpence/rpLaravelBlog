@@ -13,50 +13,7 @@ rp.general = (function () {
         return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
 
-    function copyTextToClipboard(text) {
-        var textArea = document.createElement("textarea");
-
-        textArea.style.position = 'fixed';
-        textArea.style.top = 0;
-        textArea.style.left = 0;
-        textArea.style.width = '2em';
-        textArea.style.height = '2em';
-        textArea.style.padding = 0;
-        textArea.style.border = 'none';
-        textArea.style.outline = 'none';
-        textArea.style.boxShadow = 'none';
-        textArea.style.background = 'transparent';
-        textArea.value = text;
-        document.body.appendChild(textArea);
-        textArea.select();
-        try {
-            var successful = document.execCommand('copy');
-            var msg = successful ? 'successful' : 'unsuccessful';
-            console.log('Copying text command was ' + msg);
-        } catch (err) {
-            console.log('Oops, unable to copy');
-        }
-        document.body.removeChild(textArea);
-    }
-
-    function fadeOutHtmlElement(element) {
-        var op = 1; // initial opacity
-        var timer = setInterval(function() {
-            if (op <= 0.1) {
-                clearInterval(timer);
-            }
-            element.style.opacity = op;
-            op -= 0.1;
-        }, 200);
-
-        setTimeout(function () {
-            element.parentNode.removeChild(element)
-        }, 2500);
-    }
-
     return {
-        copyTextToClipboard: copyTextToClipboard,
-        fadeOutHtmlElement: fadeOutHtmlElement,
         getParameterByName: getParameterByName
     }
 })();
@@ -80,7 +37,7 @@ rp.showPostPage = (function () {
             }
         }            
 
-        currentElement = element.parentNode.previousSibling;
+        let currentElement = element.parentNode.previousSibling;
         while (currentElement.tagName !== PRE_TAG_NAME) {
             currentElement = currentElement.previousSibling;
         }
@@ -101,7 +58,7 @@ rp.showPostPage = (function () {
         msgElement.innerText = CODE_COPIED_MESSAGE;
         msgElement.style = 'margin-left: 5px;'
         parent.insertAdjacentElement('afterend', msgElement);
-        rp.general.fadeOutHtmlElement(msgElement);
+        rp.lib.fadeOutHtmlElement(msgElement);
     }
 
     function assignCopyCodeToClipboardEventHandler(id) {
@@ -117,7 +74,7 @@ rp.showPostPage = (function () {
                     var allLines = preTag.firstChild.innerText;
                 }
 
-                rp.general.copyTextToClipboard(allLines);
+                rp.lib.copyTextToClipboard(allLines);
 
                 showCopiedToClipboardMessage(this);
             });

@@ -3,7 +3,6 @@
 var rp = rp || {};
 
 rp.core = {}
-
 rp.Core = class Core {
     static documentReady(fn) {
         if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
@@ -30,52 +29,26 @@ rp.Core = class Core {
         }
         return result;
     }
-    
-}
 
-rp.lib = (function() {
-    // function documentReady(fn) {
-    //     if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
-    //         fn();
-    //     } else {
-    //         document.addEventListener('DOMContentLoaded', fn);
-    //     }
-    // };
-
-//    var getFileNameParts = function(filename) {
-//         let result = {"name" : null, "extension" : null};
-//         let m;
-//         let dot = /(\.)/g;
-//         while ((match = dot.exec(filename)) != null) {
-//             m = match;
-//         }
-//         if (typeof m == 'undefined') {
-//             result.name = filename;
-//         }
-//         else {
-//             result.name = filename.substr(0, m.index);
-//             result.extension = filename.substr(m.index + 1);
-//         }
-//         return result;
-//     }
-    
-    var getFileNameFromPath = function(path) {
+    static getFileNameFromPath(path) {
         let filename = path.replace(/^.*\\/, '');
         return filename;
     }
 
-    var getJulianDate = function(date) {
+    static getJulianDate(date) {
         let julianDate = Math.floor((date / 86400000) - (date.getTimezoneOffset() / 1440) + 2440587.5);
         return julianDate;
     }        
 
-    var getUniqueIdentifier = function() {
+    static getUniqueIdentifier() {
         var now = new Date(); //set any date
         var seconds = (now.getHours() * 60 * 60) + (now.getMinutes() * 60) + now.getSeconds();
 
-        return getJulianDate(now) + '.' + seconds;
-    }
- 
+        return rp.Core.getJulianDate(now) + '.' + seconds;
+    }  
+}
+
+rp.lib = (function() {
     function copyTextToClipboard(text) {
         var textArea = document.createElement("textarea");
 
@@ -118,9 +91,6 @@ rp.lib = (function() {
     }
 
     return {
-        getFileNameFromPath: getFileNameFromPath,
-        getJulianDate: getJulianDate,
-        getUniqueIdentifier: getUniqueIdentifier,
         copyTextToClipboard: copyTextToClipboard,
         fadeOutHtmlElement: fadeOutHtmlElement
     }
