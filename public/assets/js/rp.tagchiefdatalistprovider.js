@@ -1,3 +1,5 @@
+"use strict";
+
 var rp = rp || {};
 
 rp.tagChiefDataListProvider = (function () {
@@ -66,7 +68,7 @@ rp.tagChiefDataListProvider = (function () {
     };
 
     const removeChildrenFromDatalist = () => {
-        el = document.getElementById(datalistId);
+        let el = document.getElementById(datalistId);
         while (el.hasChildNodes()) {
             el.removeChild(el.lastChild);
         }

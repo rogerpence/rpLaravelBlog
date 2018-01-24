@@ -1,3 +1,5 @@
+"use strict";
+
 var rp = rp || {};
 
 rp.beforeFormHash = '';
@@ -520,7 +522,7 @@ rp.deletePostModal = (function() {
             });
 
             // Set modal content.
-            postTitle = document.getElementById('title').value;
+            let postTitle = document.getElementById('title').value;
             modal.setContent('<h4>Are you sure you want to delete this post?</h4>' +
                 '<h4>' + postTitle + '</h4>');
 

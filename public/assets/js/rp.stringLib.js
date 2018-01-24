@@ -1,4 +1,4 @@
-var rp = rp || {};
+"use strict";
 
 var rp = rp || {};
 

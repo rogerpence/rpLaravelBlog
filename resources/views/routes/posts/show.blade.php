@@ -113,7 +113,6 @@
     </div>   
 @stop
 
-
 @section('optional-body-bottom')
     <script src="{{ asset('assets/js/rp.lib.js') }}"></script>   
     <script src="{{ asset('assets/js/vendor/mark.js') }}"></script>   

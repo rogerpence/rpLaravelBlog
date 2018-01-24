@@ -1,3 +1,5 @@
+"use strict";
+
 var rp = rp || {};
 
 rp.core = {}

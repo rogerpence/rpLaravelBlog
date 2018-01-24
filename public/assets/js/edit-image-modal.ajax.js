@@ -1,3 +1,5 @@
+"use strict";
+
 var rp = rp || {};
 
 rp.editImage = (function () {
@@ -63,10 +65,6 @@ rp.editImage = (function () {
 
                 let httpReq = new rp.ajax.HTTPRequest();
                 httpReq.submit(options);
-
-
-
-                //rp.lib.postJSONFileUpload('/api/imageupload', rp.editImage.fileUploadCallback);
                 modal.close()
             });
         }

@@ -1,3 +1,5 @@
+"use strict";
+
 rp.viewImage = (function () {
     var modal;
 

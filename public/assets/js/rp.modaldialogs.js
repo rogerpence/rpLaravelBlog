@@ -1,7 +1,9 @@
+"use strict";
+
 var rp = rp || {};
 
 rp.dialogs = (function() {
-    modalConfirmation = function() {
+    let modalConfirmation = function() {
         // instanciate new modal
         this.modal = new tingle.modal({
             footer: false,

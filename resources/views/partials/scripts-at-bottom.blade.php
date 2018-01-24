@@ -5,8 +5,8 @@
 
 <!-- <script src="{{ asset('compiled.js') }}"></script>  -->
 
+<script src="{{ asset('assets/js/rp.collapsize.js') }}"></script>
 <script src="{{ asset('assets/js/app.js') }}"></script>
 <script src="{{ asset('assets/js/rp.typingTracker.js') }}"></script>
-<script src="{{ asset('assets/js/rp.collapsize.js') }}"></script>
 <script src="{{ asset('assets/js/rp.stringLib.js') }}"></script>
 

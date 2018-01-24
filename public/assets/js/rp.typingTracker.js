@@ -1,3 +1,5 @@
+"use strict";
+
 var rp = rp || {};
 
 rp.typingTracker = (function () {
@@ -56,7 +58,7 @@ rp.typingTracker = (function () {
                     this.value = this.value.substring(0, maxlimit);
                     return false;
                 }
-                counter = MAX_LIMIT - this.value.length;
+                //counter = MAX_LIMIT - this.value.length;
                 owner.setProgress();
             })
         };
