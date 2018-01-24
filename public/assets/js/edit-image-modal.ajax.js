@@ -51,7 +51,7 @@ rp.editImage = (function () {
         if (editImageOptions.ajax) {
             document.getElementById('submit-button').addEventListener('click', (e) => {
                 e.preventDefault();
-                rp.lib.copyTextToClipboard('/storage/images/' + document.getElementById('image-name').value);
+                rp.Lib.copyTextToClipboard('/storage/images/' + document.getElementById('image-name').value);
 
                 var form = document.getElementById('form-upload-image');
                 var formData = new FormData(form);
@@ -75,10 +75,10 @@ rp.editImage = (function () {
         });
 
         let getUniqueFileName = (fullFileName) => {
-            let fileName = rp.Core.getFileNameFromPath(fullFileName);
-            let fileNameParts = rp.Core.getFileNameParts(fileName);
+            let fileName = rp.Lib.getFileNameFromPath(fullFileName);
+            let fileNameParts = rp.Lib.getFileNameParts(fileName);
             let newFileName = fileNameParts.name + '.' +
-                rp.Core.getUniqueIdentifier() + '.' +
+                rp.Lib.getUniqueIdentifier() + '.' +
                 fileNameParts.extension;
 
             return newFileName;
@@ -179,8 +179,6 @@ rp.editImage = (function () {
 
         let httpReq = new rp.ajax.HTTPRequest();
         httpReq.submit(options);
-
-        //rp.lib.getJSON('/api/images/' + id, showDialogForExistingImage);        
     }
 
     var isAddingImage = () => {

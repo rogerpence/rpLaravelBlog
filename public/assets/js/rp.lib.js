@@ -2,8 +2,9 @@
 
 var rp = rp || {};
 
-rp.core = {}
-rp.Core = class Core {
+rp.Lib = {};
+rp.String = {};
+rp.Lib = class Core {
     static documentReady(fn) {
         if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
             fn();
@@ -44,12 +45,10 @@ rp.Core = class Core {
         var now = new Date(); //set any date
         var seconds = (now.getHours() * 60 * 60) + (now.getMinutes() * 60) + now.getSeconds();
 
-        return rp.Core.getJulianDate(now) + '.' + seconds;
+        return rp.Lib.getJulianDate(now) + '.' + seconds;
     }  
-}
 
-rp.lib = (function() {
-    function copyTextToClipboard(text) {
+    static copyTextToClipboard(text) {
         var textArea = document.createElement("textarea");
 
         textArea.style.position = 'fixed';
@@ -75,7 +74,7 @@ rp.lib = (function() {
         document.body.removeChild(textArea);
     }
 
-    function fadeOutHtmlElement(element) {
+    static fadeOutHtmlElement(element) {
         var op = 1; // initial opacity
         var timer = setInterval(function () {
             if (op <= 0.1) {
@@ -88,10 +87,22 @@ rp.lib = (function() {
         setTimeout(function () {
             element.parentNode.removeChild(element)
         }, 2500);
-    }
+    }    
+}
 
-    return {
-        copyTextToClipboard: copyTextToClipboard,
-        fadeOutHtmlElement: fadeOutHtmlElement
+rp.String.StringBuilder = class StringBuilder {
+    constructor() {
+        this.buffer = [];
     }
-})();
+    
+    append(str) 
+    {
+        this.buffer.push(str);
+    }
+    
+    toString(delimiter) 
+    {
+        delimiter = delimiter || '';
+        return this.buffer.join(delimiter);
+    }    
+}

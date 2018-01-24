@@ -60,7 +60,7 @@ rp.showPostPage = (function () {
         msgElement.innerText = CODE_COPIED_MESSAGE;
         msgElement.style = 'margin-left: 5px;'
         parent.insertAdjacentElement('afterend', msgElement);
-        rp.lib.fadeOutHtmlElement(msgElement);
+        rp.Lib.fadeOutHtmlElement(msgElement);
     }
 
     function assignCopyCodeToClipboardEventHandler(id) {
@@ -76,7 +76,7 @@ rp.showPostPage = (function () {
                     var allLines = preTag.firstChild.innerText;
                 }
 
-                rp.lib.copyTextToClipboard(allLines);
+                rp.Lib.copyTextToClipboard(allLines);
 
                 showCopiedToClipboardMessage(this);
             });
@@ -193,7 +193,7 @@ rp.codehighlight = (function(){
 
 })();
 
-rp.Core.documentReady(function() {  
+rp.Lib.documentReady(function() {  
     rp.showPostPage.assignCopyCodeToClipboardEventHandler('.copy-to-clipboard');
     
     var search = rp.general.getParameterByName('s');

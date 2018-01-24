@@ -34,7 +34,7 @@ rp.uploads = (function() {
                     }
                     else if (this.className == 'button-copy') { 
                         let filename = `![${data.description}]()/storage/images/${data.name}?${data.cachebuster}`;
-                        rp.lib.copyTextToClipboard(filename);
+                        rp.Lib.copyTextToClipboard(filename);
                         notifier.show('Copy to clipboard successful', 'Image URL is now available for pasting.', '', '/assets/images/survey-48.png', 4000);
                     }
                     else if (this.className == 'button-delete') {
@@ -123,7 +123,7 @@ rp.uploads = (function() {
 })();
 
 
-rp.Core.documentReady( function() {
+rp.Lib.documentReady( function() {
     // Assign button event handlers when datatable is drawn.
 
     rp.viewImage.configureModalDialog();        

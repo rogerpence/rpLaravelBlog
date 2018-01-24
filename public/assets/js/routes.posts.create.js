@@ -59,7 +59,7 @@ rp.addErrors = (json) => {
      | This page uses the following HTML to show all 
      | error messages.
      */                    
-    let sb = new rp.stringBuilder();    
+    let sb = new rp.String.StringBuilder();    
     sb.append('<div class="form-group">');
     sb.append('  <div class="card">');
     sb.append('    <div class="card-body">');
@@ -76,7 +76,7 @@ rp.addErrors = (json) => {
     errorRoot.innerText = '';
     errorRoot.insertAdjacentHTML('afterbegin', sb.toString());
 
-    sb = new rp.stringBuilder();       
+    sb = new rp.String.StringBuilder();       
     for (var key in json) {
         if (json.hasOwnProperty(key)) {
             /*
@@ -251,11 +251,11 @@ rp.bodyMarkdownEditor = (function () {
                 rp.pureFunctions.insertTextAtCurrentLine(cm, '<div class="code-header">header text</div>', 'header text');
             },
             'Alt-V': function (cm) {
-                let sb = new rp.stringBuilder();
-                sb.add('<small>copy-from-server-db Bash script to copy database ');
-                sb.add('from host server.</small> ');
-                sb.add('<a title="Copy to clipboard" href="#" class="copy-to-clipboard">');
-                sb.add('<i class="fa fa-clipboard"></i></a>');
+                let sb = new rp.String.StringBuilder();
+                sb.append('<small>copy-from-server-db Bash script to copy database ');
+                sb.append('from host server.</small> ');
+                sb.append('<a title="Copy to clipboard" href="#" class="copy-to-clipboard">');
+                sb.append('<i class="fa fa-clipboard"></i></a>');
                 rp.pureFunctions.insertTextAtCurrentLine(cm, sb.toString());
             },                
             'Alt-Y': function (cm) {
@@ -620,4 +620,4 @@ let documentReady = () => {
     rp.disasterProtection.enableRestoreButton();
 };
 
-rp.Core.documentReady(documentReady);
+rp.Lib.documentReady(documentReady);
