@@ -4,7 +4,9 @@ var rp = rp || {};
 
 rp.general = (function () {
     function getParameterByName(name, url) {
-        if (!url) url = window.location.href;
+        // ToDo: use default argument value instead!
+        url = url || window.location.href;
+        //if (!url) url = window.location.href;
         name = name.replace(/[\[\]]/g, "\\$&");
         var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
             results = regex.exec(url);

@@ -139,7 +139,7 @@ rp.tagchief = (function() {
         let html = getTagHtml(tag, TAG_TEMPLATE_EDIT);
 
         // Insert new tag html immediately before input tag
-        ele = document.getElementById(tagTextInputId);
+        let ele = document.getElementById(tagTextInputId);
         ele.insertAdjacentHTML('beforebegin', html);
 
         // Assign remove tag action on tag click. 
