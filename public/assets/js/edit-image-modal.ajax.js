@@ -75,7 +75,7 @@ rp.editImage = (function () {
         });
 
         let getUniqueFileName = (fullFileName) => {
-            fileName = rp.lib.getFileNameFromPath(fullFileName);
+            let fileName = rp.lib.getFileNameFromPath(fullFileName);
             let fileNameParts = rp.Core.getFileNameParts(fileName);
             let newFileName = fileNameParts.name + '.' +
                 rp.lib.getUniqueIdentifier() + '.' +

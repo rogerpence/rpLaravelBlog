@@ -60,7 +60,7 @@ rp.lib = (function() {
 //     }
     
     var getFileNameFromPath = function(path) {
-        filename = path.replace(/^.*\\/, '');
+        let filename = path.replace(/^.*\\/, '');
         return filename;
     }
 
