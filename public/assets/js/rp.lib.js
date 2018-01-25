@@ -111,15 +111,6 @@ rp.String.StringBuilder = class StringBuilder {
 rp.App.collapsize = (function() {
     var collapsedTag;
     
-    function changeDisplay(display) {        
-        let headings = document.querySelectorAll(collapsedTag);
-        for (var i = 0; i < headings.length; i++) {
-            if (headings[i].parentElement.nextElementSibling) {
-                headings[i].parentElement.nextElementSibling.style.display = display;
-            }                
-        }           
-    }
-
     function addCollapseExpandIcons(firstListHeading) {
         // Add collapse/expand icons above first collapsible element.
         let collapseExpandLinks = '<a id="collapse-all" style="font-size: 125%;" href="#" title="Collapse all"><i class="fa fa-minus-circle"</i></a>';
@@ -130,57 +121,89 @@ rp.App.collapsize = (function() {
         firstListHeading.insertAdjacentHTML('beforebegin', collapseExpandLinks);
     }
 
-    function wrapCollapseElementsWithAnchor(collapseElements) {
-
+    function toggleElementContentDisplay(collaspibleElement) {
+        let el = collaspibleElement.parentNode.nextElementSibling;
+        do { 
+                if (el.classList.contains('collapser')) {
+                return;
+            }
+            el.classList.toggle('visible-no');
+        } while (el = el.nextElementSibling);
     }
 
-    function init(targetTagName) {
-        collapsedTag = targetTagName + ':not(.no-collapse)';
+    function expandOrCollapseContentDisplay(expandOrCollapse) {
+        let headings = document.querySelectorAll(collapsedTag);
+        for (var i = 0; i < headings.length; i++) {
+            let el = headings[i].parentNode.nextElementSibling;
+            do { 
+                if (el.classList.contains('collapser')) {
+                    continue;
+                }
+                if (expandOrCollapse === 'expand') {
+                    el.classList.remove('visible-no');
+                }
+                else  {
+                    el.classList.add('visible-no');
+                }                
+            } while (el = el.nextElementSibling);
+        }
+    }        
+
+    function toggleAllCollapseElementsContentVisibility() {
+        let headings = document.querySelectorAll(collapsedTag);
+        for (var i = 0; i < headings.length; i++) {
+            toggleElementContentDisplay(headings[i]);
+        }                
+    }
+
+    function wrapCollapseElementsWithAnchor(collapseElements) {
+        for (var i = 0; i < collapseElements.length; i++) {
+            // Create a new anchor tag.
+            var anchor = document.createElement('a');
+            anchor.className = 'collapser';
+            anchor.href = "#";
+
+            // These two lines wrap an anchor tag around the target tag.
+            // Insert an anchor tag before the target tag.
+            collapseElements[i].parentNode.insertBefore(anchor, collapseElements[i]);
+            // Move the target tag inside the anchor tag. 
+            anchor.appendChild(collapseElements[i]);
+
+            // Add click event handler to each collapsible element.
+            collapseElements[i].addEventListener('click', function (e) {
+                e.preventDefault();
+                toggleElementContentDisplay(this);
+                // var links = this.parentElement.nextElementSibling;
+                // links.style.display = (links.style.display == 'none') ? 'block' : 'none';
+                return false;
+            });
+        }                            
+    }
+    
+    function init(targetTagName, InitialCollapse=true) {
+        collapsedTag = 'article ' + targetTagName + ':not(.no-collapse)';
         let headings = document.querySelectorAll(collapsedTag);
         if (headings.length == 0) {
             return;
         }
 
         addCollapseExpandIcons(headings[0]);
-
-        for (var i = 0; i < headings.length; i++) {
-            if (!headings[i].className.includes('no-collapse')) {
-                // Create a new anchor tag.
-                var anchor = document.createElement('a');
-                anchor.className = 'collapser';
-                anchor.href = "#";
-
-                // These two lines wrap an anchor tag around the target tag.
-                // Insert an anchor tag before the target tag.
-                headings[i].parentNode.insertBefore(anchor, headings[i]);
-                // Move the target tag inside the anchor tag. 
-                anchor.appendChild(headings[i]);
-
-                // Hide content that immediately follows the target tag.
-                // This would usually be an ordered or unordered list.
-                headings[i].parentElement.nextElementSibling.style.display = 'none';
-                
-                // Assign the target tag's click handler.
-                headings[i].addEventListener('click', function (e) {
-                    e.preventDefault();
-                    var links = this.parentElement.nextElementSibling;
-                    links.style.display = (links.style.display == 'none') ? 'block' : 'none';
-                    return false;
-                });
-            }                
-        }
+        wrapCollapseElementsWithAnchor(headings);
+        if (InitialCollapse) {
+            toggleAllCollapseElementsContentVisibility();        
+        }            
 
         // Assign the target tag's click handler.
         document.getElementById('collapse-all').addEventListener('click', function (e) {
             e.preventDefault();
-            changeDisplay('none');
+            expandOrCollapseContentDisplay('collapse');
             return false;
         });
 
         // Assign the target tag's click handler.
         document.getElementById('expand-all').addEventListener('click', function (e) {
             e.preventDefault();
-            changeDisplay('block');
+            expandOrCollapseContentDisplay('expand');
             return false;
         });        
     }

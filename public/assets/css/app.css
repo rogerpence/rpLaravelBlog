@@ -228,3 +228,6 @@ li code span:first-child {
     display: block;
 }
 
+article h3 {
+    margin-top: .75em;
+}
