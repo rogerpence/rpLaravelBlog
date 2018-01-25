@@ -39,6 +39,8 @@
 
 
 @section('optional-body-bottom')
+    <script src="{{ asset('assets/js/rp.lib.js') }}"></script>   
+
 <!-- custom scripts here -->
 <script>
     {!!$post->javascript!!}
