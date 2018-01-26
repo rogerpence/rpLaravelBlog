@@ -79,7 +79,7 @@ rp.tagchief = (function() {
         document.getElementById(inputTagIdForServer).value = tagsList.sort().join(',');
         let i = 1;
         tagsList.sort().forEach(function(element) {
-            tagElement = document.getElementById('tag-' + element);
+            let tagElement = document.getElementById('tag-' + element);
             tagElement.setAttribute('style', 'order:' + i);
             tagElement.setAttribute('tabindex', i + 100);
             i++;
