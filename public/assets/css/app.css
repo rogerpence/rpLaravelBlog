@@ -78,9 +78,15 @@ div.container  a {
     font-weight: 600;
 }
 
-div.tags-container a, div.show-full-post li a  {
-    font-weight: 400;
+div.tags-container a, 
+div.show-full-post li a  {
+    font-weight: 600;
 }
+
+div.tags-container a > code {
+    font-weight: 800 !important;
+}
+
 
 .admin-nav {
     color: black;

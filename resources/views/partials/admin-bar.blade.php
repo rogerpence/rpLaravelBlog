@@ -15,7 +15,7 @@
             <button id="instant-save-button" 
                     class="btn btn-primary btn-sm admin-bar-button bypass-dirty save-button disabled-color" 
                     type="button" disabled>
-                        Save
+                        Save and stay
             </button>
         </li>
         <li>   
