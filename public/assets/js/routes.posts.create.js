@@ -406,8 +406,12 @@ rp.eventHandlers = (function () {
 
         document.getElementById('title').addEventListener('input', function () {
             var slug = document.getElementById('slug');
-            var slugText = this.value.replace(/(\s+)/g, '-').toLowerCase();
-            slugText = slugText.replace(/(\.)/g, '').toLowerCase();
+            var slugText = this.value.
+                                replace(/[\.|,|!|\?]/g, '').  // Remove characters
+                                replace(/\s+/g, '-').       // Replace spaces with dashes 
+                                replace(/(\-)+$/, '').      // Remove trailing dashes
+                                toLowerCase();
+
             slug.value = slugText;
         });
 

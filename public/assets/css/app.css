@@ -73,15 +73,27 @@ a[disabled] i.admin-icon {
     color: darkslategrey !important;
 }
 
-div.container  a {
-    /* color: maroon !important; */
-    font-weight: 600;
+div.container a {
+    color: #151515 !important; 
+    font-weight: 550; 
+    text-decoration: underline;
+    background-color: whitesmoke;
 }
-
+ 
 div.tags-container a, 
 div.show-full-post li a  {
-    font-weight: 600;
+    font-weight: 500;
+    color: black !important;
+    text-decoration: none;
 }
+
+div.tags-container a:hover, 
+div.show-full-post li a:hover {
+    font-weight: 500;
+    color: black !important;
+    text-decoration: underline;
+}
+
 
 div.tags-container a > code {
     font-weight: 800 !important;
