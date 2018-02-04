@@ -11,7 +11,7 @@
                     <a title="Edit post" style="display:inline;" href="/posts/{{ $post->id }}/edit" ><i class="fa fa-pencil"></i></a>&nbsp;
 --}}
                 <span class="badge badge-info">
-                   <a style="color: white;" title="Edit post" href="/posts/{{ $post->id }}/edit"><i class="fa fa-pencil"></i> <span>Edit</span></a>
+                   <a class="bs-badge" style="color: white;" title="Edit post" href="/posts/{{ $post->id }}/edit"><i class="fa fa-pencil"></i> <span>Edit</span></a>
                 </span>
                         
 
@@ -33,7 +33,7 @@
                 <span class="small">{{substr($post->date_to_publish,0,10)}} by rp</span>
             </div>
 
-            <div>
+            <div class="abstract-for-list">
                 {!! $post->abstract_html !!}
             </div>
 

@@ -26,7 +26,7 @@ class Post extends Model
 
     public static function getValidationRules($id)
     {
-        $letters_puncuation_only = '/^[a-zA-Z0-9!?\.\-\'"\! ]+$/';
+        $letters_puncuation_only = '/^[a-zA-Z0-9!?\.\,\-\'"\! ]+$/';
        
         return $validationRules = [
             'title' => ['required',

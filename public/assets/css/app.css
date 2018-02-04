@@ -4,16 +4,16 @@
 
 .post {
     margin-bottom: 12px;
-} 
+}
 
 .post-date-line {
-    margin-bottom: 12px;    
+    margin-bottom: 12px;
 }
 
 @media (min-width: 576px) {
     .jumbotron {
         padding: 1rem 1rem;
-    }        
+    }
 }
 
 a.blog-header-link {
@@ -24,9 +24,11 @@ a.blog-header-link {
 a.blog-header-link:hover {
     color: blue;
 }
+
 div.jumbotron div {
     padding: 0 1em 0 1em;
 }
+
 #seo_description {
     height: 150px;
 }
@@ -46,7 +48,7 @@ textarea[id='markdown'] {
     font-size: .675rem;
     line-height: 1.1;
     border-radius: .2rem;
-}    
+}
 
 h4.subtitle {
     font-style: italic;
@@ -73,41 +75,40 @@ a[disabled] i.admin-icon {
     color: darkslategrey !important;
 }
 
-div.container a {
-    color: #151515 !important; 
-    font-weight: 550; 
+article.content a:not(.bs-badge) {
+    color: #151515 !important;
+    font-weight: 500;
     text-decoration: underline;
     background-color: whitesmoke;
 }
- 
-div.tags-container a, 
-div.show-full-post li a  {
+
+div.tags-container a,
+div.show-full-post li a {
     font-weight: 500;
     color: black !important;
     text-decoration: none;
 }
 
-div.tags-container a:hover, 
+div.tags-container a:hover,
 div.show-full-post li a:hover {
     font-weight: 500;
     color: black !important;
     text-decoration: underline;
 }
 
-
-div.tags-container a > code {
+div.tags-container a>code {
     font-weight: 800 !important;
 }
-
 
 .admin-nav {
     color: black;
     font-size: 150%;
 }
 
-div.navbar + nav.main-nav {
+div.navbar+nav.main-nav {
     margin-top: 50px;
 }
+
 a {
     color: black;
 }
@@ -129,6 +130,7 @@ div.active-tag-list {
 div.show-full-post {
     margin-top: 50px;
 }
+
 .simple-list-item {
     list-style-type: none;
     list-style-position: outside;
@@ -146,13 +148,14 @@ code {
 }
 
 .copy-code-button {
-    margin-top: 0; 
+    margin-top: 0;
 }
 
 /*
  | These two lines bring the SimpleMDE editor 
  | on top of the fixed admin navbar. 
  */
+
 .editor-toolbar.fullscreen {
     z-index: 9000 !important;
     height: 55px !important;
@@ -167,24 +170,24 @@ code {
     color: navy;
     background-color: yellow;
 }
- 
+
 blockquote {
     margin: 12px 0 12px 25px;
     /* border-top: 1px solid lightgray;     */
-    border-left: 6px solid lightgray; 
+    border-left: 6px solid lightgray;
     /* border-bottom: 1px solid lightgray; */
-    padding-top:16px;
+    padding-top: 16px;
     padding-left: 24px;
 }
 
-
 .code-header {
-    background-color:lightgrey;
+    background-color: lightgrey;
     padding: 3px 0 3px 6px;
     font-size: 80%;
     border-top: 1px solid #a7a09f;
     border-bottom: 1px solid #a7a09f;
 }
+
 .code-footer {
     background-color: lightgrey;
     padding: 3px 0 3px 6px;
@@ -199,16 +202,19 @@ code pre {
     padding-bottom: 1em !important;
     /* margin-bottom: 0; */
 }
+
 /* Set spacing above Tags list in sidebar. */
+
 div.active-tag-list h4 {
     margin-top: 7px;
-}    
+}
 
 .post h4 {
     margin-top: 0px;
 }
 
-h4, h5 {
+h4,
+h5 {
     margin-top: 24px;
     margin-bottom: 12px;
 }
@@ -220,12 +226,13 @@ h4, h5 {
 /*
  | Remove the annoying spacing that Google Prettify adds.   
  */
+
 li code span {
     padding: 0;
 }
 
 li code span:first-child {
-    padding-left: 6px;    
+    padding-left: 6px;
 }
 
 .dialog-button {
@@ -234,7 +241,6 @@ li code span:first-child {
     width: 124px;
 }
 
-
 /* .disabled-color {
     color: #a7a09f; 
 } */
@@ -242,6 +248,7 @@ li code span:first-child {
 .visible-no {
     display: none;
 }
+
 .visible-yes {
     display: block;
 }
