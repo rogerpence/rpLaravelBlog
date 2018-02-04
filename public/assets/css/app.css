@@ -75,7 +75,7 @@ a[disabled] i.admin-icon {
     color: darkslategrey !important;
 }
 
-article.content a:not(.bs-badge) {
+article.content a:not(.exempt-from-body-style) {
     color: #151515 !important;
     font-weight: 500;
     text-decoration: underline;

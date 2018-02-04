@@ -11,7 +11,7 @@
                     <a title="Edit post" style="display:inline;" href="/posts/{{ $post->id }}/edit" ><i class="fa fa-pencil"></i></a>&nbsp;
 --}}
                 <span class="badge badge-info">
-                   <a class="bs-badge" style="color: white;" title="Edit post" href="/posts/{{ $post->id }}/edit"><i class="fa fa-pencil"></i> <span>Edit</span></a>
+                   <a class="exempt-from-body-style" style="color: white;" title="Edit post" href="/posts/{{ $post->id }}/edit"><i class="fa fa-pencil"></i> <span>Edit</span></a>
                 </span>
                         
 
@@ -44,7 +44,7 @@
                 @if (count($post->tags))
                     @foreach ($post->tags as $tag)
                         <span class="tag">
-                            <a href="/posts/tags/{{$tag->name}}">
+                            <a class="exempt-from-body-style" href="/posts/tags/{{$tag->name}}">
                                 {{$tag->name}} 
                             </a>                        
                         </span>
