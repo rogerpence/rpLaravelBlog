@@ -36,6 +36,12 @@ aside.sidebar {
         display: flex-wrap;
         /* Force columns to wrap. */
     }
+
+    .img-circle {
+        border-radius: 50%;
+        width: 90px;
+     }
+         
 }
 
 @media only screen and (min-width: 576px) {
@@ -50,6 +56,12 @@ aside.sidebar {
         display: flex-wrap;
         /* Force columns to wrap. */
     }
+
+    .img-circle {
+        border-radius: 50%;
+        width: 100px;
+     }
+    
 }
 
 @media only screen and (min-width: 768px) {
@@ -72,6 +84,12 @@ aside.sidebar {
     aside.sidebar {
         flex: 2;
     }
+
+    .img-circle {
+        border-radius: 50%;
+        width: 120px;
+     }
+    
 }
 
 @media only screen and (min-width: 992px) {
