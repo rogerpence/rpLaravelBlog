@@ -37,9 +37,11 @@
     </div>   
 @stop
 
-
 @section('optional-body-bottom')
-    <script src="{{ asset('assets/js/rp.lib.js') }}"></script>   
+<!-- bottom of show page -->
+<script src="{{ asset('assets/js/rp.lib.js') }}"></script>   
+<!-- new -->
+<script src="{{ asset('assets/js/routes.pages.show.js') }}"></script>   
 
 <!-- custom scripts here -->
 <script>
