@@ -35,13 +35,13 @@ $post->tags->pluck('name');
             $posts = \App\Post::orderBy('updated_at', 'desc')->get();
         }
         else {
-            $posts = \App\Post::where('status', 1)->orderBy('date_to_publish', 'desc')->get();            
+            $posts = \App\Post::where('status', 1)->orderBy('date_to_publish', 'desc')->get();
         }
 
         $pages = \App\Post::select('title','slug')->where('status', 2)->get()->toArray();
 
-        return view('routes.posts.list')->with(compact('posts')); //->with('pages', $pages); /// ->with('view', $data);        
-    } 
+        return view('routes.posts.list')->with(compact('posts')); //->with('pages', $pages); /// ->with('view', $data);
+    }
 
     public function create()
     {
@@ -53,13 +53,13 @@ $post->tags->pluck('name');
                  'action' => 'POST',
                  'taglist' => '',
                  'poststatus' => \App\Constants::$POST_STATUS,
-                 'mode' => 'create'];        
+                 'mode' => 'create'];
         return view('routes.posts.create', compact('post'))->with('view', $view);;
     }
 
     public function storeajax()
     {
-        
+
         $id = request()->json()->all();
         $id = request()->all();
 
@@ -68,20 +68,20 @@ $post->tags->pluck('name');
         $messages = ['title.regex' => 'The title must be letters and numbers only',
                      'slug.regex' => 'The slug must be letters and numbers only'];
 
-        $validator = \Validator::make(request()->json()->all(), \App\Post::getValidationRules($id), \App\Post::getCustomErrorMessages());        
-        if ($validator->fails()) {    
+        $validator = \Validator::make(request()->json()->all(), \App\Post::getValidationRules($id), \App\Post::getCustomErrorMessages());
+        if ($validator->fails()) {
             $e = $validator->errors();
-            return response()->json(["errors"=>$validator->errors()]);           
+            return response()->json(["errors"=>$validator->errors()]);
         }
 
         $id = (new PostsRepository())->storePost(request()->json()->all());
-        
+
         return response()->json(['success'=>'Post written to disk', 'post_id' => $id]);
     }
 
     public function store()
-    {       
-        //dd(request()->all());           
+    {
+        //dd(request()->all());
 
         $a = request()->all();
 
@@ -92,12 +92,14 @@ $post->tags->pluck('name');
         $messages = ['title.regex' => 'The title must be letters and numbers only',
                      'slug.regex' => 'The slug must be letters and numbers only'];
 
+        $test = $this;
+
         $this->validate(request(), \App\Post::getValidationRules($id), \App\Post::getCustomErrorMessages());
 
         $postId = (new PostsRepository())->storePost(request()->all());
-        
+
         // The above is shorthand for this:
-        // $repo = new PostsRepository(); 
+        // $repo = new PostsRepository();
         // $repo->addPost(request()->all());
         if ($returnTo == 'list') {
             return redirect()->route('posts.list');
@@ -105,20 +107,20 @@ $post->tags->pluck('name');
         else {
             request()->session()->flash('instantsave', 'true');
             return redirect()->route('posts.edit', ['id' => $postId]);
-        }            
+        }
         // or use
         //    return redirect('/');
         // or use where [] is a list of parms
         //    return redirect()->route('posts.list', []);
     }
 
-    public function show($slug) 
+    public function show($slug)
     {
         $post = \App\Post::where('slug', '=', $slug )->first();
         // If use isn't authorized and the the post isn't public,
         // redirect user away from that content.
         if (! Auth::user() && ! $post->isPublicPost()) {
-           abort(404);    
+           abort(404);
         }
 
         $comments = $post->hasMany(Comment::class)->where('comment_id',0)->where('approved', true)->get();
@@ -135,7 +137,7 @@ $post->tags->pluck('name');
                                    with('comments', $comments)->
                                    with('slug', $slug)->
                                    with('post_id', $post->id);
-    }        
+    }
 
     public function destroy($id)
     {
@@ -147,7 +149,7 @@ $post->tags->pluck('name');
         return redirect()->route('posts.list');
     }
 
-    public function edit($id) 
+    public function edit($id)
     {
         $post = \App\Post::find($id);
         $tag_array = $post->tags->pluck('name')->toArray();
@@ -155,17 +157,17 @@ $post->tags->pluck('name');
         $view = ['url' => route('posts.store'),
                  'action' => 'POST',
                  'spoof_action' => 'PATCH',
-                 'poststatus' => \App\Constants::$POST_STATUS,                 
-                 'taglist' => $taglist,  
-                 'mode' => 'edit'];        
+                 'poststatus' => \App\Constants::$POST_STATUS,
+                 'taglist' => $taglist,
+                 'mode' => 'edit'];
         return view('routes.posts.create')->with('post', $post)->
                                      with('view', $view);
-    }        
+    }
 }
 
 // CREATE
 // ------
-// GET /posts/create        invite input for creating a new post 
+// GET /posts/create        invite input for creating a new post
 // POST /posts              store new row in db
 
 // READ
@@ -175,7 +177,7 @@ $post->tags->pluck('name');
 
 // UPDATE
 // ------
-// GET /posts/{id}/edit     get a specific post to edit 
+// GET /posts/{id}/edit     get a specific post to edit
 // PATCH /posts/{id}        store updated row in db
 
 // DELETE

@@ -2,7 +2,16 @@
 
 var rp = rp || {};
 
-rp.general = (function () {
+rp.general = (function() {
+
+    let tables = document.querySelectorAll('div.container table');
+    for (let i = 0; i < tables.length; i++) {
+        let table = tables[i];
+        table.classList.add('table', 'table-striped');
+    }
+
+    //alert(tables.length);
+
     function getParameterByName(name, url) {
         // ToDo: use default argument value instead!
         url = url || window.location.href;
@@ -20,7 +29,7 @@ rp.general = (function () {
     }
 })();
 
-rp.showPostPage = (function () {
+rp.showPostPage = (function() {
     const UNORDERED_LIST_TAG_NAME = 'OL';
     const PRE_TAG_NAME = 'PRE';
     const SMALL_TAG = 'small';
@@ -31,13 +40,13 @@ rp.showPostPage = (function () {
         return element.tagName == UNORDERED_LIST_TAG_NAME;
     }
 
-    var findCodePreTag = function (element) {
-        if (element.previousElementSibling && 
+    var findCodePreTag = function(element) {
+        if (element.previousElementSibling &&
             typeof element.previousElementSibling.tagName !== 'undefined') {
             if (element.previousElementSibling.tagName == PRE_TAG_NAME) {
                 return element.previousElementSibling;
             }
-        }            
+        }
 
         let currentElement = element.parentNode.previousSibling;
         while (currentElement.tagName !== PRE_TAG_NAME) {
@@ -46,7 +55,7 @@ rp.showPostPage = (function () {
         return currentElement;
     }
 
-    var collectNumberedCode = function (orderedList) {
+    var collectNumberedCode = function(orderedList) {
         let code = [];
         var orderedListContainer = orderedList.childNodes;
         for (var i = 0; i < orderedListContainer.length; i++) {
@@ -55,7 +64,7 @@ rp.showPostPage = (function () {
         return code.join('\n');
     }
 
-    var showCopiedToClipboardMessage = function (parent) {
+    var showCopiedToClipboardMessage = function(parent) {
         var msgElement = document.createElement(SMALL_TAG);
         msgElement.innerText = CODE_COPIED_MESSAGE;
         msgElement.style = 'margin-left: 5px;'
@@ -66,7 +75,7 @@ rp.showPostPage = (function () {
     function assignCopyCodeToClipboardEventHandler(id) {
         var snippets = document.querySelectorAll(id);
         for (var i = 0; i < snippets.length; i++) {
-            snippets[i].addEventListener('click', function (e) {
+            snippets[i].addEventListener('click', function(e) {
                 e.preventDefault();
 
                 var preTag = findCodePreTag(this);
@@ -96,86 +105,83 @@ if (toggleHighlights) {
         e.preventDefault();
         if (highlightsStatus) {
             var highlights = document.querySelectorAll('mark.search-term');
-            for (var i=0; i< highlights.length; i++){
-                highlights[i].className ="search-term-off";
+            for (var i = 0; i < highlights.length; i++) {
+                highlights[i].className = "search-term-off";
             }
-        }
-        else {        
+        } else {
             var highlights = document.querySelectorAll('mark.search-term-off');
             for (var i = 0; i < highlights.length; i++) {
                 highlights[i].className = "search-term";
             }
-        }        
-        highlightsStatus = ! highlightsStatus;
+        }
+        highlightsStatus = !highlightsStatus;
     });
 }
 
-rp.codehighlight = (function(){
+rp.codehighlight = (function() {
     function ProgramException(message) {
         this.message = message;
         this.name = 'ProgramException';
-     }
-    
+    }
+
     const getRange = (str) => {
         const basePattern = '\\s*(\\d{1,3})\\s*-\\s*(\\d{1,3})\\s*';
         const regex = new RegExp(basePattern, 'g');
         const rangePattern = new RegExp('^' + basePattern + '$');
-    
+
         let m;
         let result = [];
-    
-        if (! str.match(rangePattern)) {
-            throw new ProgramException('A range doesn\'t match the correct n - m pattern.');    
-        }        
-    
+
+        if (!str.match(rangePattern)) {
+            throw new ProgramException('A range doesn\'t match the correct n - m pattern.');
+        }
+
         m = regex.exec(str);
         if ((!m) || (m.length !== 3)) {
             throw new ProgramException('A range doesn\'t match the correct n - m pattern.');
         }
-    
-        let start = parseInt(m[1],10);
-        let stop = parseInt(m[2],10);
+
+        let start = parseInt(m[1], 10);
+        let stop = parseInt(m[2], 10);
         if (stop < start) {
             throw new ProgramException('A range\'s second argument must be greater than the first argument.');
         }
-    
+
         for (var i = start; i <= stop; i++) {
             result.push(i);
         }
-    
+
         return result;
-    };    
-    
+    };
+
     const parseLines = (str) => {
         let lineNumbers = [];
         let isDigit = /^\s*\d{1,3}\s*$/;
-    
+
         let lines = str.split(',');
         for (var i = 0; i < lines.length; i++) {
             let token = lines[i];
             if (lines[i].match(isDigit)) {
-                lineNumbers.push(parseInt(lines[i],10));
+                lineNumbers.push(parseInt(lines[i], 10));
+            } else if (lines[i].includes('-')) {
+                var range = getRange(lines[i]);
+                for (var j = 0; j < range.length; j++) {
+                    lineNumbers.push(range[j]);
+                }
+            } else {
+                throw new ProgramException('A token isn\'t numeric or a range.');
             }
-            else if (lines[i].includes('-')) {
-                    var range = getRange(lines[i]);    
-                    for (var j = 0; j < range.length; j++) {
-                        lineNumbers.push(range[j]);                
-                    }                
-                 }
-            else {
-                throw new ProgramException('A token isn\'t numeric or a range.');            
-            }            
         }
-    
+
         return lineNumbers;
-    }    
-    
+    }
+
     let assign = () => {
         let divTags = document.querySelectorAll('div');
-        for (let i =0; i <divTags.length; i++) {
+        for (let i = 0; i < divTags.length; i++) {
             let lineNumbersString = divTags[i].getAttribute('data-lines');
             if (lineNumbersString) {
-                // This assumes there is an array of linei numbers. 
+                // This assumes there is an array of linei numbers.
                 let lineNumbers = parseLines(lineNumbersString);
                 let olTag = divTags[i].nextElementSibling.firstElementChild;
                 let liTags = olTag.children;
@@ -183,9 +189,9 @@ rp.codehighlight = (function(){
                     for (let j = 0; j < lineNumbers.length; j++) {
                         liTags[lineNumbers[j]].className = 'highlight-code';
                     }
-                }                    
-            }                
-        }       
+                }
+            }
+        }
     }
     return {
         assign: assign
@@ -193,21 +199,20 @@ rp.codehighlight = (function(){
 
 })();
 
-rp.Lib.documentReady(function() {  
+rp.Lib.documentReady(function() {
     rp.showPostPage.assignCopyCodeToClipboardEventHandler('.copy-to-clipboard');
-    
+
     var search = rp.general.getParameterByName('s');
     if (search) {
         if (search == '[pronouns]') {
             search = ['I', 'me', 'my', 'mine', "I'm", "I'll"];
+        } else {
+            search = [search, search + "'s", "." + search];
         }
-        else {
-            search = [search, search +"'s", "." + search];
-        }        
-        document.getElementById('toggle-highlights').style.display = "inline";    
+        document.getElementById('toggle-highlights').style.display = "inline";
         var instance = new Mark(document.querySelector("div.show-full-post"));
         instance.mark(search, {
-            "ignorePunctuation": ["'","."],
+            "ignorePunctuation": ["'", "."],
             "accuracy": "exactly",
             "className": "search-term"
         });

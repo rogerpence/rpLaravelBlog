@@ -13,15 +13,15 @@ class ParseMarkdownTest extends TestCase
         $repo = new PostsRepository();
 
         $parse_down = new \ParsedownExtra();
-     
-        // Read markdown file into memory.
-        $md = file_get_contents('/home/roger/Projects/php/blog/tests/Unit/markdown.md');
 
-        // Convert to HTML.
-        $html = $parse_down->text($md);
+        // // Read markdown file into memory.
+        // $md = file_get_contents('/home/roger/Projects/php/blog/tests/Unit/markdown.md');
 
-        // Write HTML to a file.
-        file_put_contents('/home/roger/Projects/php/blog/tests/Unit/result.html', $html);
+        // // Convert to HTML.
+        // $html = $parse_down->text($md);
+
+        // // Write HTML to a file.
+        // file_put_contents('/home/roger/Projects/php/blog/tests/Unit/result.html', $html);
 
         $this->assertTrue(true);
     }

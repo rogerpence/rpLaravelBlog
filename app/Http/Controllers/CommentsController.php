@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Comment;
 use Illuminate\Http\Request;
 use App\Classes\CommentsRepository;
+use App\Rules\ValidRecaptcha;
 
 
 class CommentsController extends Controller
@@ -36,21 +37,22 @@ class CommentsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, $slug)
-    {     
+    {
         //dd($slug)   ;
-        //dd($request->all()); 
+        //dd($request->all());
 
-        $this->validate(request(), 
-            [
-             'comment_email' => 'required',   
-             'comment_text' => 'required'
+        $this->validate(request(),
+        [
+            'comment_email' => 'required',
+            'comment_text' => 'required',
+            'g-recaptcha-response' => ['required', new ValidRecaptcha]
             ]
-        );                
+        );
 
-        //dd($request->all());            
-        //        $comment->post()->associate($post);
+        // dd($request->all());
+        ///        $comment->post()->associate($post);
 
-        (new CommentsRepository())->store(request()->all(), $slug);   
+        (new CommentsRepository())->store(request()->all(), $slug);
 
         \Session::flash('flash', 'Thanks for your comment. It\'s been submitted for approval.');
 

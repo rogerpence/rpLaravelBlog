@@ -2,43 +2,48 @@
     --secondary-bg-color: #e9ecef;
 }
 
+div.container table {
+    border: 1px solid gainsboro;
+    margin-top: .5rem;
+    margin-left: 1rem;
+    width: 80%;
+}
 
 div.header-container a {
     text-decoration: none;
     color: black;
 }
 
-
 section.page-header {
-   background-color: #e9ecef;
-   padding: 2em;
-   display: grid;
-   grid-template-rows: 1;
-   grid-template-columns: auto 1fr;
+    background-color: #e9ecef;
+    padding: 2em;
+    display: grid;
+    grid-template-rows: 1;
+    grid-template-columns: auto 1fr;
 }
-section.page-header h4, section.page-header h4 {
+
+section.page-header h4,
+section.page-header h4 {
     margin: 0;
 }
 
-
 section.page-header section.image {
-   padding: 0;
-   grid-column: 1 / span 1;
+    padding: 0;
+    grid-column: 1 / span 1;
 }
 
 section.page-header section.text {
-   padding: 0 0 0 2em;
-   grid-column: 2 / span 1;
-   display: flex;
-   flex-direction: column;
-   justify-content: center;   
+    padding: 0 0 0 2em;
+    grid-column: 2 / span 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .img-circle {
-   border-radius: 50%;
-   width: 120px;
+    border-radius: 50%;
+    width: 120px;
 }
-
 
 .post {
     margin-bottom: 12px;
@@ -55,8 +60,7 @@ section.page-header section.text {
     .img-circle {
         border-radius: 50%;
         width: 100px;
-     }
-         
+    }
 }
 
 a.blog-header-link {
@@ -75,6 +79,7 @@ div.jumbotron div {
 #seo_description {
     height: 150px;
 }
+
 
 /* label[for='markdown'] {
     display: block;
@@ -194,9 +199,10 @@ code {
     margin-top: 0;
 }
 
+
 /*
- | These two lines bring the SimpleMDE editor 
- | on top of the fixed admin navbar. 
+ | These two lines bring the SimpleMDE editor
+ | on top of the fixed admin navbar.
  */
 
 .editor-toolbar.fullscreen {
@@ -246,6 +252,7 @@ code pre {
     /* margin-bottom: 0; */
 }
 
+
 /* Set spacing above Tags list in sidebar. */
 
 div.active-tag-list h4 {
@@ -266,8 +273,9 @@ h5 {
     background-color: #FFF5A4;
 }
 
+
 /*
- | Remove the annoying spacing that Google Prettify adds.   
+ | Remove the annoying spacing that Google Prettify adds.
  */
 
 li code span {
@@ -284,8 +292,9 @@ li code span:first-child {
     width: 124px;
 }
 
+
 /* .disabled-color {
-    color: #a7a09f; 
+    color: #a7a09f;
 } */
 
 .visible-no {

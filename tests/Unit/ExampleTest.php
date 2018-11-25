@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Classes\Repository;
+use App\Classes\ConsumeTrait;
 
 class ExampleTest extends TestCase
 {
@@ -18,10 +19,11 @@ class ExampleTest extends TestCase
         $this->assertTrue(true);
     }
 
-    public function testBasicTest2()
+    public function testTrait()
     {
-        $this->assertTrue(true);
+        $o = new ConsumeTrait;
+
+        $x = $o->sum(4,5);
+        $this->assertEquals($x, 9);
     }
-
-
 }

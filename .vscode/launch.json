@@ -8,17 +8,21 @@
             "name": "Attach (Remote Debug)",
             "type": "python",
             "request": "attach",
-            "localRoot": "${workspaceRoot}",
-            "remoteRoot": "${workspaceRoot}",
-            "port": 3000,
-            "secret": "my_secret",
-            "host": "localhost"
+            "port": 9000,
+            "host": "localhost",
         },
         {
             "name": "Listen for XDebug",
             "type": "php",
             "request": "launch",
-            "port": 9000
+            "port": 9000,
+            "pathMappings": {
+                "/var/www/html": "${workspaceRoot}",
+             },
+             // add this
+             "ignore": [
+                 "**/vendor/**/*.php"
+             ]
         },
         {
             "name": "Launch currently open script",
