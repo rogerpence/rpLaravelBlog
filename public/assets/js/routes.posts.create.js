@@ -4,16 +4,16 @@ var rp = rp || {};
 
 rp.beforeFormHash = '';
 
-rp.disasterProtection = (function() {   
+rp.disasterProtection = (function() {
     let enableRestoreButton = () => {
         let restoreButton = document.getElementById('restore-content-button');
         let sessionKey = document.getElementById('slug').value + '-time';
         let timeSaved = localStorage.getItem(sessionKey);
         if (timeSaved) {
-            let buttonText = timeSaved.substr(0,10) + ' @ ' + timeSaved.substr(11, 5);
+            let buttonText = timeSaved.substr(0, 10) + ' @ ' + timeSaved.substr(11, 5);
             restoreButton.innerHTML = buttonText;
             restoreButton.classList.remove('visible-no');
-        }            
+        }
     };
 
     let restore = () => {
@@ -22,10 +22,10 @@ rp.disasterProtection = (function() {
         rp.bodyMarkdownEditor.setCurrentBody(localStorage.getItem(sessionKey + '-body'));
         rp.abstractMarkdownEditor.setCurrentAbstract(localStorage.getItem(sessionKey + '-abstract'));
         document.getElementById('seo_description').value = localStorage.getItem(sessionKey + '-seo-description');
-        
+
         document.getElementById('restore-content-button').classList.add('visible-no');
 
-        notifier.show('Restore successful', 'The abstract, body, and seo description have been restored.', '', '/assets/images/ok-48.png', 6000);            
+        notifier.show('Restore successful', 'The abstract, body, and seo description have been restored.', '', '/assets/images/ok-48.png', 6000);
     };
 
     let save = () => {
@@ -34,7 +34,7 @@ rp.disasterProtection = (function() {
         localStorage.setItem(sessionKey, value);
 
         sessionKey = document.getElementById('slug').value + '-body';
-        value = rp.bodyMarkdownEditor.getCurrentBody(); 
+        value = rp.bodyMarkdownEditor.getCurrentBody();
         localStorage.setItem(sessionKey, value);
 
         sessionKey = document.getElementById('slug').value + '-abstract';
@@ -56,10 +56,10 @@ rp.disasterProtection = (function() {
 
 rp.addErrors = (json) => {
     /*
-     | This page uses the following HTML to show all 
+     | This page uses the following HTML to show all
      | error messages.
-     */                    
-    let sb = new rp.String.StringBuilder();    
+     */
+    let sb = new rp.String.StringBuilder();
     sb.append('<div class="form-group">');
     sb.append('  <div class="card">');
     sb.append('    <div class="card-body">');
@@ -71,20 +71,20 @@ rp.addErrors = (json) => {
     sb.append('    </div>');
     sb.append('  </div>');
     sb.append('</div>');
-    
+
     let errorRoot = document.getElementById('validator-error-list');
     errorRoot.innerText = '';
     errorRoot.insertAdjacentHTML('afterbegin', sb.toString());
 
-    sb = new rp.String.StringBuilder();       
+    sb = new rp.String.StringBuilder();
     for (var key in json) {
         if (json.hasOwnProperty(key)) {
             /*
-             | This page is showing individual field error messages.                 
+             | This page is showing individual field error messages.
              | <small data-field="title" class="text-danger">{{ $errors->first('title') }}</small>
-             */                
-            let errorDetailElement = document.querySelector(`small[data-field="${key}"]`); 
-            errorDetailElement.innerText = json[key][0];                
+             */
+            let errorDetailElement = document.querySelector(`small[data-field="${key}"]`);
+            errorDetailElement.innerText = json[key][0];
             json[key].forEach(function(error) {
                 sb.append(`<li>${error}</li>`);
             });
@@ -97,12 +97,11 @@ rp.addErrors = (json) => {
 
 rp.autosave = (function() {
     function postSaved(json) {
-        if (json.hasOwnProperty('errors')) {        
+        if (json.hasOwnProperty('errors')) {
             rp.addErrors(json.errors);
+        } else {
+            notifier.show('Save successful', 'Your post has been updated.', '', '/assets/images/ok-48.png', 4000);
         }
-        else {
-            notifier.show('Save successful', 'Your post has been updated.', '', '/assets/images/ok-48.png', 4000);            
-        }            
         // Reset form fields snapshot.
         rp.beforeFormHash = rp.pureFunctions.getFormHash('post-content-form');
     };
@@ -111,38 +110,38 @@ rp.autosave = (function() {
         // Collect all of formData's values.
         let jsonObject = {};
 
-        for (const [key, value]  of formData.entries()) {
+        for (const [key, value] of formData.entries()) {
             jsonObject[key] = value;
-        }        
-        
-        //return JSON.stringify(jsonObject);           
+        }
+
+        //return JSON.stringify(jsonObject);
         return jsonObject;
     };
 
     let save = () => {
         /*
-         | If instant save was requested for a new post, the post 
-         | needs to be added and then control needs to return to 
-         | the edit page. 
+         | If instant save was requested for a new post, the post
+         | needs to be added and then control needs to return to
+         | the edit page.
          */
         let mode = (document.getElementById('postid')) == null ? 'add' : 'update';
         if (mode === 'add') {
             // Submit the form to add the item but request a return
-            // back to this edit page. 
+            // back to this edit page.
             let formTag = document.getElementById('post-content-form');
             let action = formTag.getAttribute('action') + '?return-to=edit';
-            formTag.setAttribute('action', action);            
+            formTag.setAttribute('action', action);
             formTag.submit();
             return;
         }
 
         var form = document.getElementById('post-content-form');
-        // Get all form data. 
+        // Get all form data.
         var formData = new FormData(form);
         // Refresh abstract and body from simpleMDE.
         formData.set('abstract', rp.abstractMarkdownEditor.getCurrentAbstract());
         formData.set('body', rp.bodyMarkdownEditor.getCurrentBody());
-        
+
         let json = convertFormDataToJson(formData);
 
         delete json['_method'];
@@ -151,7 +150,7 @@ rp.autosave = (function() {
             url: '/api/posts',
             method: 'POST',
             headers: new Headers({
-                'Content-Type': 'application/json'                    
+                'Content-Type': 'application/json'
             }),
             dataType: 'json',
             body: JSON.stringify(json),
@@ -169,8 +168,9 @@ rp.autosave = (function() {
     };
 })();
 
-rp.abstractMarkdownEditor = (function () {
+rp.abstractMarkdownEditor = (function() {
     let editor;
+
     function instance(id) {
         editor = new SimpleMDE({
             element: document.getElementById(id),
@@ -180,7 +180,7 @@ rp.abstractMarkdownEditor = (function () {
             shortcuts: {
                 "toggleFullScreen": "F2"
             }
-            //toolbar: true    
+            //toolbar: true
         });
 
         return editor;
@@ -192,17 +192,18 @@ rp.abstractMarkdownEditor = (function () {
 
     function setCurrentAbstract(contents) {
         return editor.codemirror.setValue(contents);
-    }    
+    }
 
     return {
         instance: instance,
         getCurrentAbstract: getCurrentAbstract,
         setCurrentAbstract: setCurrentAbstract
-    };       
-})();            
+    };
+})();
 
-rp.bodyMarkdownEditor = (function () {
+rp.bodyMarkdownEditor = (function() {
     let editor;
+
     function instance(id) {
         editor = new SimpleMDE({
             element: document.getElementById(id),
@@ -213,73 +214,79 @@ rp.bodyMarkdownEditor = (function () {
             },
             indentWithTabs: false,
             autofocus: false,
-            tabSize: 4,
-            shortcuts: {
-                "toggleFullScreen": "F8"
-            }
+            tabSize: 4
+                // shortcuts: {
+                //     "toggleFullScreen": "F8",
+                //     "toggleSideBySide": "Ctrl-Alt-S"
+                // }
         });
 
         setCustomKeys(editor);
-    }   
-    
+    }
+
     function getCurrentBody() {
         return editor.codemirror.getValue();
     }
 
     function setCurrentBody(contents) {
         return editor.codemirror.setValue(contents);
-    }    
+    }
 
     function setCustomKeys(editor) {
         editor.codemirror.setOption("extraKeys", {
-            // 'F8': function(cm) {
-            //     cm.setFullscreen();   
-            // },
-            'End': function (cm) {
+            'F9': function(cm) {
+                editor.toggleSideBySide();
+            },
+
+            'F11': function(cm) {
+                editor.toggleFullScreen();
+            },
+
+            'End': function(cm) {
                 cm.execCommand('goLineRight');
             },
-            'Home': function (cm) {
+            'Home': function(cm) {
                 cm.execCommand('goLineLeftSmart');
             },
-            'Alt-L': function (cm) {
+            'Alt-L': function(cm) {
                 rp.pureFunctions.insertTextAtCurrentLine(cm, '<!--prettify lang=js linenums=true-->', 'js');
             },
-            'Alt-M': function (cm) {
+            'Alt-M': function(cm) {
                 rp.pureFunctions.insertTextAtCurrentLine(cm, '<small>caption</small>', 'caption');
             },
-            'Alt-C': function (cm) {
+            'Alt-C': function(cm) {
                 rp.pureFunctions.insertTextAtCurrentLine(cm, '<div class="code-header">header text</div>', 'header text');
             },
-            'Alt-V': function (cm) {
+            'Alt-V': function(cm) {
                 let sb = new rp.String.StringBuilder();
                 sb.append('<small>copy-from-server-db Bash script to copy database ');
                 sb.append('from host server.</small> ');
                 sb.append('<a title="Copy to clipboard" href="#" class="copy-to-clipboard">');
                 sb.append('<i class="fa fa-clipboard"></i></a>');
                 rp.pureFunctions.insertTextAtCurrentLine(cm, sb.toString());
-            },                
-            'Alt-Y': function (cm) {
-                let image = document.getElementById('image-name').value;                
+            },
+            'Alt-Y': function(cm) {
+                let image = document.getElementById('image-name').value;
                 rp.pureFunctions.insertTextAtCurrentLine(cm, `![](/storage/images/${image})`, image);
             },
-            'Alt-H': function (cm) {
+            'Alt-H': function(cm) {
                 rp.postHelpPanel.open();
             }
         });
-    }                        
-       
+    }
+
     return {
         instance: instance,
         getCurrentBody: getCurrentBody,
         setCurrentBody: setCurrentBody
-    };       
-})();    
+    };
+})();
 
-rp.simpleControls = (function () {
+rp.simpleControls = (function() {
     function addDatePicker() {
         const dp = document.getElementById('date-to-publish');
         const fp = flatpickr(dp, {});
-    }        
+    }
 
     function addTypingTracker() {
         const MAX_SEO_TITLE_LENGTH = 70;
@@ -287,10 +294,10 @@ rp.simpleControls = (function () {
         new rp.typingTracker.typingTracker('title', MAX_SEO_TITLE_LENGTH)
         new rp.typingTracker.typingTracker('seo_description', MAX_SEO_DESC_LENGTH)
     }
-    
+
     function initializeBootStrapComponents() {
         $('[data-toggle="popover"]').popover()
-    }        
+    }
 
     function configure() {
         addDatePicker();
@@ -303,7 +310,7 @@ rp.simpleControls = (function () {
     };
 })();
 
-rp.pureFunctions = (function () {
+rp.pureFunctions = (function() {
     function insertTextAtCurrentLine(cm, text, selectText) {
         let cursorInfo = cm.getCursor('from');
         cursorInfo.ch = 0;
@@ -359,18 +366,18 @@ rp.pureFunctions = (function () {
 
         // Collect all of formData's values.
         let inputsValues = [];
-        for(let [key, value] of formData.entries()) {
+        for (let [key, value] of formData.entries()) {
             inputsValues.push(value);
         }
         //  Do this if you'd rather store a hash than the full value
-        //  of form data. 
+        //  of form data.
         //  const shaObj = new jsSHA("SHA-256", "TEXT");
         //  shaObj.update(inputsValues.join(''))
-        //  return = shaObj.getHash("HEX");     
+        //  return = shaObj.getHash("HEX");
 
-        return inputsValues.join('');         
-    }         
-    
+        return inputsValues.join('');
+    }
+
     return {
         insertTextAtCurrentLine: insertTextAtCurrentLine,
         post: post,
@@ -378,39 +385,38 @@ rp.pureFunctions = (function () {
     };
 })();
 
-rp.eventHandlers = (function () {
+rp.eventHandlers = (function() {
     function add() {
         setInterval(function() {
             // Check every two seconds to see if save buttons should be enabled.
             if (rp.beforeFormHash !== rp.pureFunctions.getFormHash('post-content-form')) {
                 document.getElementById('alias-save-button').disabled = false;
                 document.getElementById('instant-save-button').disabled = false;
-            }
-            else {
+            } else {
                 document.getElementById('alias-save-button').disabled = true;
                 document.getElementById('instant-save-button').disabled = true;
             }
-        },2000);
+        }, 2000);
 
         setInterval(function() {
             // Save current state every three minutes.
             rp.disasterProtection.save()
-            document.getElementById('restore-content-button').classList.add('visible-no');            
-        },180000);            
+            document.getElementById('restore-content-button').classList.add('visible-no');
+        }, 180000);
 
         document.getElementById('restore-content-button').addEventListener('click', function(e) {
             e.stopPropagation();
             e.preventDefault();
-            rp.disasterProtection.restore()            
-        });            
+            rp.disasterProtection.restore()
+        });
 
-        document.getElementById('title').addEventListener('input', function () {
+        document.getElementById('title').addEventListener('input', function() {
             var slug = document.getElementById('slug');
             var slugText = this.value.
-                                replace(/[\.|,|!|\?]/g, '').  // Remove characters
-                                replace(/\s+/g, '-').       // Replace spaces with dashes 
-                                replace(/(\-)+$/, '').      // Remove trailing dashes
-                                toLowerCase();
+            replace(/[\.|,|!|\?]/g, ''). // Remove characters
+            replace(/\s+/g, '-'). // Replace spaces with dashes
+            replace(/(\-)+$/, ''). // Remove trailing dashes
+            toLowerCase();
 
             slug.value = slugText;
         });
@@ -422,29 +428,29 @@ rp.eventHandlers = (function () {
             if (e.ctrlKey && e.keyCode == S_Key) {
                 e.stopPropagation();
                 e.preventDefault();
-                rp.autosave.save();        
+                rp.autosave.save();
                 return false;
             }
         }, true);
 
-        window.onbeforeunload = function (e) {     
-            // rp.pureFunctions.collectInputs();       
+        window.onbeforeunload = function(e) {
+            // rp.pureFunctions.collectInputs();
             let activeElement = document.activeElement;
-            if (! activeElement.className.includes('bypass-dirty')) {  
+            if (!activeElement.className.includes('bypass-dirty')) {
                 const dataChanged = (rp.beforeFormHash !== rp.pureFunctions.getFormHash('post-content-form'));
                 if (dataChanged) {
                     return dataChanged;
-                }                
+                }
             }
         };
-    }        
+    }
 
     return {
         add: add
-    };        
+    };
 })();
 
-rp.tags = (function () {
+rp.tags = (function() {
     function configure() {
         const tagChiefOptions = {
             editableTags: {
@@ -472,7 +478,7 @@ rp.tags = (function () {
                 // Handles 'input' event from tagTextInputId element. The e argument
                 // is the event object passed to the 'input' handler and the 'obj'
                 // is the element identified by 'tagTextInputId.' That option value
-                // can't be directly referenced here because it is out of scope.  
+                // can't be directly referenced here because it is out of scope.
                 let tagText = obj.value;
                 let isDupe = rp.tagchief.isDuplicate(tagText);
 
@@ -488,20 +494,20 @@ rp.tags = (function () {
                 }
             },
             url: '/api/tags'
-            //list: ['a','b','c']       
+                //list: ['a','b','c']
         };
 
         rp.tagChiefDataListProvider.initialize(providerOptions);
-    }        
+    }
 
     return {
         configure: configure
     };
 
-})();        
+})();
 
 rp.deletePostModal = (function() {
-    function configure() {        
+    function configure() {
         const isDeletable = document.getElementById('delete-post');
         if (isDeletable) {
             // instanciate new modal
@@ -511,13 +517,13 @@ rp.deletePostModal = (function() {
                 closeMethods: ['escape'],
                 closeLabel: "Close",
                 cssClass: ['custom-class-1', 'custom-class-2'],
-                onOpen: function () {
+                onOpen: function() {
                     //console.log('modal open');
                 },
-                onClose: function () {
+                onClose: function() {
                     //console.log('modal closed');
                 },
-                beforeClose: function () {
+                beforeClose: function() {
                     // here's goes some logic
                     // e.g. save content before closing the modal
                     return true; // close the modal
@@ -530,11 +536,11 @@ rp.deletePostModal = (function() {
             modal.setContent('<h4>Are you sure you want to delete this post?</h4>' +
                 '<h4>' + postTitle + '</h4>');
 
-            modal.addFooterBtn('No', 'tingle-btn tingle-btn--primary', function () {
+            modal.addFooterBtn('No', 'tingle-btn tingle-btn--primary', function() {
                 modal.close();
             });
 
-            modal.addFooterBtn('Yes', 'tingle-btn tingle-btn--danger', function () {
+            modal.addFooterBtn('Yes', 'tingle-btn tingle-btn--danger', function() {
                 let parms = {};
                 let el = document.querySelector('input[name="_token"]');
                 parms._token = el.value;
@@ -548,8 +554,8 @@ rp.deletePostModal = (function() {
             document.getElementById('delete-post').addEventListener('click', (e) => {
                 modal.open()
             });
-        }        
-    }        
+        }
+    }
 
     return {
         configure: configure
@@ -558,20 +564,21 @@ rp.deletePostModal = (function() {
 
 rp.postHelpPanel = (function() {
     let modal;
-    function configure() {        
+
+    function configure() {
         modal = new tingle.modal({
             footer: true,
             stickyFooter: false,
             closeMethods: ['escape'],
             closeLabel: "Close",
             cssClass: ['custom-class-1', 'custom-class-2'],
-            onOpen: function () {
+            onOpen: function() {
                 //console.log('modal open');
             },
-            onClose: function () {
+            onClose: function() {
                 //console.log('modal closed');
             },
-            beforeClose: function () {
+            beforeClose: function() {
                 // here's goes some logic
                 // e.g. save content before closing the modal
                 return true; // close the modal
@@ -579,13 +586,13 @@ rp.postHelpPanel = (function() {
             }
         });
 
-        // Load modal content from innerHTML of a given element id.            
+        // Load modal content from innerHTML of a given element id.
         modal.setContent(document.getElementById('post-help-panel').innerHTML);
 
-        modal.addFooterBtn('OK', 'tingle-btn tingle-btn--primary', function () {
+        modal.addFooterBtn('OK', 'tingle-btn tingle-btn--primary', function() {
             modal.close();
         });
-    }        
+    }
 
     function open() {
         modal.open();
@@ -607,17 +614,17 @@ let documentReady = () => {
     rp.deletePostModal.configure();
 
     let editImageOptions = {
-        "elementIdTriggerAddNewImage" : "admin-bar-upload-image",
-        "elementIdWindowContents" : "upload-container",
-        "ajax" : true
+        "elementIdTriggerAddNewImage": "admin-bar-upload-image",
+        "elementIdWindowContents": "upload-container",
+        "ajax": true
     };
     rp.editImage.configureModalDialog(editImageOptions);
 
     rp.beforeFormHash = rp.pureFunctions.getFormHash('post-content-form');
 
-    document.getElementById('instant-save-button').addEventListener('click', function(e){
+    document.getElementById('instant-save-button').addEventListener('click', function(e) {
         e.preventDefault();
-        rp.autosave.save();        
+        rp.autosave.save();
         return false;
     });
 
