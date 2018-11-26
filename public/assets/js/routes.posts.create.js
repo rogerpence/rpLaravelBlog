@@ -44,7 +44,6 @@ rp.disasterProtection = (function() {
         sessionKey = document.getElementById('slug').value + '-seo-description';
         value = document.getElementById('seo_description').value;
         localStorage.setItem(sessionKey, value);
-        // 300000 ms = 5 minutes.
     };
 
     return {
