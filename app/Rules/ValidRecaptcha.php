@@ -31,10 +31,12 @@ class ValidRecaptcha implements Rule
 
         $response = $client->post('siteverify', [
             'query' => [
-            'secret' => env('GOOGLE_RECAPTCHA_SECRET') . 'x',
+            'secret' => env('GOOGLE_RECAPTCHA_SECRET'),
             'response' => $value
             ]
         ]);
+
+        $t = json_decode($response->getBody())->success;
 
         return json_decode($response->getBody())->success;
     }
