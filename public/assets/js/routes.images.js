@@ -112,7 +112,6 @@ rp.uploads = (function() {
     };
 })();
 
-
 rp.Lib.documentReady(function() {
     // Assign button event handlers when datatable is drawn.
 
