@@ -1,6 +1,6 @@
 ## Step 1. Stub in authorization
 
-Although you might not want authorization built into the project immediately, you almost certainly will at some point. So, issue this Artisan `make` command first so you don't have to worry about its impact on your routes later. 
+Although you might not want authorization built into the project immediately, you almost certainly will at some point. So, issue this Artisan `make` command first so you don't have to worry about its impact on your routes later.
 
 	php artisan make:auth
 
@@ -22,9 +22,9 @@ In `routes/web.php`, it added these three lines:
 	Auth::routes();
 	Route::get('/home', 'HomeController@index')->name('home');
 
-To temporarily disable authorization, 
+To temporarily disable authorization,
 
-A. In the HomeController.php file, comment out the line that registers the `auth` middleware. 
+A. In the HomeController.php file, comment out the line that registers the `auth` middleware.
 
     public function __construct()
     {
@@ -33,14 +33,14 @@ A. In the HomeController.php file, comment out the line that registers the `auth
 
 When you later want to hook up authorization, you'll uncomment this line.
 
-## MariaDB 
+## MariaDB
 
-mysql -u roger -p 
+mysql -u roger -p
 password = roger
 
 Show mysql processes
 
-ps aux | grep mysql 
+ps aux | grep mysql
 
 kill main mysql process
 

@@ -125,8 +125,15 @@ rp.editImage = (function () {
             let fullFileName = this.value;
             if (fullFileName != '') {
                 if (isAddingImage()) {
-                    document.getElementById('image-name').value = getUniqueFileName(fullFileName);
-                    document.getElementById('image-name-display').textContent = document.getElementById('image-name').value;
+                    let uniqueImageName = getUniqueFileName(fullFileName);
+                    document.getElementById('image-name').value = uniqueImageName;
+                    document.getElementById('image-name-display').textContent = uniqueImageName;
+
+                    let imageFullName = `/storage/images/${uniqueImageName}`; 
+                    let imageFullNameUrl = `![](${imageFullName}?1)`;
+                    document.getElementById('image-name-markdown-url').textContent = imageFullNameUrl;
+                    rp.Lib.copyTextToClipboard(imageFullNameUrl);
+
                     document.getElementById("submit-button").disabled = false;
                 }
             } else {
@@ -139,7 +146,7 @@ rp.editImage = (function () {
             }
         });
     }
-
+    
     let showDialogForNewImage = () => {
         document.getElementById('upload-file-panel-title').innerHTML = 'Upload a new image';
         document.getElementById('file-upload-target-name').textContent = 'File will uploaded as:';
@@ -148,6 +155,7 @@ rp.editImage = (function () {
         document.getElementById('image-id').value = '0';
         document.getElementById('image-name').value = '';
         document.getElementById('image-name-display').textContent = '';
+        document.getElementById('image-name-markdown-url').textContent = '';        
         document.getElementById('image-description').value = '';
         document.getElementById("submit-button").disabled = true;
         modal.open()
@@ -161,6 +169,7 @@ rp.editImage = (function () {
         document.getElementById('image-id').value = json.id;
         document.getElementById('image-name').value = json.name;
         document.getElementById('image-name-display').textContent = json.name;
+        document.getElementById('image-name-markdown-url').textContent = `![](/storage/images/${json.name}?1`;  
         document.getElementById('image-description').value = json.description;
         document.getElementById('image-description').focus();
         document.getElementById("submit-button").disabled = false;

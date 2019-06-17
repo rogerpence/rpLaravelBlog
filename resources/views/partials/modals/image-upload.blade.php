@@ -20,6 +20,13 @@
             <!-- <input type="text" class="form-control" id="image-name" name="image-name" aria-describedby="image-name-help" placeholder="Enter image name"> -->
         </div>
 
+        <div class="form-group">        
+            <label id="file-upload-target-name">File markdown URL will be:</label>
+            <span id="image-name-markdown-url"></span>
+            <!-- <input type="text" class="form-control" id="image-name" name="image-name" aria-describedby="image-name-help" placeholder="Enter image name"> -->
+        </div>
+
+
         <div class="form-group">
             <img src="" id="image-preview"/>
             <div><small id="image-size"></small></div>
