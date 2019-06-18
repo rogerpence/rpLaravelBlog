@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 git pull
-cp ../.env .    
+cp ../.env-prod .env    
